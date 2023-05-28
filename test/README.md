@@ -1,4 +1,5 @@
 <h1>input: </h1>
+
         ./program argument1 argument2 argument3
 
 <h1>output: </h1>
