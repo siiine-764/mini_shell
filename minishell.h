@@ -1,19 +1,10 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 12:36:52 by mayache-          #+#    #+#             */
-/*   Updated: 2023/06/05 12:38:07 by mayache-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
 # include <stdio.h>
 # include <unistd.h>
-
+# include <string.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 #endif
