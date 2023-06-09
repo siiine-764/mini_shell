@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:56:38 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/06/09 17:56:54 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/06/09 20:17:36 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+typedef struct s_env
+{
+    char    *value;
+    char    *path;
+    int     next;
+}	t_env;
 
 
 
