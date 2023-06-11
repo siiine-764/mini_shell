@@ -32,7 +32,7 @@ int main() {
     printf("Echo program - Enter 'exit' to quit.\n");
 
     // while (1) {
-        printf("echo ");uil
+        printf("echo ");
         fgets(input, sizeof(input), stdin);
 
         // Remove the trailing newline character

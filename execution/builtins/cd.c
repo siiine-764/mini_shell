@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 19:54:03 by mayache-          #+#    #+#             */
-/*   Updated: 2023/06/09 19:55:32 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/06/11 01:46:58 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void  cd(char *av)
         perror("Error");
     }
 } 
-int main(int ac, char **av, char **ev) {
-    while (*ev)
-    {
-        printf("%s\n", *ev);
-        ev++;
-    }
-    return 0;
-}
+// int main(int ac, char **av, char **ev) {
+//     while (*ev)
+//     {
+//         printf("%s\n", *ev);
+//         ev++;
+//     }
+//     return 0;
+// }

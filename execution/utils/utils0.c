@@ -1,42 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   utils0.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/06 15:23:21 by mayache-          #+#    #+#             */
-/*   Updated: 2023/06/11 01:47:07 by mayache-         ###   ########.fr       */
+/*   Created: 2023/06/11 01:52:43 by mayache-          #+#    #+#             */
+/*   Updated: 2023/06/11 03:07:02 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../minishell.h"
 
-void    echo(char **arr)
+int str_len(char *env)
 {
-    int i;
-    int flag;
+    int len = 0;
 
-    flag = 0;
-    i = 1;
-    if (strcmp(arr[i], "-n") == 0)
+    while (env[len])
     {
-        flag = 1;
-        i++;
+        len++;
     }
-    while (arr[i])
-    {
-        printf("%s", arr[i]);
-        if (arr[i + 1] != NULL)
-            printf(" ");
-        i++;
-    }
-    if (!flag)
-        printf("\n");
+    return (len);
 }
-
-// int main(int ac, char **av)
-// {
-//     char *arr[] = {"echo", av[1], av[2], NULL};
-//     echo(arr);
-// }
