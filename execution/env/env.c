@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:57:27 by mayache-          #+#    #+#             */
-/*   Updated: 2023/06/11 06:05:06 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/06/11 06:38:23 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,25 @@ int main(int ac, char **av, char **ev)
         printf("--- value: %s\n", e->value[i]);
         i++;
     }
+
+    char* value = getenv("HOME");
+    if (value != NULL) {
+        printf("The value of HOME is: %s\n", value);
+    } else {
+        printf("HOME environment variable is not set.\n");
+    }
+
+    char* name = "MY_VARIABLE";
+    char* v = "Hello, World!";
+    char* env = malloc(strlen(name) + strlen(v) + 2);
+    sprintf(env, "%s=%s", name, v);
+    if (putenv(env) == 0) {
+        printf("%s\n", getenv(name));
+        printf("Environment variable set successfully.\n");
+    } else {
+        printf("Failed to set environment variable.\n");
+    }
+    free(env);
     // while(1);
     // free(e);
     // free(e->key);

@@ -62,3 +62,6 @@
 --- value: xterm-256color
 --- key: _
 --- value: /Users/mayache-/Desktop/mini_shell/execution/./execution
+The value of HOME is: /Users/mayache-
+Hello, World!
+Environment variable set successfully.
