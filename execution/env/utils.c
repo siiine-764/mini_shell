@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 01:56:48 by mayache-          #+#    #+#             */
-/*   Updated: 2023/06/11 05:03:44 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:27:54 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void    get_value(char *str, t_env *e)
         j++;
     }
     value[j] = '\0';
+    
     e->value[e->test] = value;
 }
 

@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:57:27 by mayache-          #+#    #+#             */
-/*   Updated: 2023/06/11 06:38:23 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:27:28 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int main(int ac, char **av, char **ev)
     int    i = 0;
     while(i < e->test)
     {
-        printf("--- key: %s\n", e->key[i]);
+        printf("%s\n", e->key[i]);
         printf("--- value: %s\n", e->value[i]);
         i++;
     }
