@@ -1,7 +1,7 @@
 NAME	= execution
 CC		= cc
-CFLAGS 	= -Wall -Wextra -Werror 
-#-fsanitize=address
+CFLAGS 	= -Wall -Wextra -Werror -fsanitize=address
+# LIBFT	= ../execution/libft/libft.a
 
 SRCS =	builtins/cd.c\
 		builtins/echo.c\
@@ -17,12 +17,18 @@ $(NAME) : $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 	@echo "make it"
 
+# $(LIBFT):
+# 	@make -C libft
+# 	@make -C libft bonus
+
 clean:
 	@rm -f $(OBJS)
+	# @make -C libft clean
 	@echo "clean execution"
 
 fclean: clean
 	@rm -f $(NAME)
+	# @make -C libft fclean
 	@echo "fclean execution"
 
 re: fclean $(NAME)

@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 01:56:48 by mayache-          #+#    #+#             */
-/*   Updated: 2023/06/12 20:27:54 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/06/13 01:55:28 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ void    get_key(char *str, t_env *e)
     {
         if (str[j] == '=')
         {
-            key = malloc(sizeof(char) * j + 1);
+            key = malloc(sizeof(char) * j + 2);
             k = 0;
             while(k <= j)
             {
                 key[k] = str[k];
                 k++;
             }
-            k--;
             key[k] = '\0';
-            e->key[e->test] = key;
+            e->key[e->test] = ft_str_dup(key);
             e->len_key = k;
+            free(key);
         }
         j++;
     }
@@ -59,8 +59,8 @@ void    get_value(char *str, t_env *e)
         j++;
     }
     value[j] = '\0';
-    
-    e->value[e->test] = value;
+    e->value[e->test] = ft_str_dup(value);
+    free(value);
 }
 
 void    get_env(char **env, t_env   *e)
@@ -73,7 +73,7 @@ void    get_env(char **env, t_env   *e)
     len = 0;
     while (env[len])
         len++;
-    e->key = malloc(sizeof(char *) * len);
+    e->key = malloc(sizeof(char *) * len + 1);
     e->value = malloc(sizeof(char *) * len);
     while (env[i])
     {
