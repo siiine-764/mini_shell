@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:23:21 by mayache-          #+#    #+#             */
-/*   Updated: 2023/06/06 19:28:50 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/06/11 01:47:07 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void    echo(char **arr)
         printf("\n");
 }
 
-int main(int ac, char **av)
-{
-    char *arr[] = {"echo", av[1], av[2], NULL};
-    echo(arr);
-}
+// int main(int ac, char **av)
+// {
+//     char *arr[] = {"echo", av[1], av[2], NULL};
+//     echo(arr);
+// }
