@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:57:27 by mayache-          #+#    #+#             */
-/*   Updated: 2023/06/13 02:53:58 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/06/17 00:46:48 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ int main(int ac, char **av, char **ev)
         free(arr[i]);
         i++;
     }
-    
     i = 0;
     while (i < e->test)
     {
