@@ -6,7 +6,7 @@
 /*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:56:38 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/06/09 21:58:07 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/06/09 22:08:38 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
-
-
 
 
 

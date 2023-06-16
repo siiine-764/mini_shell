@@ -12,7 +12,7 @@ void  echo(char *com)
   int i = 0;
 
   printf("ddfds");
-  while (com[i])
+  while (com[i]) 
   {
     printf("%c", com[i]);
     i++;
