@@ -6,13 +6,13 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 01:56:48 by mayache-          #+#    #+#             */
-/*   Updated: 2023/06/17 00:51:11 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/06/17 02:50:18 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../minishell.h"
 
-void    get_key(char *str, t_env *e)
+char    *get_key(char *str)
 {
     char    *key;
     int     j;
@@ -32,58 +32,71 @@ void    get_key(char *str, t_env *e)
                 k++;
             }
             key[k] = '\0';
-            e->key[e->test] = ft_str_dup(key);
-            e->len_key = k;
-            free(key);
+            return (key);
         }
         j++;
     }
+    return (NULL);
 }
 
-void    get_value(char *str, t_env *e)
+char    *get_value(char *str)
 {
     char    *value;
     int     j;
     int     k;
+    int     start;
     int     len;
 
-    j = 0;
-    len = str_len(str);
-    k = e->len_key + 1;
-    len -= e->len_key + 1;
-    value = malloc(sizeof(char) * len + 1);
+    k = 0;
     while(str[k])
     {
-        value[j] = str[k];
+        if (str[k] == '=')
+        {
+            start = 0;
+            len = 0;
+            k++;
+            j = k;
+            while (str[k])
+            {
+                len++;
+                k++;
+            }
+            value = malloc(sizeof(char) * len + 1);
+            while (str[j])
+            {
+                value[start] = str[j];
+                start++;
+                j++;
+            }
+            value[j] = '\0';
+            return (value);
+        }
         k++;
-        j++;
     }
-    value[j] = '\0';
-    e->value[e->test] = ft_str_dup(value);
-    free(value);
+    return (NULL);
 }
 
-void    get_env(char **env, t_env   *e)
-{
-    int i;
-    int len;
+// void    get_env(char **env, t_env   *e)
+// {
+//     int i;
+//     int len;
     
-    e->test = 0;
-    i = 0;
-    len = 0;
-    while (env[len])
-        len++;
-    e->key = malloc(sizeof(char *) * len + 1);
-    e->value = malloc(sizeof(char *) * len);
-    while (env[i])
-    {
-        // printf("----? %s", env[i]);
-        get_key(env[i], e);
-        get_value(env[i], e);
-        // add_node(env[i]);
-        e->test++;
-        i++;
-    }
-}
+//     e->test = 0;
+//     i = 0;
+//     len = 0;
+//     while (env[len])
+//         len++;
+//     e->key = malloc(sizeof(char *) * len + 1);
+//     e->value = malloc(sizeof(char *) * len);
+//     while (env[i])
+//     {
+//         // printf("----? %s", env[i]);
+//         get_key(env[i], e);
+//         get_value(env[i], e);
+//         // add_node(env[i]);
+//         e->test++;
+//         i++;
+//     }
+// }
 
 

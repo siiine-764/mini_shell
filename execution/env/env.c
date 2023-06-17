@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:57:27 by mayache-          #+#    #+#             */
-/*   Updated: 2023/06/17 00:46:48 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/06/17 02:42:20 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,36 +62,90 @@
 //     // e->key[e->test] = key;
 // }
 
+struct Node* createNode(char  *val, char  *key)
+{
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->val = val;
+    newNode->key = key;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void insertNode(struct Node** head, char  *val, char  *key)
+{
+    struct Node* newNode = createNode(val, key);
+    if (*head == NULL) {
+        *head = newNode;
+    } else {
+        struct Node* temp = *head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+
+void displayList(struct Node* head)
+{
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%s", temp->key);
+        printf("%s \n", temp->val);
+        temp = temp->next;
+    }
+    // printf("\n");
+}
+
 int main(int ac, char **av, char **ev)
 {
-    t_env   *e = malloc(sizeof(t_env));
-        
     (void)ac;
     (void)av;
-    get_env(ev, e);
-    int    i = 0;
-    while(i < e->test)
+    struct Node* head = NULL;
+    // Insert nodes into the linked list
+    // char    *key;
+    int     j;
+    int     k;
+
+    k = 0;
+    j = 0;
+    int i = 0;
+    while(ev[i])
     {
-        printf("%s", e->key[i]);
-        printf("%s\n", e->value[i]);
+        insertNode(&head, get_value(ev[i]), get_key(ev[i]));
         i++;
     }
-    char    **arr = malloc(sizeof(char *) * e->test + 1);
-    char    **g_env = malloc(sizeof(char *) * e->test + 1);
-    i = 0;
-    while (i < e->test)
-    {
-        arr[i] = str_join(e->key[i], e->value[i]);
-        g_env[i] = ft_str_dup(arr[i]);
-        free(arr[i]);
-        i++;
-    }
-    i = 0;
-    while (i < e->test)
-    {
-        printf("%s\n", g_env[i]);
-        i++;
-    }
+    // Display the linked list
+    displayList(head);
+
+    return 0;
+    
+    // t_env   *e = malloc(sizeof(t_env));
+        
+
+    // get_env(ev, e);
+    // int    i = 0;
+    // while(i < e->test)
+    // {
+    //     printf("%s", e->key[i]);
+    //     printf("%s\n", e->value[i]);
+    //     i++;
+    // }
+    // char    **arr = malloc(sizeof(char *) * e->test + 1);
+    // char    **g_env = malloc(sizeof(char *) * e->test + 1);
+    // i = 0;
+    // while (i < e->test)
+    // {
+    //     arr[i] = str_join(e->key[i], e->value[i]);
+    //     g_env[i] = ft_str_dup(arr[i]);
+    //     free(arr[i]);
+    //     i++;
+    // }
+    // i = 0;
+    // while (i < e->test)
+    // {
+    //     printf("%s\n", g_env[i]);
+    //     i++;
+    // }
     // add_env(e,"test=rrrrr");
     // printf("----%d---\n", e->test);
 
