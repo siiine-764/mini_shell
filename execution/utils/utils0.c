@@ -78,7 +78,9 @@ char    **ft_arr_dup(char **origin)
 	i = 0;
     len = 0;
     while(origin[len])
+	{
         len++;
+	}
 	arr = malloc(sizeof(char *) * len + 1);
 	if (arr == NULL)
 		return (NULL);

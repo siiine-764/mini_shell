@@ -12,7 +12,6 @@
 
 # include "../../minishell.h"
 
-
 //-fsanitize=address
 
 // void add_node(char *env)
@@ -71,16 +70,12 @@ int main(int ac, char **av, char **ev)
     (void)av;
     get_env(ev, e);
     int    i = 0;
-    // printf("---- 1 ---\n");
     while(i < e->test)
     {
-        // e->key[i] = join_char_str(e->key[i], '=');
         printf("%s", e->key[i]);
         printf("%s\n", e->value[i]);
         i++;
     }
-    // t_add_env *new = NULL;
-    // new->new_env = malloc(sizeof(char *) * e->test + 1);
     char    **arr = malloc(sizeof(char *) * e->test + 1);
     char    **g_env = malloc(sizeof(char *) * e->test + 1);
     i = 0;
