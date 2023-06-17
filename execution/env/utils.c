@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 01:56:48 by mayache-          #+#    #+#             */
-/*   Updated: 2023/06/17 02:50:18 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:40:36 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ char    *get_value(char *str)
                 len++;
                 k++;
             }
+            // printf("---> len: %d\n", len);
+            // printf("---> j: %d\n", j);
             value = malloc(sizeof(char) * len + 1);
             while (str[j])
             {
@@ -69,6 +71,7 @@ char    *get_value(char *str)
                 j++;
             }
             value[j] = '\0';
+                // printf("%s\n", value);
             return (value);
         }
         k++;

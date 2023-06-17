@@ -1,9 +1,11 @@
 NAME	= execution
 CC		= cc
-CFLAGS 	= -Wall -Wextra -Werror -fsanitize=address
+CFLAGS 	= -Wall -Wextra -Werror #-fsanitize=address
 
 SRCS =	builtins/cd.c\
 		builtins/echo.c\
+		builtins/pwd.c\
+		builtins/exit.c\
 		env/env.c\
 		env/utils.c\
 		utils/utils0.c\

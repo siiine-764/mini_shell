@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:57:27 by mayache-          #+#    #+#             */
-/*   Updated: 2023/06/17 02:42:20 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/06/17 20:35:16 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,11 @@ int main(int ac, char **av, char **ev)
     k = 0;
     j = 0;
     int i = 0;
+
+
+    // printf("----\n");
+    // cd(ev);
+    // printf("----\n");
     while(ev[i])
     {
         insertNode(&head, get_value(ev[i]), get_key(ev[i]));
@@ -117,6 +122,7 @@ int main(int ac, char **av, char **ev)
     // Display the linked list
     displayList(head);
 
+    pwd();
     return 0;
     
     // t_env   *e = malloc(sizeof(t_env));
