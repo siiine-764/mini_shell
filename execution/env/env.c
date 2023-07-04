@@ -62,8 +62,49 @@
 //     // e->key[e->test] = key;
 // }
 
-struct Node* createNode(char  *val, char  *key)
-{
+// struct Node* createNode(char  *val, char  *key)
+// {
+//     struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
+//     newNode->key = key;
+//     newNode->val = val;
+//     newNode->next = NULL;
+//     return newNode;
+// }
+
+// void insertNode(struct Node** head, char  *val, char  *key)
+// {
+//     struct Node* newNode = createNode(val, key);
+//     if (*head == NULL) {
+//         *head = newNode;
+//     } else {
+//         struct Node* temp = *head;
+//         while (temp->next != NULL) {
+//             temp = temp->next;
+//         }
+//         temp->next = newNode;
+//     }
+// }
+
+// void displayList(struct Node* head)
+// {
+//     struct Node* temp = head;
+//     while (temp != NULL) {
+//         printf("%s", temp->key);
+//         printf("%s \n", temp->val);
+//         temp = temp->next;
+//     }
+//     // printf("\n");
+// }
+
+
+
+struct Node {
+  char      *val;
+  char      *key;
+  struct Node* next;
+};
+
+struct Node* createNode(char  *val, char  *key) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->val = val;
     newNode->key = key;
@@ -71,8 +112,7 @@ struct Node* createNode(char  *val, char  *key)
     return newNode;
 }
 
-void insertNode(struct Node** head, char  *val, char  *key)
-{
+void insertNode(struct Node** head, char  *val, char  *key) {
     struct Node* newNode = createNode(val, key);
     if (*head == NULL) {
         *head = newNode;
@@ -85,8 +125,7 @@ void insertNode(struct Node** head, char  *val, char  *key)
     }
 }
 
-void displayList(struct Node* head)
-{
+void displayList(struct Node* head) {
     struct Node* temp = head;
     while (temp != NULL) {
         printf("%s", temp->key);
@@ -96,6 +135,87 @@ void displayList(struct Node* head)
     // printf("\n");
 }
 
+// void    ft_find_replace(struct Node* head, char *add_key, char *add_val)
+// {
+//     struct Node* temp = head;
+//     // int bl = 0;
+//     // if (!add_key || !add_val)
+//     //     return ;
+//     // printf("|||||||||||\n");
+//     // printf("|addkey %s|\n", add_key);
+//     // printf("|||||||||||\n");
+//     while (temp != NULL)
+//     {
+//         // printf("|||||||||||\n");
+//         // printf("|addkey %s|\n", temp->key);
+//         // printf("|||||||||||\n");
+//         if(strcmp(temp->key, add_key) == 0)
+//         {
+//             // bl = 1;
+//             add_key = str_join(add_key, "=");
+//             insertNode(&head, add_val, add_key);
+//             // printf("yassine is here\n");
+//             // strcpy(temp->val, add_val);
+//         }
+//         // printf("%s...... \n", temp-)
+//         // printf("%s.....", temp->key);
+//         // printf("%s...... \n", temp->val);
+//         // if(bl != 1)
+//         // {
+//         // }
+//         temp = temp->next;
+//     }
+// }
+
+int		ft_strstartswith(char *s1, char *s2)
+{
+	int	i;
+
+	i = -1;
+	while (s2[++i])
+		if (s1[i] != s2[i])
+			return (0);
+	return (1);
+}
+
+void    ft_ex_port(struct Node* head, char *add_key, char *add_val)
+{
+    struct Node* temp = head;
+    // int bl = 0;
+    if (!add_key[0] || !add_val[0])
+    {
+        printf("setenv: invalid.");
+        exit(1);
+    }
+    // printf("|||||||||||\n");
+    // printf("|addkey %s|\n", add_key);
+    // printf("|||||||||||\n");
+    while (temp != NULL)
+    {
+        // printf("|||||||||||\n");
+        // printf("|addkey %s|\n", temp->key);
+        // printf("|||||||||||\n");
+        //  if (ft_strstartswith(temp->key, add_key))
+        if(strcmp(temp->key, add_key) == 0)
+        {
+            // bl = 1;
+            // printf("yassine is here\n");
+            strcpy(temp->val, add_val);
+        }
+        // printf("%s...... \n", temp-)
+        // printf("%s.....", temp->key);
+        // printf("%s...... \n", temp->val);
+        temp = temp->next;
+    }
+    // ft_find_replace(head, add_key, add_val);
+    // if(bl == 0)
+    // {
+        add_key = str_join(add_key, "=");
+        insertNode(&head, add_val, add_key);
+    // }
+
+}
+
 int main(int ac, char **av, char **ev)
 {
     (void)ac;
@@ -103,27 +223,31 @@ int main(int ac, char **av, char **ev)
     struct Node* head = NULL;
     // Insert nodes into the linked list
     // char    *key;
-    int     j;
-    int     k;
+    // int     j;
+    // int     k;
 
-    k = 0;
-    j = 0;
+    // k = 0;
+    // j = 0;
     int i = 0;
+    t_env   *e = malloc(sizeof(t_env));
 
     while(ev[i])
     {
-        insertNode(&head, get_value(ev[i]), get_key(ev[i]));
+        insertNode(&head, get_value(ev[i], e), get_key(ev[i], e));
         i++;
     }
     // Display the linked list
+    // displayList(head);
+
+    ft_ex_port(head, "fffff",  "freer");
+    ft_ex_port(head, "dddddd",  "ffffffffff");
+    ft_ex_port(head, "kkkkk",  "44444");
+    ft_ex_port(head, "fffff",  "jjjjj");
     displayList(head);
 
-    pwd();
-    return 0;
+    // pwd();
     
-    // t_env   *e = malloc(sizeof(t_env));
-        
-
+    // cd(ev, e);
     // get_env(ev, e);
     // int    i = 0;
     // while(i < e->test)
@@ -180,7 +304,8 @@ int main(int ac, char **av, char **ev)
     // free(env);
     // while(1);
     // free(e);
+    
     // free(e->key);
-    // free(e->value);
+    // free(e->val);
     return 0;
 }

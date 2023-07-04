@@ -18,5 +18,5 @@ void    pwd(void)
 	char	buff[PATH_MAX];
 
 	cwd = getcwd(buff, PATH_MAX);
-    printf("%s", cwd);
+    printf("------%s------\n", cwd);
 }

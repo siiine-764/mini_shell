@@ -12,12 +12,12 @@
 
 # include "../../minishell.h"
 
-char    *get_key(char *str)
+char    *get_key(char *str, t_env *e)
 {
     char    *key;
     int     j;
     int     k;
-
+    (void)*e;
     k = 0;
     j = 0;
     while(str[j])
@@ -25,6 +25,8 @@ char    *get_key(char *str)
         if (str[j] == '=')
         {
             key = malloc(sizeof(char) * j + 2);
+            if (!key)
+                return (NULL);
             k = 0;
             while(k <= j)
             {
@@ -39,7 +41,7 @@ char    *get_key(char *str)
     return (NULL);
 }
 
-char    *get_value(char *str)
+char    *get_value(char *str, t_env *e)
 {
     char    *value;
     int     j;
@@ -47,11 +49,13 @@ char    *get_value(char *str)
     int     start;
     int     len;
 
+    (void) *e;
     k = 0;
     while(str[k])
     {
         if (str[k] == '=')
         {
+            // printf("----%s---", &str[k]);
             start = 0;
             len = 0;
             k++;
@@ -63,14 +67,17 @@ char    *get_value(char *str)
             }
             // printf("---> len: %d\n", len);
             // printf("---> j: %d\n", j);
-            value = malloc(sizeof(char) * len + 1);
+            value = malloc(sizeof(char) * (len + 1));
+            if (!value)
+                return (NULL);
             while (str[j])
             {
                 value[start] = str[j];
                 start++;
                 j++;
             }
-            value[j] = '\0';
+            value[start] = '\0';
+                // printf("----%s-----\n", value);
                 // printf("%s\n", value);
             return (value);
         }

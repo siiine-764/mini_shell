@@ -12,9 +12,9 @@
 
 # include "../../minishell.h"
 
-void    ex_port(char *add_key, char *add_val)
+void    ex_port(char *add_key, char *add_val, t_env *e)
 {
-    struct Node* head = NULL;
+    // struct Node* head = NULL;
 
-    insertNode(&head, get_value(add_key), get_key(add_val));
+    insertNode(&head, get_value(add_key, e), get_key(add_val, e));
 }

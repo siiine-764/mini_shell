@@ -30,7 +30,7 @@
 // }
 ////chdir (change directory)
 
-int ft_strcmp(const char* str1, const char* str2)
+int ft_strcmp(char *str1, char *str2)
 {
     while (*str1 && (*str1 == *str2))
     {
@@ -40,7 +40,7 @@ int ft_strcmp(const char* str1, const char* str2)
     return *(unsigned char*)str1 - *(unsigned char*)str2;
 }
 
-void  cd(char **env)
+void  cd(char **env, t_env *e)
 {
     int i = 0;
     int bl = 0;
@@ -48,11 +48,11 @@ void  cd(char **env)
     while (env[i])
     {
         // printf("------%s\n", get_key(env[i]));
-        if (ft_strcmp(get_key(env[i]), "HOME=") == 0)
+        if (ft_strcmp(get_key(env[i], e), "HOME=") == 0)
         {
-            printf("%s\n", get_value(env[i]));
+            printf("%s\n", get_value(env[i], e));
             bl = 1;
-            chdir(get_value(env[i]));
+            chdir(get_value(env[i], e));
         }
         i++;
     }

@@ -96,10 +96,6 @@ rvm_path=/usr/local/rvm
 OLDPWD=/workspaces/mini_shell 
 GOPATH=/go 
 TERM_PROGRAM=vscode 
-VSCODE_IPC_HOOK_CLI=/tmp/vscode-ipc-8ae9ddeb-46ed-4b11-9437-e9d12ce6e5da.sock 
+VSCODE_IPC_HOOK_CLI=/tmp/vscode-ipc-c051bf7d-75b6-4e7a-a21f-55cb2b301665.sock 
 _=./execution 
-dddddd=ffffffffff 
-dddddd=fffregetgreg 
-dddddd=fdserrrrrr 
-dddddd=sssssssss 
-dddddd=qqqqqqqq 
+dddddddd==ffffffffff 
