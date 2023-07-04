@@ -6,6 +6,7 @@ SRCS =	builtins/cd.c\
 		builtins/echo.c\
 		builtins/pwd.c\
 		builtins/exit.c\
+		builtins/unset.c\
 		env/env.c\
 		env/utils.c\
 		utils/utils0.c\

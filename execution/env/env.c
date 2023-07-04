@@ -97,13 +97,6 @@
 // }
 
 
-
-struct Node {
-  char      *val;
-  char      *key;
-  struct Node* next;
-};
-
 struct Node* createNode(char  *val, char  *key) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->val = val;
@@ -239,10 +232,17 @@ int main(int ac, char **av, char **ev)
     // Display the linked list
     // displayList(head);
 
-    ft_ex_port(head, "fffff",  "freer");
-    ft_ex_port(head, "dddddd",  "ffffffffff");
-    ft_ex_port(head, "kkkkk",  "44444");
-    ft_ex_port(head, "fffff",  "jjjjj");
+    // ft_ex_port(head, "fffff",  "freer=");
+    // ft_ex_port(head, "dddddd",  "ffffffffff");
+    // ft_ex_port(head, "kkkkk",  "44444");
+    // ft_ex_port(head, "fffff",  "jjjjj");
+    // ft_ex_port(head, "fffff=",  "freer");
+    // ft_ex_port(head, "fffff=",  "freer");
+    // un_set(head, "fffff=");
+    // un_set(head, "NUGET_XMLDOC_MODE=");
+    // ft_ex_port(head, "fffff=",  "freer");
+
+    // un_set(head, "fffff=");
     displayList(head);
 
     // pwd();

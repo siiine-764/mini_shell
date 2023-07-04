@@ -18,5 +18,10 @@ void    pwd(void)
 	char	buff[PATH_MAX];
 
 	cwd = getcwd(buff, PATH_MAX);
+    if (!cwd)
+    {
+        perror("minishell: pwd: ");
+        exit(1);
+    }
     printf("------%s------\n", cwd);
 }
