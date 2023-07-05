@@ -13,7 +13,8 @@
 # include "../../minishell.h"
 
 // Function to delete a node from the linked list based on a string key
-void deleteNode(struct Node** head_ref, const char* key) {
+void deleteNode(struct Node** head_ref, const char* key)
+{
     // Store the head node
     struct Node* temp = *head_ref;
     struct Node* prev = NULL;
