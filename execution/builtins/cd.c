@@ -30,14 +30,14 @@
 // }
 ////chdir (change directory)
 
-int ft_strcmp(char *str1, char *str2)
+int	ft_strcmp(char *s1, char *s2)
 {
-    while (*str1 && (*str1 == *str2))
-    {
-        str1++;
-        str2++;
-    }
-    return *(unsigned char*)str1 - *(unsigned char*)str2;
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return (s1[i] - s2[i]);
 }
 
 void  cd(char **env, t_env *e)

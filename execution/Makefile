@@ -11,6 +11,8 @@ SRCS =	builtins/cd.c\
 		env/env.c\
 		env/utils.c\
 		utils/utils0.c\
+		exec/pipe.c\
+		exec/execute.c\
 
 all: $(NAME)
 
