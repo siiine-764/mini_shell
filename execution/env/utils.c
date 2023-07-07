@@ -12,12 +12,11 @@
 
 # include "../../minishell.h"
 
-char    *get_key(char *str, t_env *e)
+char    *get_key(char *str)
 {
     char    *key;
     int     j;
     int     k;
-    (void)*e;
     k = 0;
     j = 0;
     while(str[j])
@@ -41,7 +40,7 @@ char    *get_key(char *str, t_env *e)
     return (NULL);
 }
 
-char    *get_value(char *str, t_env *e)
+char    *get_value(char *str)
 {
     char    *value;
     int     j;
@@ -49,7 +48,6 @@ char    *get_value(char *str, t_env *e)
     int     start;
     int     len;
 
-    (void) *e;
     k = 0;
     while(str[k])
     {
@@ -102,7 +100,7 @@ char    *get_value(char *str, t_env *e)
 //     {
 //         // printf("----? %s", env[i]);
 //         get_key(env[i], e);
-//         get_value(env[i], e);
+//         get_value(env[i]);
 //         // add_node(env[i]);
 //         e->test++;
 //         i++;

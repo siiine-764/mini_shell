@@ -161,20 +161,23 @@ void displayList(struct Node* head) {
 // }
 
 
-int main(int ac, char **av, char **ev)
+int main(int ac, char **av, char **env)
 {
     (void)ac;
     (void)av;
-    struct Node* head = NULL;
+    struct Node* head = malloc(sizeof(head));
 
-    int i = 0;
-    t_env   *e = malloc(sizeof(t_env));
+    // int i = 0;
+    // t_env   *e = malloc(sizeof(t_env));
 
-    while(ev[i])
-    {
-        insertNode(&head, get_value(ev[i], e), get_key(ev[i], e));
-        i++;
-    }
+    // create_env(env, head);
+    cd(env, head);
+    displayList(head);
+    // while(ev[i])
+    // {
+    //     insertNode(&head, get_value(ev[i], e), get_key(ev[i], e));
+    //     i++;
+    // }
     // Display the linked list
     // displayList(head);
 
@@ -189,11 +192,10 @@ int main(int ac, char **av, char **ev)
     // ft_ex_port(head, "fffff=",  "freer");
 
     // un_set(head, "fffff=");
-    displayList(head);
+    // displayList(head);
 
     // pwd();
     
-    // cd(ev, e);
     // get_env(ev, e);
     // int    i = 0;
     // while(i < e->test)
