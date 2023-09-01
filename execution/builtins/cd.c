@@ -54,8 +54,7 @@ void	create_env(char **env, struct Node* head)
 	// return (env);
 }
 
-
-void  cd(t_cmd *cmd, char **env, struct Node* head)
+void  cd(char **env, struct Node* head)
 {
     // int bl = 0;
 	// char		cwd[1024];
