@@ -45,11 +45,27 @@ void    execute_cmd(char *cmd, struct Node* head, char *add_key, char *add_val)
 		return ;
 	return ;
 }
-void    execute(void)
-{
-    if (check_builtins(CMD) == 1)
-    {
-        printf("erorr\n");
-    }
 
+// void    execute(void)
+// {
+//     if (check_builtins(CMD) == 1)
+//     {
+//         printf("erorr\n");
+//     }
+
+// }
+
+void execute()
+{
+	int	fd[2];
+	int pid;
+	static int cnt;
+
+	pid = 0;
+	if (ptr->type == CMD)
+	{
+		
+	}
 }
+
+
