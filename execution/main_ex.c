@@ -122,135 +122,182 @@
 
 
 
+#include "./../minishell.h"
 
+// struct Node {
+//   char      *val;
+//   char      *key;
+//   struct Node* next;
+// };
 
-#include <stdio.h>
-#include <stdlib.h>
+// struct Node* createNode(char  *val, char  *key) {
+//     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+//     newNode->val = val;
+//     newNode->key = key;
+//     newNode->next = NULL;
+//     return newNode;
+// }
 
-struct Node {
-  char      *val;
-  char      *key;
-  struct Node* next;
-};
+// void insertNode(struct Node** head, char  *val, char  *key) {
+//     struct Node* newNode = createNode(val, key);
+//     if (*head == NULL) {
+//         *head = newNode;
+//     } else {
+//         struct Node* temp = *head;
+//         while (temp->next != NULL) {
+//             temp = temp->next;
+//         }
+//         temp->next = newNode;
+//     }
+// }
 
-struct Node* createNode(char  *val, char  *key) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->val = val;
-    newNode->key = key;
-    newNode->next = NULL;
-    return newNode;
-}
+// void displayList(struct Node* head) {
+//     struct Node* temp = head;
+//     while (temp != NULL) {
+//         printf("%s", temp->key);
+//         printf("%s \n", temp->val);
+//         temp = temp->next;
+//     }
+//     // printf("\n");
+// }
 
-void insertNode(struct Node** head, char  *val, char  *key) {
-    struct Node* newNode = createNode(val, key);
-    if (*head == NULL) {
-        *head = newNode;
-    } else {
-        struct Node* temp = *head;
-        while (temp->next != NULL) {
-            temp = temp->next;
-        }
-        temp->next = newNode;
-    }
-}
+// char    *get_key(char *str)
+// {
+//     char    *key;
+//     int     j;
+//     int     k;
 
-void displayList(struct Node* head) {
-    struct Node* temp = head;
-    while (temp != NULL) {
-        printf("%s", temp->key);
-        printf("%s \n", temp->val);
-        temp = temp->next;
-    }
-    // printf("\n");
-}
+//     k = 0;
+//     j = 0;
+//     while(str[j])
+//     {
+//         if (str[j] == '=')
+//         {
+//             key = malloc(sizeof(char) * j + 2);
+//             k = 0;
+//             while(k <= j)
+//             {
+//                 key[k] = str[k];
+//                 k++;
+//             }
+//             key[k] = '\0';
+//             // printf("---%s---\n", key);
+//             return (key);
+//             // e->key[e->test] = ft_str_dup(key);
+//             // e->len_key = k;
+//             // free(key);
+//         }
+//         j++;
+//     }
+//     return (NULL);
+// }
 
-char    *get_key(char *str)
+// char    *get_value(char *str)
+// {
+//     char    *value;
+//     int     j;
+//     int     k;
+//     int     start;
+//     int     len;
+
+//     k = 0;
+//     while(str[k])
+//     {
+//         if (str[k] == '=')
+//         {
+//             start = 0;
+//             len = 0;
+//             k++;
+//             j = k;
+//             while (str[k])
+//             {
+//                 len++;
+//                 k++;
+//             }
+//             value = malloc(sizeof(char) * len + 1);
+//             while (str[j])
+//             {
+//                 value[start] = str[j];
+//                 start++;
+//                 j++;
+//             }
+//             value[j] = '\0';
+//             return (value);
+//         }
+//         k++;
+//     }
+//     return (NULL);
+// }
+
+void exect(void)
 {
-    char    *key;
-    int     j;
-    int     k;
+	int	fd[2];
+	int pid;
+	// // static int cnt;
 
-    k = 0;
-    j = 0;
-    while(str[j])
-    {
-        if (str[j] == '=')
-        {
-            key = malloc(sizeof(char) * j + 2);
-            k = 0;
-            while(k <= j)
-            {
-                key[k] = str[k];
-                k++;
-            }
-            key[k] = '\0';
-            // printf("---%s---\n", key);
-            return (key);
-            // e->key[e->test] = ft_str_dup(key);
-            // e->len_key = k;
-            // free(key);
-        }
-        j++;
-    }
-    return (NULL);
-}
+	pid = 0;
 
-char    *get_value(char *str)
-{
-    char    *value;
-    int     j;
-    int     k;
-    int     start;
-    int     len;
+	if (pipe(fd) < 0)
+		return;
+    dup2(pid, 1);
+	// printf("ddddd");
 
-    k = 0;
-    while(str[k])
-    {
-        if (str[k] == '=')
-        {
-            start = 0;
-            len = 0;
-            k++;
-            j = k;
-            while (str[k])
-            {
-                len++;
-                k++;
-            }
-            value = malloc(sizeof(char) * len + 1);
-            while (str[j])
-            {
-                value[start] = str[j];
-                start++;
-                j++;
-            }
-            value[j] = '\0';
-            return (value);
-        }
-        k++;
-    }
-    return (NULL);
+	// if (ptr->type == CMD)
+	// {	
+	// }
 }
 
 int main(int ac, char **av, char **env) {
-    struct Node* head = NULL;
 
-    // Insert nodes into the linked list
-    char    *key;
-    int     j;
-    int     k;
+    (void)ac;
+    (void)av;
+    // (void)env;
+    
 
-    k = 0;
-    j = 0;
-    int i = 0;
-    while(env[i])
+    struct Node* head = malloc(sizeof(head));
+
+    // printf("dddd");
+
+    // int i = 0;
+    // t_env   *e = malloc(sizeof(t_env));
+
+    create_env(env, head);
+    
+    // cd(env, head);
+	// char *arr[] = {"echo", "fff", "fffffff", "fff", NULL};
+    // echo(arr);
+    
+	int i = 0;
+	while(env[i])
     {
-        // printf("---%s---\n", get_key(env[i]));
         insertNode(&head, get_value(env[i]), get_key(env[i]));
         i++;
     }
-    // Display the linked list
+	// ft_ex_port(head, "test", "test");
     displayList(head);
 
+    // exect();
+
+    // struct Node* head = NULL;
+
+    // // Insert nodes into the linked list
+    // char    *key;
+    // int     j;
+    // int     k;
+
+    // k = 0;
+    // j = 0;
+    // int i = 0;
+    // while(env[i])
+    // {
+    //     // printf("---%s---\n", get_key(env[i]));
+    //     insertNode(&head, get_value(env[i]), get_key(env[i]));
+    //     i++;
+    // }
+    // // Display the linked list
+    // displayList(head);
+
+
+    printf("cdddd");
     return 0;
 }

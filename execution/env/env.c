@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:57:27 by mayache-          #+#    #+#             */
-/*   Updated: 2023/06/17 23:48:55 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/18 18:56:02 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,28 +101,50 @@ struct Node* createNode(char  *val, char  *key) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->val = val;
     newNode->key = key;
+
+    // printf("----> val %s\n",  newNode->val);
+    // printf("---> key %s\n",  newNode->key);
     newNode->next = NULL;
     return newNode;
 }
 
 void insertNode(struct Node** head, char  *val, char  *key) {
     struct Node* newNode = createNode(val, key);
+        // printf("------ddddd------");
     if (*head == NULL) {
         *head = newNode;
     } else {
         struct Node* temp = *head;
+        // printf("%s%s \n", newNode->key, newNode->val);
         while (temp->next != NULL) {
             temp = temp->next;
         }
         temp->next = newNode;
+        // newNode->next = NULL;
     }
 }
 
 void displayList(struct Node* head) {
+    printf("%s\n",head->key);
     struct Node* temp = head;
     while (temp != NULL) {
-        printf("%s", temp->key);
-        printf("%s \n", temp->val);
+        if (temp->key[0] && temp->val[0])
+        {
+            printf("%s", temp->key);
+            printf("%s\n", temp->val);
+        }
+        temp = temp->next;
+    }
+    // printf("\n");
+}
+
+void displayList_export(struct Node* head)
+{
+    printf("%s\n",head->key);
+    struct Node* temp = head;
+    while (temp != NULL) {
+            printf("%s", temp->key);
+            printf("%s\n", temp->val);
         temp = temp->next;
     }
     // printf("\n");
@@ -165,24 +187,35 @@ int main(int ac, char **av, char **env)
 {
     (void)ac;
     (void)av;
-    struct Node* head = malloc(sizeof(head));
-
+    struct Node* head = NULL;
+    // head->key = NULL;
+    // head->val = NULL;
+    // head->next = NULL;
+    (void)env;
+    // execute();
+    // printf("dddd");
+    t_env   *e = malloc(sizeof(t_env));
+    create_env(env, &head);
+    // cd(env, head);
+    // displayList(head);
     // int i = 0;
-    // t_env   *e = malloc(sizeof(t_env));
-
-    // create_env(env, head);
-    cd(env, head);
-    displayList(head);
-    // while(ev[i])
+    // while(env[i])
     // {
-    //     insertNode(&head, get_value(ev[i], e), get_key(ev[i], e));
+    //     insertNode(&head, get_value(env[i]), get_key(env[i]));
     //     i++;
     // }
     // Display the linked list
     // displayList(head);
 
-    // ft_ex_port(head, "fffff",  "freer=");
-    // ft_ex_port(head, "dddddd",  "ffffffffff");
+    // ft_ex_port(head, "_ee4=", "rrsssssrffg");
+    // ft_ex_port(head, "salam" , "hello");
+    // ft_ex_port(head, "salam" , "wdewferfre");
+    // ft_ex_port(head, "sssssss4=" , "5452454");
+    // ft_ex_port(head, "salam=" , "gggghello");
+    // ft_ex_port(head, "ddddd",  "");
+    // ft_ex_port(head, "ddfffffffddd",  "");
+    // ft_ex_port(head, "dddrrrrrrdd",  "");
+    // ft_ex_port(head, "dfrefref",  "");
     // ft_ex_port(head, "kkkkk",  "44444");
     // ft_ex_port(head, "fffff",  "jjjjj");
     // ft_ex_port(head, "fffff=",  "freer");
@@ -191,12 +224,15 @@ int main(int ac, char **av, char **env)
     // un_set(head, "NUGET_XMLDOC_MODE=");
     // ft_ex_port(head, "fffff=",  "freer");
 
-    // un_set(head, "fffff=");
-    // displayList(head);
+    // un_set(head, "TERM=");
+        // displayList_export(head);
+    
+    printf("--------------------------------\n");
+    displayList(head);
 
     // pwd();
     
-    // get_env(ev, e);
+    // get_env(env, e);
     // int    i = 0;
     // while(i < e->test)
     // {
@@ -249,11 +285,15 @@ int main(int ac, char **av, char **env)
     // } else {
     //     printf("Failed to set environment variable.\n");
     // }
+
+    
     // free(env);
     // while(1);
-    // free(e);
+    free(e);
     
     // free(e->key);
     // free(e->val);
     return 0;
 }
+
+
