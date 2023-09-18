@@ -6,11 +6,11 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 00:57:54 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/18 18:04:58 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/18 22:06:22 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../minishell.h"
+# include "../execution.h"
 
 int		ft_strstartswith(char *s1, char *s2)
 {
@@ -65,17 +65,9 @@ void    ft_ex_port(struct Node* head, char *add_key, char *add_val)
         
     // }
     struct Node* temp = head;
-    // printf("|||||||||||\n");
-    // printf("|addkey %s|\n", add_key);
-    // printf("|||||||||||\n");
 
-    
     while (temp != NULL)
     {
-        // printf("|||||||||||\n");
-        // printf("|||||||||||\n");
-        // printf("|addkey %s|\n", add_key);
-
         //  if (ft_strstartswith (temp->key, add_key))
         if(strcmp(temp->key, add_key) == 0)
         {
@@ -83,9 +75,6 @@ void    ft_ex_port(struct Node* head, char *add_key, char *add_val)
             printf("------>yassine is here<--------\n");
             strcpy(temp->val, add_val);
         }
-        // printf("%s...... \n", temp-)
-        // printf("%s.....", temp->key);
-        // printf("%s...... \n", temp->val);
         temp = temp->next;
     }
     // ft_find_replace(head, add_key, add_val);
@@ -94,7 +83,7 @@ void    ft_ex_port(struct Node* head, char *add_key, char *add_val)
         add_key = str_join(add_key, "=");
         insertNode(&head, add_val, add_key);
     }
-    displayList_export(head);
+    // displayList_export(head);
 }
 
 

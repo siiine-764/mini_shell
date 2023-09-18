@@ -6,11 +6,11 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 01:52:43 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/18 18:05:11 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/18 19:30:23 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../minishell.h"
+# include "../execution.h"
 
 int str_len(char *env)
 {

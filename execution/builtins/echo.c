@@ -6,13 +6,13 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:23:21 by mayache-          #+#    #+#             */
-/*   Updated: 2023/06/11 01:47:07 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/18 19:33:10 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../minishell.h"
+# include "../execution.h"
 
-void    echo(char **arr)
+void    e_cho(char **arr)
 {
     int i;
     int flag;

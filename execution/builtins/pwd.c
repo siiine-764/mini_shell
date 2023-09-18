@@ -6,11 +6,11 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 20:04:25 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/17 23:08:59 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/18 19:29:50 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../minishell.h"
+# include "../execution.h"
 
 void    pwd(void)
 {

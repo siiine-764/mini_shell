@@ -6,11 +6,11 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 19:54:03 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/17 23:26:21 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/18 19:29:33 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../minishell.h"
+# include "../execution.h"
 
 //find val emv
 

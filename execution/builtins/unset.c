@@ -6,11 +6,11 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 00:58:19 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/17 22:35:43 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/18 20:48:07 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../minishell.h"
+# include "../execution.h"
 
 // Function to delete a node from the linked list based on a string key
 void deleteNode(struct Node** head_ref, const char* key)
@@ -50,7 +50,7 @@ void    un_set(struct Node *head, char *add_key)
 
     if (!add_key[0])
     {
-        printf("unsetenv: invalid.");
+        printf("unset: not enough arguments");
         exit(1);
     }
 

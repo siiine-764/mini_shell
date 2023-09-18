@@ -6,11 +6,11 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 01:56:48 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/17 20:17:30 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/18 19:30:05 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../minishell.h"
+# include "../execution.h"
 
 char    *get_key(char *str)
 {

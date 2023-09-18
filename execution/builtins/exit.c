@@ -6,11 +6,11 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 21:25:08 by mayache-          #+#    #+#             */
-/*   Updated: 2023/06/17 21:27:13 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/18 19:29:38 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../minishell.h"
+# include "../execution.h"
 
 
 int	number_of_args(char **args)
