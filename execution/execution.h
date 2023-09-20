@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 21:56:49 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/20 22:53:48 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/20 23:22:24 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,10 @@ void		ex_it(void);
 
 
 /// functions execution ///
-int	check_builtins(char *cmd);
-void    execute_cmd(char *cmd, struct Node* head, char *add_key, char *add_val);
+// int	check_builtins(char *cmd);
+// void    execute_cmd(char *cmd, struct Node* head, char *add_key, char *add_val);
 void exect(void);
+int execute_cmd(char **env, char *input, struct Node* head, t_cmd *my_cmd);
 void    get_path(char *path, t_path *p);
 /// end functions execution ///
 

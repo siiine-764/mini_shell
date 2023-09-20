@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 22:42:01 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/20 22:49:54 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/20 23:36:59 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,56 @@
 // 	return ;
 // }
 
-// void    execute(void)
-// {
-//     if (check_builtins(CMD) == 1)
-//     {
-//         printf("erorr\n");
-//     }
+int execute_cmd(char **env, char *input, struct Node* head, t_cmd *my_cmd)
+{
+    if (strcmp(input, "exit") == 0) {
+        free(input);
+        printf("exit\n");
+        exit(0);
+        return (1);
+    }
+    else if (strcmp(input, "echo") == 0) {
+        e_cho(my_cmd->txt, my_cmd->flag);
+        return (1);
+    }
+    else if(strcmp(input, "env") == 0) {
+        displayList(head);
+        return (1);
+    }
+    else if(strcmp(input, "pwd") == 0) {
+        pwd();
+        return (1);
+    }
+    else if(strcmp(input, "cd") == 0) {
+        cd(env, head);
+        return (1);
+    }
+    else if(strcmp(my_cmd->arguments[0], "export") == 0
+        && strcmp(input, "export") == 0) {
+            if (fork() == 0)
+            {
+                ft_ex_port(head,  my_cmd->arguments[1],  my_cmd->arguments[2], env);
+            }
+            return (1);
+        // printf("my_cmd->arguments[0] = %s\n", my_cmd->arguments[1]);
+    }
+    else if(strcmp(my_cmd->arguments[0], "unset") == 0
+        && strcmp(input, "unset") == 0) {
+        // printf("my_cmd->arguments[0] = %s\n", my_cmd->arguments[1]);
+            if (fork() == 0)
+            {
+                un_set(head, my_cmd->arguments[1]);
+                }
+                return (1);
+    }
+    return (0);
+}
 
-// }
+void    execute(void)
+{
+    
+
+}
 
 
 
@@ -85,10 +127,10 @@ int main(int ac, char **av, char **env)
 
     // Example values
     char *command[] = {"ls", NULL, NULL};
-    char *arguments[] = {"unset", "SHLVL"};
-    char flag[] = "-n";
+    char *arguments[] = {"export", "ggggg"};
+    char *flag = "-n";
     int count = 3;
-    int fpipe = 1;
+    int fpipe = 0;
     int rpipe = 0;
     char *text[] = {"yassine", "dddddddd"};
 
@@ -108,46 +150,16 @@ int main(int ac, char **av, char **env)
     // create_env(env, &head);
     // displayList(head);
     create_env(env, &head);
+    
+
+    int bl = 0;
     while (1) 
     {
         char *input = readline("minishell$ ");
     
-        if (strcmp(input, "exit") == 0) {
-            free(input);
-            printf("exit\n");
-            break;
-        }
         add_history(input);
-        // printf("You entered: %s\n", input);
-        if (strcmp(input, "echo") == 0) {
-            e_cho(my_cmd.txt, my_cmd.flag);
-        }
-       else if(strcmp(input, "env") == 0) {
-            displayList(head);
-        }
-        else if(strcmp(input, "pwd") == 0) {
-            pwd();
-        }
-        else if(strcmp(input, "cd") == 0) {
-            cd(env, head);
-        }
-        else if(strcmp(my_cmd.arguments[0], "export") == 0
-            && strcmp(input, "export") == 0) {
-                if (fork() == 0)
-                {
-                    ft_ex_port(head,  my_cmd.arguments[1],  my_cmd.arguments[2], env);
-                }
-            // printf("my_cmd.arguments[0] = %s\n", my_cmd.arguments[1]);
-        }
-        else if(strcmp(my_cmd.arguments[0], "unset") == 0
-            && strcmp(input, "unset") == 0) {
-            // printf("my_cmd.arguments[0] = %s\n", my_cmd.arguments[1]);
-                if (fork() == 0)
-                {
-                    un_set(head, my_cmd.arguments[1]);
-                 }
-        }
-        else
+        bl = execute_cmd(env, input, head, &my_cmd);
+        if(bl == 0)
         {
             int j = 0;
             char *str_join;
