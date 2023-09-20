@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 21:56:49 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/18 22:43:03 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/20 22:53:48 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,62 +34,12 @@
 # include <string.h>
 # include <sys/stat.h>
 # include <limits.h>
-// # define PERMISSION_DENIED 126
-// # define COMMAND_NOT_FOUND 127
-// # define SUCCESS 0
-// # define CNTRL_C 130
-// # define CNTRL_BACKSLASH 131
-// # define SYNTAX_ERROR_EXIT 258
-
-// typedef enum typ
-// {
-// 	T_WORD,
-// 	T_IN,
-// 	T_OUT,
-// 	T_HERDOC,
-// 	T_APPEND,
-// 	T_PIPE
-// }	t_typ;
-
-// typedef struct TKN
-// {
-// 	t_typ			tkn;
-// 	char			*data;
-// 	struct TKN	*nxt;
-// }t_tkn;
-
-// typedef struct t_tkn_top
-// {
-// 	t_tkn	*fst_tkn;
-// }t_tkn_top;
-
-// typedef struct minishellpars
-// {
-// 	char					**flags;
-// 	struct minishellpars	*nxt_comm;
-// 	t_tkn_top			*redirection;
-// 	t_tkn_top			*heredoc;
-// }t_comm;
-
-// typedef struct top
-// {
-// 	int			size;
-// 	t_comm	*fst_cmd;
-// }t_top_cmd;
-
-// typedef struct lxr
-// {
-// 	char	*ctt;
-// 	char	cmd;
-// 	size_t	i;
-// }t_lxr;
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 char **g_env;
-
 
 enum e_node_typ
 {
@@ -118,6 +68,23 @@ typedef struct s_add_env
     char            **new_env;
 }	t_add_env;
 
+typedef struct s_cmd
+{
+    char    **cmd;
+	char	*flag;
+    int cnt;
+    int fpipe;
+    int rpipe;
+    char **arguments;
+    char  **txt;
+} t_cmd;
+
+typedef struct s_path
+{
+    char    **path;
+    int cnt;
+}	t_path;
+
 // typedef struct s_ast_node
 // {
 //   enum e_node_type	type;
@@ -126,11 +93,10 @@ typedef struct s_add_env
 
 /// functions builtins ///
 void		pwd(void);
-// void		cd(char **env, t_env *e);
-void  cd(char **env, struct Node* head);
+void        cd(char **env, struct Node* head);
 void		un_set(struct Node* head, char *add_key);
-void		ft_ex_port(struct Node* head, char *add_key, char *add_val);
-void		e_cho(char **arr);
+void		ft_ex_port(struct Node* head, char *add_key, char *add_val,char **env);
+void		e_cho(char **arr, char *flag);
 void		ex_it(void);
 /// end functions builtins ///
 
@@ -138,30 +104,40 @@ void		ex_it(void);
 /// functions execution ///
 int	check_builtins(char *cmd);
 void    execute_cmd(char *cmd, struct Node* head, char *add_key, char *add_val);
-/// end ///
+void exect(void);
+void    get_path(char *path, t_path *p);
+/// end functions execution ///
 
+
+/// functions env ///
 struct Node	*createNode(char  *val, char  *key);
 void		insertNode(struct Node** head, char  *val, char  *key);
 void		displayList(struct Node* head);
 void    displayList_export(struct Node* head);
 void		deleteNode(struct Node** head_ref, const char* key);
 
-/// functions env ///
-int			ft_strstartswith(char *s1, char *s2);
-int			str_len(char *env);
 char		*ft_str_dup(char *s1);
-char		*str_join(char *s1, char *s2);
 char		**ft_arr_dup(char **origin);
 char		*get_key(char *str);
 char		*get_value(char *str);
-void		get_env(char **env, t_env   *e);
 void	create_env(char **env, struct Node** head);
-
 /// end functions env ///
 
-void exect(void);
-int	ft_strcmp(char *s1, char *s2);
-int	ft_isalpha(int c);
 
+/// functions utils ///
+char		*str_join(char *s1, char *s2);
+int			str_len(char *env);
+char	*ft_strjoin(char *s1, char *s2);
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char	**ft_split(char const *s, char c);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t	ft_strlen(const char *s);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	**ft_split(char const *s, char c);
+int	ft_isnum(char *num);
+int	ft_isalpha(int c);
+int	ft_strcmp(char *s1, char *s2);
+/// end functions utils ///
 
 #endif

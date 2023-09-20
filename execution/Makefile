@@ -12,15 +12,14 @@ SRCS =	builtins/cd.c\
 		env/utils.c\
 		utils/utils0.c\
 		exec/pipe.c\
-		# main_ex.c\
-		# exec/execute.c\
+		exec/execute.c\
 
 all: $(NAME)
 
 OBJS = $(SRCS:.c=.o)
 
 $(NAME) : $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lreadline
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lreadline -lncurses
 	@echo "make it"
 
 clean:

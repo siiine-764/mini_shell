@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 00:58:19 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/18 20:48:07 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/20 20:20:43 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,21 @@ void deleteNode(struct Node** head_ref, const char* key)
 void    un_set(struct Node *head, char *add_key)
 {
     struct Node *temp = head;
-    int bl = 0;
-
-    if (!add_key[0])
-    {
-        printf("unset: not enough arguments");
-        exit(1);
-    }
-
+    char *str_join;
+    // if (!add_key[0])
+    // {
+    //     printf("unset: not enough arguments");
+    //     exit(1);
+    // }
+    
     while (temp != NULL)
     {
-        if(strcmp(temp->key, add_key) == 0)
+        str_join = ft_strjoin(add_key, "=");
+        // printf("temp->key : %s, add key : %s\n",temp->key, str_join);
+        if(strcmp(temp->key, str_join) == 0)
         {
-            bl = 1;
-            deleteNode(&head, add_key);
+            deleteNode(&head, str_join);
         }
         temp = temp->next;
     }
-    if (bl == 0)
-        printf("not find this key\n");
 }

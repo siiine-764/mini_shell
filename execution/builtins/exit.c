@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 21:25:08 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/18 19:29:38 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/20 22:47:20 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,6 @@ int	number_of_args(char **args)
 	while (args[i])
 		i++;
 	return (i);
-}
-
-int	ft_isnum(char *num)
-{
-	int	i;
-
-	i = 0;
-	if (num[i] == '-')
-		i++;
-	while (num[i])
-	{
-		if (num[i] < '0' || num[i] > '9')
-			return (0);
-		i++;
-	}
-	return (1);
 }
 
 int	check_args_for_exit(char **args)

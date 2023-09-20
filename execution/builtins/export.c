@@ -6,27 +6,19 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 00:57:54 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/18 22:06:22 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/20 22:46:56 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../execution.h"
 
-int		ft_strstartswith(char *s1, char *s2)
-{
-	int	i;
-
-	i = -1;
-	while (s2[++i])
-		if (s1[i] != s2[i])
-			return (0);
-	return (1);
-}
-
-void    ft_ex_port(struct Node* head, char *add_key, char *add_val)
+void    ft_ex_port(struct Node* head, char *add_key, char *add_val, char **env)
 {
     int bl = 0;
-    if (!add_key[0] && !add_val[0])
+    (void)env;
+
+    char *strjoin = ft_strjoin(add_key, "=");
+    if (!strjoin[0] && !add_val[0])
     {
         // displayList(head);
         displayList_export(head);
@@ -34,58 +26,33 @@ void    ft_ex_port(struct Node* head, char *add_key, char *add_val)
         free(head);
         exit(0);
     }
-    if (!ft_isalpha(add_key[0]) && add_key[0] != '_')
+    if (!ft_isalpha(strjoin[0]) && strjoin[0] != '_')
     {
-        printf("export: not an identifier: %s\n", add_key);
+        printf("export: `%s': not a valid identifier\n", strjoin);
         exit(1);    
     }
-    // if (add_key[0] && !add_val[0])
-    // {
-    //     // int d = 0;
-    //     // printf("----> %s", add_key);
-    //     // while (add_key[d] != '\0')
-    //     // {       
-    //         // printf("ddddddd");
-    //         // printf("----->>>>> %d\n", d);
-    //         // printf("---> %c\n", add_key[d]);
-    //         if (!(add_key[0] >= 'a' && add_key[0] <= 'z')
-    //                 && add_key[0] != '_'
-    //                 && !(add_key[0] >= 'A' && add_key[0] <= 'Z')
-    //         )
-    //         {
-    //             printf("export: not valid in this context: %s\n", add_key);
-    //             exit(1);
-    //         }
-    //     //     d++;
-    //     // }
-    // }
-    // displayList(head);
-    // if (add_key[0] && add_val[0])
-    // {
-        
-    // }
     struct Node* temp = head;
 
     while (temp != NULL)
     {
-        //  if (ft_strstartswith (temp->key, add_key))
-        if(strcmp(temp->key, add_key) == 0)
+        // printf("temp :%s, add key %s\n",temp->key, strjoin );
+        if(strcmp(temp->key, strjoin) == 0)
         {
             bl = 1;
-            printf("------>yassine is here<--------\n");
+            printf("------>this key is repeat<--------\n");
             strcpy(temp->val, add_val);
         }
         temp = temp->next;
     }
-    // ft_find_replace(head, add_key, add_val);
     if(bl == 0)
     {
-        add_key = str_join(add_key, "=");
-        insertNode(&head, add_val, add_key);
+        insertNode(&head, add_val, strjoin);
+        // printf("--> val %s, key %s\n", head->val, head->key);
     }
-    // displayList_export(head);
+    
+    // create_env(env, &head);
+    // displayList(head);
 }
-
 
 // export  env ok
 

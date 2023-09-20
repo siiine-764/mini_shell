@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 01:56:48 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/18 19:30:05 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/20 22:44:23 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,27 +84,5 @@ char    *get_value(char *str)
     return (NULL);
 }
 
-// void    get_env(char **env, t_env   *e)
-// {
-//     int i;
-//     int len;
-    
-//     e->test = 0;
-//     i = 0;
-//     len = 0;
-//     while (env[len])
-//         len++;
-//     e->key = malloc(sizeof(char *) * len + 1);
-//     e->value = malloc(sizeof(char *) * len);
-//     while (env[i])
-//     {
-//         // printf("----? %s", env[i]);
-//         get_key(env[i], e);
-//         get_value(env[i]);
-//         // add_node(env[i]);
-//         e->test++;
-//         i++;
-//     }
-// }
 
 
