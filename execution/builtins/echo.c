@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:23:21 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/20 15:15:23 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/21 20:00:29 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void    e_cho(char **arr, char *flag)
 {
+    (void)arr;
     int i;
     int flg;
 

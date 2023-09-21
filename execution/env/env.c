@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:57:27 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/20 22:41:08 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:41:24 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,22 @@ void displayList_export(struct Node* head)
     // printf("\n");
 }
 
-void    get_path(char *path, t_path *p)
+
+void	create_env(char **env, struct Node** head)
 {
-    int i;
-    i = 0;
+	int		i;	
 
-    p->path = ft_split(path, ':');
-
-    while (p->path[i])
+	// env = NULL;
+	// env = init_env(env);
+	// env->env = tab;
+	i = 0;
+    // (void)env;
+    // (void)head;
+    // printf("ddddd");
+    while(env[i])
     {
-        p->cnt++;
-        // printf("*** %s ***\n", p->path[i]);
+        insertNode(head, get_value(env[i]), get_key(env[i]));
         i++;
     }
+	// return (env);
 }

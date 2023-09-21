@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 00:58:19 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/20 20:20:43 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/21 20:11:12 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void deleteNode(struct Node** head_ref, const char* key)
 
     // Unlink the node from the linked list
     prev->next = temp->next;
-    free(temp); // Free the memory
+    // free(temp); // Free the memory
 
     return;
 }
@@ -47,11 +47,6 @@ void    un_set(struct Node *head, char *add_key)
 {
     struct Node *temp = head;
     char *str_join;
-    // if (!add_key[0])
-    // {
-    //     printf("unset: not enough arguments");
-    //     exit(1);
-    // }
     
     while (temp != NULL)
     {

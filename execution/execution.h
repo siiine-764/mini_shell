@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 21:56:49 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/20 23:22:24 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/21 23:34:20 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,11 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 char **g_env;
-
-enum e_node_typ
-{
-	CMD,
-	PIPE,
-};
-
-#define CMD 1;
 struct Node {
   char      *val;
   char      *key;
   struct Node* next;
 };
-
 typedef struct s_env
 {
     char            **val;
@@ -68,6 +59,13 @@ typedef struct s_add_env
     char            **new_env;
 }	t_add_env;
 
+typedef struct s_redir
+{
+    char    *typ_redir;
+    char    *file;
+    int     cnt;
+} t_redir;
+
 typedef struct s_cmd
 {
     char    **cmd;
@@ -75,6 +73,8 @@ typedef struct s_cmd
     int cnt;
     int fpipe;
     int rpipe;
+    int pipe;
+    int cnt_pipe;
     char **arguments;
     char  **txt;
 } t_cmd;
@@ -84,12 +84,6 @@ typedef struct s_path
     char    **path;
     int cnt;
 }	t_path;
-
-// typedef struct s_ast_node
-// {
-//   enum e_node_type	type;
-//   t_union				*content;
-// }	t_ast_node;
 
 /// functions builtins ///
 void		pwd(void);
@@ -104,12 +98,16 @@ void		ex_it(void);
 /// functions execution ///
 // int	check_builtins(char *cmd);
 // void    execute_cmd(char *cmd, struct Node* head, char *add_key, char *add_val);
-void exect(void);
-int execute_cmd(char **env, char *input, struct Node* head, t_cmd *my_cmd);
-void    get_path(char *path, t_path *p);
+void    execute(t_cmd *my_cmd, char **env);
+int     execute_cmd(char **env, char *input, struct Node* head, t_cmd *my_cmd);
+t_path    *get_path(char *path);
+void    excute_cmd(t_cmd *my_cmd, t_path *p);
 /// end functions execution ///
 
-
+/// functions pipe ///
+void    pi_pe(t_cmd *my_cmd, t_path *p);
+void    my_execve(char *file, char *args[], t_path *p);
+void    wait_all(int cnt_pipe);
 /// functions env ///
 struct Node	*createNode(char  *val, char  *key);
 void		insertNode(struct Node** head, char  *val, char  *key);
@@ -139,6 +137,9 @@ char	**ft_split(char const *s, char c);
 int	ft_isnum(char *num);
 int	ft_isalpha(int c);
 int	ft_strcmp(char *s1, char *s2);
+void	*ft_memset(void *b, int c, size_t len);
+void	*ft_calloc(size_t count, size_t size);
+int	sizew(char const *s, char c, int i);
 /// end functions utils ///
 
 #endif

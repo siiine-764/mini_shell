@@ -1,6 +1,6 @@
 NAME	= execution
 CC		= cc
-CFLAGS 	= -Wall -Wextra -Werror #-fsanitize=address -g
+CFLAGS 	= -Wall -Wextra -Werror -fsanitize=address -g
 
 SRCS =	builtins/cd.c\
 		builtins/pwd.c\
@@ -11,8 +11,12 @@ SRCS =	builtins/cd.c\
 		env/env.c\
 		env/utils.c\
 		utils/utils0.c\
+		utils/utils1.c\
+		utils/utils2.c\
+		utils/utils3.c\
 		exec/pipe.c\
 		exec/execute.c\
+		exec/redir.c\
 
 all: $(NAME)
 
