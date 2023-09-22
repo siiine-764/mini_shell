@@ -44,14 +44,18 @@ void    my_execve(char *file, char *args[], t_path *p) {
 void    pi_pe(t_cmd *my_cmd, t_path *p)
 {
     char *arguments11[][3] = {
-        // {"ls", "-l", NULL},
-        // {"wc", "-l", NULL},
+        // {"echo", "'Hello, World'", NULL},
+        // {"echo", "'Hello, World'", NULL},
+        // {"echo", "'Hello, World'", NULL},
+        // {"grep", "Hello", NULL},
+        {"ls", "-l", NULL},
+        {"wc", "-l", NULL},
         // {"grep", "main_ex.c", NULL},
         // {"sort", NULL, NULL},
-        {"cat", "./testing/main_ex.c", NULL},
-        {"grep", "printf", NULL},
-        {"sort", NULL, NULL},
-        {"uniq", NULL, NULL},
+        // {"cat", "./testing/main_ex.c", NULL},
+        // {"grep", "printf", NULL},
+        // {"sort", NULL, NULL},
+        // {"uniq", NULL, NULL},
         // ls -l | grep "myfile" | sort
         // cat main_ex.c | grep "keyword" | sort | uniq
     };

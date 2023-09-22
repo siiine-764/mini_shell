@@ -1,9 +1,9 @@
 a.out
-example.txt
-explain.txt
 main_ex.c
-rrrr
-test1
+t.txt
 test1.c
 test_redir.c
 testing0.c
+tt.txt
+yesss.c
+yesssdd.c

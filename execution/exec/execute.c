@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 22:42:01 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/21 23:51:09 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/22 23:52:29 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,17 +156,6 @@ void    execute(t_cmd *my_cmd, char **env)
 	p = get_path(path);
     create_env(env, &head);
     
-    // t_redir *redir = malloc(sizeof(redir));
-    // // Create an instance of the struct
-    // // Assign values to its members
-    // redir->typ_redir = ">";
-    // redir->file = "filename.txt";
-    // redir->cnt = 42;
-
-    // printf("typ_redir: %s\n", redir->typ_redir);
-    // printf("file: %s\n",  redir->file);
-    // printf("cnt: %d\n", redir->cnt);
-    
     rl_initialize();
     int bl = 0;
     while (1)
@@ -176,10 +165,15 @@ void    execute(t_cmd *my_cmd, char **env)
         bl = execute_cmd(env, input, head, my_cmd);
         if(bl == 0)
         {
-            if (my_cmd->pipe == 0)
-                excute_cmd(my_cmd, p);
-            if (my_cmd->pipe == 1)
-                pi_pe(my_cmd, p);
+            if (my_cmd->pipe == 0 && my_cmd->redir->cnt_redir <= 1)
+            {
+                printf("redir\n");
+                ft_redir(my_cmd, p);
+            }
+            // if (my_cmd->pipe == 0)
+            //     excute_cmd(my_cmd, p);
+            // else if (my_cmd->pipe == 1)
+            //     pi_pe(my_cmd, p);
         }
         free(input);
     }
@@ -190,19 +184,19 @@ int main(int ac, char **av, char **env)
 {
     (void)ac;
     (void)av;
-    
+    (void)env;
     // Create a t_cmd struct
     t_cmd *my_cmd = ft_calloc (1, sizeof(t_cmd));
 
     // Example values
-    char *command[] = {"ls", "-l", NULL};
+    char *command[] = {"cat", NULL, NULL};
     char *arguments[] = {"export", "sss", "fffff", NULL};
     char *flag = "-n";
     int count = 3;
     int cnt_pipe = 4;
     int fpipe = 0;
     int rpipe = 0;
-    int pp = 1;
+    int pp = 0;
     char *text[] = {"yassine", "dddddddd", NULL};
 
     my_cmd->cmd = (char**)malloc((count + 1) * sizeof(char*));  // +1 for NULL terminator
@@ -217,6 +211,13 @@ int main(int ac, char **av, char **env)
     my_cmd->cnt_pipe = cnt_pipe;
     my_cmd->pipe = pp;
 
+    int typ = 124;
+    int cctyp = 0;
+    char *sttt =  "file.txt";
+    my_cmd->redir = ft_calloc (1, sizeof(t_redir));
+    my_cmd->redir->typ_redir = typ;
+    my_cmd->redir->cnt_redir = cctyp;
+    my_cmd->redir->file = sttt;
     execute(my_cmd, env);
     return 0;
 }

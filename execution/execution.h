@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 21:56:49 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/21 23:34:20 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/22 23:11:09 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+# define REDIRECT_OUTPUT 62 //redirect output > = 62
+# define REDIRECT_INPUT 60 //redirect input  < = 60
+# define REDIRECT_OUTPUT_APPEND 124  //should redirect output in append mode >> = 62 + 62
+# define REDIRECT_DELIMITE 120      // redirect  delimite << = 60 + 60
 char **g_env;
 struct Node {
   char      *val;
@@ -61,9 +65,9 @@ typedef struct s_add_env
 
 typedef struct s_redir
 {
-    char    *typ_redir;
     char    *file;
-    int     cnt;
+    int     typ_redir;
+    int     cnt_redir;
 } t_redir;
 
 typedef struct s_cmd
@@ -77,6 +81,7 @@ typedef struct s_cmd
     int cnt_pipe;
     char **arguments;
     char  **txt;
+    t_redir *redir;
 } t_cmd;
 
 typedef struct s_path
@@ -94,7 +99,6 @@ void		e_cho(char **arr, char *flag);
 void		ex_it(void);
 /// end functions builtins ///
 
-
 /// functions execution ///
 // int	check_builtins(char *cmd);
 // void    execute_cmd(char *cmd, struct Node* head, char *add_key, char *add_val);
@@ -108,6 +112,16 @@ void    excute_cmd(t_cmd *my_cmd, t_path *p);
 void    pi_pe(t_cmd *my_cmd, t_path *p);
 void    my_execve(char *file, char *args[], t_path *p);
 void    wait_all(int cnt_pipe);
+
+/// end functions pipe ///
+
+/// functions redirect ///
+void ft_redir(t_cmd *my_cmd, t_path *p);
+void ft_redirect_output(char *file, t_path *p, t_cmd *my_cmd);
+void ft_redirect_input(char *file, t_path *p, t_cmd *my_cmd);
+void ft_redirect_output_append(char *file, t_path *p, t_cmd *my_cmd);
+/// end functions redirect ///
+
 /// functions env ///
 struct Node	*createNode(char  *val, char  *key);
 void		insertNode(struct Node** head, char  *val, char  *key);
