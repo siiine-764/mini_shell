@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 15:23:21 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/21 20:00:29 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/23 17:09:27 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 void    e_cho(char **arr, char *flag)
 {
     (void)arr;
+    (void)flag;
     int i;
     int flg;
-
+    
     flg = 0;
-    i = 0;
+    i = 1;
     if (ft_strcmp(flag, "-n") == 0)
     {
         flg = 1;
     }
+
     while (arr[i])
     {
         printf("%s", arr[i]);

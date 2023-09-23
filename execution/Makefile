@@ -1,4 +1,4 @@
-NAME	= execution
+NAME	= execution.a
 CC		= cc
 CFLAGS 	= -Wall -Wextra -Werror #-fsanitize=address -g
 
@@ -21,10 +21,9 @@ SRCS =	builtins/cd.c\
 all: $(NAME)
 
 OBJS = $(SRCS:.c=.o)
-
 $(NAME) : $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lreadline -lncurses
-	@echo "make it"
+	@ar rcs $(NAME) $(OBJS)
+	@echo "make execution"
 
 clean:
 	@rm -f $(OBJS)
@@ -35,5 +34,6 @@ fclean: clean
 	@echo "fclean execution"
 
 re: fclean $(NAME)
+	@echo "re execution"
 
 .PHONY: clean fclean re all	

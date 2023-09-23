@@ -1,12 +1,47 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 22:04:52 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/06/09 22:04:55 by hben-mes         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "minishell.h"
 
+int main(int ac, char **av, char **env)
+{
+    (void)ac;
+    (void)av;
+    (void)env;
+
+    // my struct
+    t_cmd *my_cmd = (t_cmd *)malloc(sizeof(t_cmd));
+    
+    // for example :
+    char *flag = "-n";
+    char *arguments[][3] = 
+    {
+        {"unset", "zebiiiii", ""},
+        {"export", "xx", "sssss"},
+    };
+    if (my_cmd == NULL)
+    {
+        perror("Memory allocation failed");
+        return 1;
+    }
+    my_cmd->arguments = (char ***)malloc(2 * sizeof(char **));
+    if (my_cmd->arguments == NULL) {
+        perror("Memory allocation failed");
+        free(my_cmd);
+        return 1;
+    }
+    for (int i = 0; i < 2; i++)
+    {
+        my_cmd->arguments[i] = (char **)malloc(3 * sizeof(char *));
+        if (my_cmd->arguments[i] == NULL) {
+            perror("Memory allocation failed");
+            return 1;
+        }
+
+        for (int j = 0; j < 3; j++) {
+            my_cmd->arguments[i][j] = arguments[i][j];
+        }
+    }
+    my_cmd->flag = flag;
+    
+    // my function
+    excute_cpy(my_cmd, env);
+    return 0;
+}

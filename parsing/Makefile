@@ -16,7 +16,7 @@ all: $(NAME)
 OBJS = $(SRCS:.c=.o)
 
 $(NAME) : $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) 
 	@echo "make it"
 
 clean:
