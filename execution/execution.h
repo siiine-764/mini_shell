@@ -72,16 +72,16 @@ typedef struct s_redir
 
 typedef struct s_cmd
 {
-    char    **cmd;
-	char	*flag;
-    int cnt;
-    int fpipe;
-    int rpipe;
-    int pipe;
-    int cnt_pipe;
-    char **arguments;
-    char  **txt;
-    t_redir *redir;
+    char    **cmd; //comand 
+	char	*flag; // flangs 
+    int cnt; // count comnad how much 
+    // int fpipe;
+    // int rpipe;
+    int pipe; // boolean 0 || 1
+    int cnt_pipe; // count pipe how much
+    char ***arguments; // arguments
+    char  **txt; // text 
+    t_redir *redir; // directions
 } t_cmd;
 
 typedef struct s_path
@@ -103,7 +103,8 @@ void		ex_it(void);
 // int	check_builtins(char *cmd);
 // void    execute_cmd(char *cmd, struct Node* head, char *add_key, char *add_val);
 void    execute(t_cmd *my_cmd, char **env);
-int     execute_cmd(char **env, char *input, struct Node* head, t_cmd *my_cmd);
+void    excute_cpy(t_cmd *my_cmd, char **env);
+int     execute_builtins(char **env, char *input, struct Node* head, t_cmd *my_cmd);
 t_path    *get_path(char *path);
 void    excute_cmd(t_cmd *my_cmd, t_path *p);
 /// end functions execution ///

@@ -77,75 +77,120 @@ t_path    *get_path(char *path)
 }
 
 
-int execute_cmd(char **env, char *input, struct Node* head, t_cmd *my_cmd)
+int execute_builtins(char **env, char *input, struct Node* head, t_cmd *my_cmd)
 {
-    if (strcmp(input, "exit") == 0) {
-        free(input);
-        printf("exit\n");
-        exit(0);
-        return (1);
-    }
-    else if (strcmp(input, "echo") == 0) {
-        e_cho(my_cmd->txt, my_cmd->flag);
-        return (1);
-    }
-    else if(strcmp(input, "env") == 0) {
-        displayList(head);
-        return (1);
-    }
-    else if(strcmp(input, "pwd") == 0) {
-        pwd();
-        return (1);
-    }
-    else if(strcmp(input, "cd") == 0) {
-        cd(env, head);
-        return (1);
-    }
-    else if(strcmp(my_cmd->arguments[0], "export") == 0
-        && strcmp(input, "export") == 0) {
-            if (fork() == 0)
-            {
-                ft_ex_port(head,  my_cmd->arguments[1],  my_cmd->arguments[2], env);
+    int i;
+    // int j;
+
+    i = -1;
+
+    printf("---> %s <-- \n", input);
+    while (++i < 2)
+    {
+        // printf("--> %d", i);
+            if (strcmp(input, "exit") == 0) {
+                free(input);
+                printf("exit\n");
+                exit(0);
+                return (1);
             }
-            wait(NULL);
-            return (1);
-    }
-    else if(strcmp(my_cmd->arguments[0], "unset") == 0
-        && strcmp(input, "unset") == 0) {
-            if (fork() == 0)
-            {
-                un_set(head, my_cmd->arguments[1]);
+            else if (strcmp(input, "echo") == 0) {
+                // printf("-> %s\n -------", my_cmd->arguments[i][2]);
+                e_cho(my_cmd->txt, my_cmd->arguments[i][2]);
+                return (1);
             }
-            wait(NULL);
-            return (1);
-    }
+            else if(strcmp(input, "env") == 0) {
+                displayList(head);
+                return (1);
+            }
+            else if(strcmp(input, "pwd") == 0) {
+                pwd();
+                return (1);
+            }
+            else if(strcmp(input, "cd") == 0) {
+                cd(env, head);
+                return (1);
+            }
+            // else if(strcmp(my_cmd->arguments[i][j], "export") == 0
+            //     && strcmp(input, "export") == 0) {
+            //         if (fork() == 0)
+            //         {
+            //             ft_ex_port(head,  my_cmd->arguments[i][j],  my_cmd->arguments[i][j], env);
+            //         }
+            //         wait(NULL);
+            //         return (1);
+            // }
+            // else if(strcmp(my_cmd->arguments[i][j], "unset") == 0
+            //     && strcmp(input, "unset") == 0) {
+            //         if (fork() == 0)
+            //         {
+            //             un_set(head, my_cmd->arguments[i][j]);
+            //         }
+            //         wait(NULL);
+            //         return (1);
+            // }
+        }
     return (0);
 }
 
-void    excute_cmd(t_cmd *my_cmd, t_path *p)
-{
-    int j = 0;
-    char *str_join;
-    if (fork() == 0)
-    {
-        while (j <= p->cnt)
-        {
-        str_join = ft_strjoin(p->path[j], "/");
-        str_join = ft_strjoin(str_join, my_cmd->cmd[0]);
-        // printf("---> %s\n", str_join);
-        execve(str_join, my_cmd->cmd, NULL);
-        if (j == p->cnt)
-        {
-            printf("minishell$ command not found\n");
-            exit(0);
-        }
-        j++;
-        }
-    }
-    wait(NULL);
-}
+// void    excute_cmd(t_cmd *my_cmd, t_path *p)
+// {
+//     int j = 0;
+//     char *str_join;
+//     if (fork() == 0)
+//     {
+//         while (j <= p->cnt)
+//         {
+//         str_join = ft_strjoin(p->path[j], "/");
+//         str_join = ft_strjoin(str_join, my_cmd->cmd[0][0]);
+//         // printf("---> %s\n", str_join);
+//         execve(str_join, my_cmd->cmd[0], NULL);
+//         if (j == p->cnt)
+//         {
+//             printf("minishell$ command not found\n");
+//             exit(0);
+//         }
+//         j++;
+//         }
+//     }
+//     wait(NULL);
+// }
 
-void    execute(t_cmd *my_cmd, char **env)
+// void    execute(t_cmd *my_cmd, char **env)
+// {
+//     char *input;
+//     struct Node* head = NULL;
+//     t_path *p = malloc(sizeof(p));
+//     char* path = malloc(sizeof(char *));
+//     path = getenv("PATH");
+    
+// 	p = get_path(path);
+//     create_env(env, &head);
+    
+//     rl_initialize();
+//     int bl = 0;
+//     while (1)
+//     {
+//         input = readline("minishell$ ");
+//         add_history(input);
+//         bl = execute_builtins(env, input, head, my_cmd);
+//         if(bl == 0)
+//         {
+//             if (my_cmd->pipe == 0 && my_cmd->redir->cnt_redir <= 1)
+//             {
+//                 printf("redir\n");
+//                 ft_redir(my_cmd, p);
+//             }
+//             // if (my_cmd->pipe == 0)
+//             //     excute_cmd(my_cmd, p);
+//             // else if (my_cmd->pipe == 1)
+//             //     pi_pe(my_cmd, p);
+//         }
+//         free(input);
+//     }
+// }
+
+void    excute_cpy(t_cmd *my_cmd, char **env)
 {
     char *input;
     struct Node* head = NULL;
@@ -162,23 +207,14 @@ void    execute(t_cmd *my_cmd, char **env)
     {
         input = readline("minishell$ ");
         add_history(input);
-        bl = execute_cmd(env, input, head, my_cmd);
+        bl = execute_builtins(env, input, head, my_cmd);
         if(bl == 0)
         {
-            if (my_cmd->pipe == 0 && my_cmd->redir->cnt_redir <= 1)
-            {
-                printf("redir\n");
-                ft_redir(my_cmd, p);
-            }
-            // if (my_cmd->pipe == 0)
-            //     excute_cmd(my_cmd, p);
-            // else if (my_cmd->pipe == 1)
-            //     pi_pe(my_cmd, p);
+            printf("part cmd && pipe\n");
         }
         free(input);
     }
 }
-
 
 int main(int ac, char **av, char **env)
 {
@@ -186,28 +222,65 @@ int main(int ac, char **av, char **env)
     (void)av;
     (void)env;
     // Create a t_cmd struct
-    t_cmd *my_cmd = ft_calloc (1, sizeof(t_cmd));
+    //  t_cmd *my_cmd = ft_calloc (2, sizeof(t_cmd));
 
+
+    // t_cmd *my_cmd = malloc(sizeof(my_cmd));
     // Example values
-    char *command[] = {"cat", NULL, NULL};
-    char *arguments[] = {"export", "sss", "fffff", NULL};
+
+    char *arguments[][3] = 
+    {
+        {"echo", "dddddddd", "-n"},
+        {"aaa", "xx", "sssss"},
+    };
+
+    t_cmd *my_cmd = (t_cmd *)malloc(sizeof(t_cmd));
+    if (my_cmd == NULL) {
+        perror("Memory allocation failed");
+        return 1;
+    }
+    my_cmd->arguments = (char ***)malloc(2 * sizeof(char **));
+    if (my_cmd->arguments == NULL) {
+        perror("Memory allocation failed");
+        free(my_cmd);
+        return 1;
+    }
+    // my_cmd->cmd  = NULL;
+    for (int i = 0; i < 2; i++) {
+        my_cmd->arguments[i] = (char **)malloc(3 * sizeof(char *));
+    // //     // (char **)malloc(sizeof(char *));
+    // //     printf("dddd");
+        if (my_cmd->arguments[i] == NULL) {
+            perror("Memory allocation failed");
+            return 1;
+        }
+
+        for (int j = 0; j < 3; j++) {
+            my_cmd->arguments[i][j] = arguments[i][j];
+            printf("%s\n", my_cmd->arguments[i][j]);
+        }
+    }
+
+    //  for (int i = 0; i < 2; i++) 
+    //  {
+    //     for (int j = 0; j < 3; j++) {
+    //     }
+    //  }
+
     char *flag = "-n";
     int count = 3;
     int cnt_pipe = 4;
-    int fpipe = 0;
-    int rpipe = 0;
+    // int fpipe = 0;
+    // int rpipe = 0;
     int pp = 0;
     char *text[] = {"yassine", "dddddddd", NULL};
 
-    my_cmd->cmd = (char**)malloc((count + 1) * sizeof(char*));  // +1 for NULL terminator
-
     my_cmd->cnt = count;
-    my_cmd->fpipe = fpipe;
-    my_cmd->rpipe = rpipe;
+    // my_cmd->fpipe = fpipe;
+    // my_cmd->rpipe = rpipe;
     my_cmd->txt = text;
     my_cmd->flag = flag;
-    my_cmd->cmd = command;
-    my_cmd->arguments = arguments;
+    // my_cmd->arguments = arguments;
     my_cmd->cnt_pipe = cnt_pipe;
     my_cmd->pipe = pp;
 
@@ -218,6 +291,12 @@ int main(int ac, char **av, char **env)
     my_cmd->redir->typ_redir = typ;
     my_cmd->redir->cnt_redir = cctyp;
     my_cmd->redir->file = sttt;
-    execute(my_cmd, env);
+
+    // printf("%s %d\n", my_cmd->txt[0],  my_cmd->flag[0]);
+    excute_cpy(my_cmd, env);
+
+
+        // Don't forget to free the allocated memory when done
+    // for (int i = `
     return 0;
 }
