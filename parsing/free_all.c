@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_all.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/25 13:07:45 by hben-mes          #+#    #+#             */
+/*   Updated: 2023/09/25 13:07:45 by hben-mes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "../MiniShell.h"
+#include "../miniShell.h"
 
-void	ft_initialize(t_top *top)
+void	ft_initialize(t_top_cmd *top)
 {
 	top->fst_cmd= NULL;
 	top->size = 0;
@@ -39,7 +50,7 @@ void	all_free(t_top_cmd *top)
 		free_tokens(top->fst_cmd->redirection);
 		j = top->fst_cmd;
 		top->fst_cmd = top->fst_cmd->nxt_comm;
-		free(t);
+		free(j);
 	}
 	free(top);
 }

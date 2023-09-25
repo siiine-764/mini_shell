@@ -10,6 +10,9 @@ SRCS =	aft_dollar.c\
 		parse.c\
 		str_collect.c\
 		unquoted_str.c\
+		utils.c\
+		utils1.c\
+		utils2.c\
 
 all: $(NAME)
 

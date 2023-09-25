@@ -1,11 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   str_collect.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/25 13:08:44 by hben-mes          #+#    #+#             */
+/*   Updated: 2023/09/25 13:31:11 by hben-mes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "../MiniShell.h"
+#include "../miniShell.h"
 
 char	*prime_str_collect(t_lxr *lxr, t_cata *env_list, char cmd, int l)
 {
 	char	*res;
 
-	if (j == '"' && lxr->cmd == '$' && \
+	if (cmd == '"' && lxr->cmd == '$' && \
 			lxr->i < ft_strlen(lxr->ctt) - 1 && \
 			aft_dollar_check(lxr) == 1 && l == 1)
 		return (aft_dollar(lxr, env_list));
@@ -14,10 +25,10 @@ char	*prime_str_collect(t_lxr *lxr, t_cata *env_list, char cmd, int l)
 		|| lxr->ctt[lxr->i + 1] == cmd \
 		|| lxr->ctt[lxr->i + 1] == '$'))
 	{
-		ft_move(lexer);
+		ft_move(lxr);
 		res = ft_strdup(&lxr->cmd);
 		ft_move(lxr);
-		return (s);
+		return (res);
 	}
 	else
 	{
@@ -39,7 +50,7 @@ char	*str_collect(t_lxr *lxr, t_list *env_list, char cmd, int l)
 	{
 		temp = s;
 		res = prime_str_collect(lxr, env_list, cmd, l);
-		s = ft_strjoin(str, res);
+		s = ft_strjoin(s, res);
 		free(res);
 		free(temp);
 	}

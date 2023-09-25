@@ -1,31 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/25 13:06:32 by hben-mes          #+#    #+#             */
+/*   Updated: 2023/09/25 13:06:32 by hben-mes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "../MiniShell.h"
-
-t_tkn	*tkn_initialize(char *data, int typ)
-{
-	t_tkn	*tkn;
-
-	tkn = ft_calloc(1, sizeof(t_tkn));
-	tkn->nxt = NULL;
-	tkn->tkn = typ;
-	tkn->data = data;
-	return (tkn);
-}
-
-void	ft_move(t_lxr	*lxr)
-{
-	if (lxr->i < ft_strlen(lxr->ctt))
-	{
-		lxr->i += 1;
-		lxr->cmd = lxr->ctt[lxr->i];
-	}
-}
-
-void	space_skip(t_lxr	*lxr)
-{
-	while (lxr->ctt[lxr->i] == ' ' && lxr->ctt[lxr->i] != '\0')
-		ft_move(lxr);
-}
+#include "../miniShell.h"
 
 t_tkn	*ft_redirection(t_lxr *lxr, t_cata *env_list)
 {
