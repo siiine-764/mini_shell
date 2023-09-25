@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 00:57:54 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/21 21:07:26 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/23 20:30:17 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void    ft_ex_port(struct Node* head, char *add_key, char *add_val, char **env)
     if (!add_key[0] && !add_val[0])
     {
         displayList_export(head);
-        // free(head);
+        free(head);
         exit(0);
     }
     char *strjoin = ft_strjoin(add_key, "=");
@@ -33,7 +33,6 @@ void    ft_ex_port(struct Node* head, char *add_key, char *add_val, char **env)
 
     while (temp != NULL)
     {
-        // printf("temp :%s, add key %s\n",temp->key, strjoin );
         if(strcmp(temp->key, strjoin) == 0)
         {
             bl = 1;
@@ -45,7 +44,6 @@ void    ft_ex_port(struct Node* head, char *add_key, char *add_val, char **env)
     if(bl == 0)
     {
         insertNode(&head, add_val, strjoin);
-        // printf("--> val %s, key %s\n", head->val, head->key);
     }
 }
 

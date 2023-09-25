@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 00:58:19 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/21 20:11:12 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/25 19:52:07 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void deleteNode(struct Node** head_ref, const char* key)
     struct Node* prev = NULL;
 
     // If the head node itself holds the key to be deleted
-    if (temp != NULL && strcmp(temp->key, key) == 0) {
+    if (temp != NULL && strcmp(temp->key, key) == 0)
+    {
         *head_ref = temp->next; // Changed head
         free(temp); // Free the old head
         return;

@@ -64,14 +64,14 @@ void    pi_pe(t_cmd *my_cmd, t_path *p)
     int pipes[my_cmd->cnt_pipe - 1][2];
 
     // Create pipes for connecting commands
-    int i = 0;
-    while (i < my_cmd->cnt_pipe)
+    int i = -1;
+    while (++i < my_cmd->cnt_pipe)
     {
-        if (pipe(pipes[i]) == -1) {
+        if (pipe(pipes[i]) == -1)
+        {
             perror("pipe");
             exit(EXIT_FAILURE);
         }
-        i++;
     }
 
     i = -1;

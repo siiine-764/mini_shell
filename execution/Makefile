@@ -21,6 +21,7 @@ SRCS =	builtins/cd.c\
 all: $(NAME)
 
 OBJS = $(SRCS:.c=.o)
+
 $(NAME) : $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
 	@echo "make execution"

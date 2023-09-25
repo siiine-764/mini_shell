@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 23:32:51 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/22 23:53:29 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/25 23:49:49 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,53 @@
 //     (void)my_cmd;
 // }
 
+
+char *ft_redir_herdoc(t_cmd *my_cmd, char *delimiter)
+{
+    (void)my_cmd;
+    (void)delimiter;
+    char *heredocInput = NULL;
+    size_t heredocInputSize = 0;
+
+    while (1) {
+        char *line = readline(">"); // Use readline instead of getline
+
+        if (line == NULL) {
+            perror("Error reading input");
+            free(heredocInput);
+            return NULL;
+        }
+
+        if (strcmp(line, "END") == 0) {
+            free(line);
+            break;
+        }
+        add_history(line); // Add the line to history
+        size_t lineLength = strlen(line);
+        heredocInput = realloc(heredocInput, heredocInputSize + lineLength + 1);
+        if (heredocInput == NULL) {
+            perror("Memory allocation failed");
+            free(line);
+            return NULL;
+        }
+        memcpy(heredocInput + heredocInputSize, line, lineLength);
+        heredocInputSize += lineLength;
+        heredocInput[heredocInputSize] = '\n'; // Add newline character
+
+        free(line);
+    }
+
+    if (heredocInputSize > 0) {
+        heredocInput[heredocInputSize] = '\0';
+    } else {
+        perror("No input provided");
+        free(heredocInput);
+        return NULL;
+    }
+
+    return heredocInput;
+}
+
 // void ft_redir(t_cmd *my_cmd, t_path *p)
 // {
 //     if (my_cmd->redir->typ_redir == 62)
@@ -95,8 +142,8 @@
 //         printf("out append\n");
 //         ft_redirect_output_append(my_cmd->redir->file, p, my_cmd);
 //     }
-//     // if (my_cmd->redir->typ_redir == 120)
-//     // {
-//     //     printf("120");
-//     // }
+//     if (my_cmd->redir->typ_redir == 120)
+//     {
+//         printf("here doc\n");
+//     }
 // }

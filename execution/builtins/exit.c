@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 21:25:08 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/20 22:47:20 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/25 23:12:54 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	check_args_for_exit(char **args)
 	if (number_of_args(args) > 2)
 	{
 		printf("minishel: exit: too many arguments\n");
-		return (1);
+		return (0);
 	}
 	if (!ft_isnum(args[1]))
 	{
@@ -47,5 +47,5 @@ void    ex_it(void)
     printf("exit\n");
     // if (check_args_for_exit(cd->args))
     //     return (1);
-    exit(0);
+    exit(1);
 }

@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 21:56:49 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/22 23:11:09 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/25 23:40:12 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define REDIRECT_OUTPUT 62 //redirect output > = 62
 # define REDIRECT_INPUT 60 //redirect input  < = 60
 # define REDIRECT_OUTPUT_APPEND 124  //should redirect output in append mode >> = 62 + 62
-# define REDIRECT_DELIMITE 120      // redirect  delimite << = 60 + 60
+# define HERE_DOC 120      // redirect  delimite << = 60 + 60
 char **g_env;
 struct Node {
   char      *val;
@@ -97,6 +97,7 @@ void		un_set(struct Node* head, char *add_key);
 void		ft_ex_port(struct Node* head, char *add_key, char *add_val,char **env);
 void		e_cho(char **arr, char *flag);
 void		ex_it(void);
+
 /// end functions builtins ///
 
 /// functions execution ///
@@ -104,6 +105,9 @@ void		ex_it(void);
 // void    execute_cmd(char *cmd, struct Node* head, char *add_key, char *add_val);
 void    execute(t_cmd *my_cmd, char **env);
 void    excute_cpy(t_cmd *my_cmd, char **env);
+int     run_builtins0(char *input, struct Node* head, char **env);
+int     run_builtins1(t_cmd *my_cmd, char **env, char *input, struct Node* head);
+int     run_builtins2(t_cmd *my_cmd, char *input, struct Node* head);
 int     execute_builtins(char **env, char *input, struct Node* head, t_cmd *my_cmd);
 t_path    *get_path(char *path);
 void    excute_cmd(t_cmd *my_cmd, t_path *p);
@@ -121,6 +125,7 @@ void ft_redir(t_cmd *my_cmd, t_path *p);
 void ft_redirect_output(char *file, t_path *p, t_cmd *my_cmd);
 void ft_redirect_input(char *file, t_path *p, t_cmd *my_cmd);
 void ft_redirect_output_append(char *file, t_path *p, t_cmd *my_cmd);
+char *ft_redir_herdoc(t_cmd *my_cmd, char *delimiter);
 /// end functions redirect ///
 
 /// functions env ///

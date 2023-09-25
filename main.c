@@ -10,10 +10,10 @@ int main(int ac, char **av, char **env)
     t_cmd *my_cmd = (t_cmd *)malloc(sizeof(t_cmd));
     
     // for example :
-    char *flag = "-n";
+    char *flag = "-nnnnnnnn";
     char *arguments[][3] = 
     {
-        {"unset", "zebiiiii", ""},
+        {"unset", "LANG", ""},
         {"export", "xx", "sssss"},
     };
     if (my_cmd == NULL)

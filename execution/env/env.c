@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:57:27 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/21 17:41:24 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/25 20:41:35 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,32 +18,35 @@ struct Node* createNode(char  *val, char  *key) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->val = val;
     newNode->key = key;
-
-    // printf("----> val %s\n",  newNode->val);
-    // printf("---> key %s\n",  newNode->key);
     newNode->next = NULL;
     return newNode;
 }
 
-void insertNode(struct Node** head, char  *val, char  *key) {
+void insertNode(struct Node** head, char  *val, char  *key)
+{
     struct Node* newNode = createNode(val, key);
-    if (*head == NULL) {
+
+    if (*head == NULL)
+    {
         *head = newNode;
-    } else {
+    }
+    else
+    {
         struct Node* temp = *head;
-        // printf("%s%s \n", newNode->key, newNode->val);
-        while (temp->next != NULL) {
+        while (temp->next != NULL)
+        {
             temp = temp->next;
         }
         temp->next = newNode;
-        // newNode->next = NULL;
     }
 }
 
-void displayList(struct Node* head) {
+void displayList(struct Node* head)
+{
     printf("%s\n",head->key);
     struct Node* temp = head;
-    while (temp != NULL) {
+    while (temp != NULL)
+    {
         if (temp->key[0] && temp->val[0])
         {
             printf("%s", temp->key);
@@ -69,19 +72,12 @@ void displayList_export(struct Node* head)
 
 void	create_env(char **env, struct Node** head)
 {
-	int		i;	
+	int		i;
 
-	// env = NULL;
-	// env = init_env(env);
-	// env->env = tab;
 	i = 0;
-    // (void)env;
-    // (void)head;
-    // printf("ddddd");
     while(env[i])
     {
         insertNode(head, get_value(env[i]), get_key(env[i]));
         i++;
     }
-	// return (env);
 }

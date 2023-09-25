@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 22:42:01 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/23 19:44:48 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/25 23:50:16 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,74 @@ t_path    *get_path(char *path)
     return (p);
 }
 
+int    run_builtins0(char *input, struct Node* head, char **env)
+{
+    if (strcmp(input, "exit") == 0)
+    {
+        free(input);
+        printf("exit\n");
+        exit(0);
+        return (1);
+    }
+    else if(strcmp(input, "pwd") == 0)
+    {
+        pwd();
+        return (1);
+    }
+    else if(strcmp(input, "cd") == 0)
+    {
+        cd(env, head);
+        return (1);
+    }
+    else if(strcmp(input, "env") == 0)
+    {
+        displayList(head);
+        return (1);
+    }
+    return (0);
+}
 
+int run_builtins1(t_cmd *my_cmd, char **env, char *input, struct Node* head)
+{
+    int i;
+
+    i = -1;
+    while (++i < 2)
+    {
+        if(strcmp(my_cmd->arguments[i][0], "export") == 0
+        && strcmp(input, "export") == 0)
+        {
+            if (fork() == 0)
+            {
+                ft_ex_port(head,  my_cmd->arguments[i][1],  my_cmd->arguments[i][2], env);
+            }
+            wait(NULL);
+            return (1);
+        }
+    }
+    return (0);
+}
+
+int run_builtins2(t_cmd *my_cmd, char *input, struct Node* head)
+{
+    int i;
+
+    i = -1;
+    while (++i < 2)
+    {
+        if(strcmp(my_cmd->arguments[i][0], "unset") == 0
+        && strcmp(input, "unset") == 0)
+        {
+            if (fork() == 0)
+            {
+                un_set(head, my_cmd->arguments[i][1]);
+            }
+            wait(NULL);
+            return (1);
+        }
+    }
+    return (0);
+}
 int execute_builtins(char **env, char *input, struct Node* head, t_cmd *my_cmd)
 {
     int i;
@@ -84,48 +151,18 @@ int execute_builtins(char **env, char *input, struct Node* head, t_cmd *my_cmd)
     i = -1;
     while (++i < 2)
     {
-        // printf("--> %d", i);
-            if (strcmp(input, "exit") == 0) {
-                free(input);
-                printf("exit\n");
-                exit(0);
-                return (1);
-            }
-            else if (strcmp(input, "echo") == 0) {
-                e_cho(my_cmd->arguments[i], my_cmd->flag);
-                return (1);
-            }
-            else if(strcmp(input, "env") == 0) {
-                displayList(head);
-                return (1);
-            }
-            else if(strcmp(input, "pwd") == 0) {
-                pwd();
-                return (1);
-            }
-            else if(strcmp(input, "cd") == 0) {
-                cd(env, head);
-                return (1);
-            }
-            else if(strcmp(my_cmd->arguments[i][0], "export") == 0
-                && strcmp(input, "export") == 0) {
-                    if (fork() == 0)
-                    {
-                        ft_ex_port(head,  my_cmd->arguments[i][1],  my_cmd->arguments[i][2], env);
-                    }
-                    wait(NULL);
-                    return (1);
-            }
-            else if(strcmp(my_cmd->arguments[i][0], "unset") == 0
-                && strcmp(input, "unset") == 0) {
-                    if (fork() == 0)
-                    {
-                        un_set(head, my_cmd->arguments[i][1]);
-                    }
-                    wait(NULL);
-                    return (1);
-            }
+        if (run_builtins0(input, head, env) == 1)
+            return (1);
+        else if (strcmp(input, "echo") == 0)
+        {
+            e_cho(my_cmd->arguments[i], my_cmd->flag);
+            return (1);
         }
+        else if (run_builtins1(my_cmd, env, input, head) == 1)
+            return (1);
+        else if (run_builtins2(my_cmd, input, head) == 1)
+            return (1);
+    }
     return (0);
 }
 
@@ -193,15 +230,21 @@ void    excute_cpy(t_cmd *my_cmd, char **env)
     t_path *p = malloc(sizeof(p));
     char* path = malloc(sizeof(char *));
     path = getenv("PATH");
-    
+
 	p = get_path(path);
     create_env(env, &head);
-    
+
     rl_initialize();
     int bl = 0;
     while (1)
     {
         input = readline("minishell$ ");
+        // char *delimiter = "END";
+        // char *heredocInput = ft_redir_herdoc(my_cmd, delimiter);
+        // if (heredocInput == NULL) {
+        //     return ;
+        // }
+        // free(heredocInput);
         add_history(input);
         bl = execute_builtins(env, input, head, my_cmd);
         if(bl == 0)
