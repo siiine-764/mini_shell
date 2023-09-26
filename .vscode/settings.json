@@ -5,6 +5,7 @@
         "libft.h": "c",
         "execution.h": "c",
         "stdlib.h": "c",
-        "unistd.h": "c"
+        "unistd.h": "c",
+        "fcntl.h": "c"
     }
 }

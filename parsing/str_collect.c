@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   str_collect.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:08:44 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/09/25 13:31:11 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/09/26 15:54:54 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniShell.h"
+#include "../minishell.h"
 
-char	*prime_str_collect(t_lxr *lxr, t_cata *env_list, char cmd, int l)
+char	*prime_str_collect(t_lxr *lxr, t_env *env_list, char cmd, int l)
 {
 	char	*res;
 
@@ -38,7 +38,7 @@ char	*prime_str_collect(t_lxr *lxr, t_cata *env_list, char cmd, int l)
 	}
 }
 
-char	*str_collect(t_lxr *lxr, t_list *env_list, char cmd, int l)
+char	*str_collect(t_lxr *lxr, t_env *env_list, char cmd, int l)
 {
 	char	*res;
 	char	*s;

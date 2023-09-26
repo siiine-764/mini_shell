@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniShell.h"
+#include "../minishell.h"
 
 int	pipe_check(t_lxr *lxr, t_tkn *tkn, int l, t_top_cmd *top)
 {
@@ -32,7 +32,7 @@ int	token_check(t_tkn *tkn, t_comm *red, t_top_cmd *top, int *i)
 	{
 		if (syntax_handle(tkn->data, tkn, top) == 1)
 			return (1);
-		red->flags = ft_dup(red->flags, *i, tkn->data);
+		red->flags = ft_dup(red->flags, tkn->data, *i);
 		*i += 1;
 		free(tkn->data);
 		free(tkn);
@@ -46,7 +46,7 @@ int	token_check(t_tkn *tkn, t_comm *red, t_top_cmd *top, int *i)
 }
 
 int	node_load(t_comm *red, t_lxr *lxr, \
-	t_cata *env_list, t_top_cmd *top)
+	t_env *env_list, t_top_cmd *top)
 {
 	int			i;
 	int			j;
@@ -59,7 +59,7 @@ int	node_load(t_comm *red, t_lxr *lxr, \
 	{
 		if (tkn->tkn < 5)
 		{
-			if (token_check(tkn, red, &i, top) == 1)
+			if (token_check(tkn, red, top, &i) == 1)
 				return (1);
 		}
 		else if (tkn->tkn == 5)
@@ -74,7 +74,7 @@ int	node_load(t_comm *red, t_lxr *lxr, \
 	return (0);
 }
 
-int	cmd_add(t_top_cmd *top, t_lxr *lxr, t_cata *env_list)
+int	cmd_add(t_top_cmd *top, t_lxr *lxr, t_env *env_list)
 {
 	int			i;
 	t_comm	*red;
@@ -97,11 +97,11 @@ int	cmd_add(t_top_cmd *top, t_lxr *lxr, t_cata *env_list)
 		free(red);
 		return (1);
 	}
-	node_load(top, red);
+	node_load(red,lxr, env_list, top);
 	return (0);
 }
 
-t_top_cmd	*ft_execution(char *ctt, t_cata *env_list)
+t_top_cmd	*ft_execution(char *ctt, t_env *env_list)
 {
 	t_top_cmd	*cmd_top;
 	t_lxr		*lxr;

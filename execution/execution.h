@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 21:56:49 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/25 23:40:12 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:42:19 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char **g_env;
 struct Node {
   char      *val;
   char      *key;
+  char      *content;
   struct Node* next;
 };
 typedef struct s_env
@@ -104,7 +105,7 @@ void		ex_it(void);
 // int	check_builtins(char *cmd);
 // void    execute_cmd(char *cmd, struct Node* head, char *add_key, char *add_val);
 void    execute(t_cmd *my_cmd, char **env);
-void    excute_cpy(t_cmd *my_cmd, char **env);
+void    excute_cpy(t_cmd *my_cmd, char **env, struct Node* head, char *input);
 int     run_builtins0(char *input, struct Node* head, char **env);
 int     run_builtins1(t_cmd *my_cmd, char **env, char *input, struct Node* head);
 int     run_builtins2(t_cmd *my_cmd, char *input, struct Node* head);

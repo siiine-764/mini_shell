@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniShell.h"
+#include "../minishell.h"
 
 void	redirection_add(t_tkn_top *top, t_tkn *t)
 {
@@ -68,7 +68,7 @@ int	rederiction_handle(t_comm *red, t_tkn *tkn, t_top_cmd *top)
 {
 	if (syntax_handle(tkn->data, tkn, top) == 1)
 		return (1);
-	else if (tkn->tkn == T_HEREDOC)
+	else if (tkn->tkn == T_HERDOC)
 		redirection_add(red->heredoc, tkn);
 	else
 		redirection_add(red->redirection, tkn);

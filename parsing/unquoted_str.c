@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniShell.h"
+#include "../minishell.h"
 
 char	*utils_str(t_lxr *lxr)
 {
@@ -22,7 +22,7 @@ char	*utils_str(t_lxr *lxr)
 	return (s);
 }
 
-char	*str_put(t_lxr *lxr, t_cata *env_list, int l)
+char	*str_put(t_lxr *lxr, t_env *env_list, int l)
 {
 	char	*s;
 	char	*d;
@@ -58,7 +58,7 @@ char	*unquoted_free(char *s, char *d)
 	return (NULL);
 }
 
-char	*unquoted_str(t_lxr *lxr, t_cata *env_list, int l)
+char	*unquoted_str(t_lxr *lxr, t_env *env_list, int l)
 {
 	char	*s;
 	char	*d;

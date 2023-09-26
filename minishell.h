@@ -1,7 +1,6 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-
 // header execution //
 #include "./execution/execution.h"
 // end header execution //
@@ -34,6 +33,7 @@
 # define CNTRL_BACKSLASH 131
 # define SYNTAX_ERROR_EXIT 258
 
+char *g_global_vars;
 typedef enum typ
 {
 	T_WORD,
@@ -77,10 +77,41 @@ typedef struct lxr
 	size_t	i;
 }t_lxr;
 
-
+char	*find_env(t_env *env_list, char *name);
+void	ft_move(t_lxr	*lxr);
+int	exit_code(void);
+char	*ft_itoa(int n);
+char	*ft_strdup(const char *s1);
+int	ft_isalnum(int c);
+int	ft_isdigit(int digit);
+void	space_skip(t_lxr	*lxr);
+t_tkn	*tkn_initialize(char *data, int typ);
+char	*get_data(t_lxr *lxr, t_env *env_list, int l);
+int	ft_strncmp(const char *str1, const char *str2, size_t n);
+t_tkn	*handle_her(t_lxr *lxr, t_env *env_list);
+t_tkn	*ft_redirection(t_lxr *lxr, t_env *env_list);
+char	*join_free(char *s, char *t);
+char	*join_str(t_lxr *lxr, t_env *env_list, int l);
+int	syntax_handle(char *data, t_tkn *tk, t_top_cmd *top);
+void	ft_initialize(t_top_cmd *top);
+t_top_cmd	*ft_execution(char *ctt, t_env *env_list);
+t_tkn	*tkn_nxt(t_lxr *lxr, t_env *env_list);
+int	cmd_add(t_top_cmd *top, t_lxr *lxr, t_env *env_list);
+int	node_load(t_comm *red, t_lxr *lxr, t_env *env_list, t_top_cmd *top);
+t_lxr	*lxr_initialize(char *ctt);
+char	**ft_dup(char **av, char *data, int i);
+int	token_check(t_tkn *tkn, t_comm *red, t_top_cmd *top, int *i);
+void	all_free(t_top_cmd *top);
+void	put_exit(int i);
+int	rederiction_handle(t_comm *red, t_tkn *tkn, t_top_cmd *top);
+int	aft_dollar_check(t_lxr *lxr);
+char	*aft_dollar(t_lxr *lxr, t_env *env_list);
+char	*unquoted_str(t_lxr *lxr, t_env *env_list, int l);
+char	*str_collect(t_lxr *lxr, t_env *env_list, char cmd, int l);
+char	*get_var(t_lxr *lxr, t_env *env_list);
+char	*ft_strjoin(char *s1, char *s2);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-char **g_env;
 
 #endif

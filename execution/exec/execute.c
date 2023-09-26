@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 22:42:01 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/25 23:50:16 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:54:49 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,28 +166,28 @@ int execute_builtins(char **env, char *input, struct Node* head, t_cmd *my_cmd)
     return (0);
 }
 
-// void    excute_cmd(t_cmd *my_cmd, t_path *p)
-// {
-//     int j = 0;
-//     char *str_join;
-//     if (fork() == 0)
-//     {
-//         while (j <= p->cnt)
-//         {
-//         str_join = ft_strjoin(p->path[j], "/");
-//         str_join = ft_strjoin(str_join, my_cmd->cmd[0][0]);
-//         // printf("---> %s\n", str_join);
-//         execve(str_join, my_cmd->cmd[0], NULL);
-//         if (j == p->cnt)
-//         {
-//             printf("minishell$ command not found\n");
-//             exit(0);
-//         }
-//         j++;
-//         }
-//     }
-//     wait(NULL);
-// }
+void    excute_cmd(t_cmd *my_cmd, t_path *p)
+{
+    int j = 0;
+    char *str_join;
+    if (fork() == 0)
+    {
+        while (j <= p->cnt)
+        {
+        str_join = ft_strjoin(p->path[j], "/");
+        str_join = ft_strjoin(str_join, &my_cmd->cmd[0][0]);
+        // printf("---> %s\n", str_join);
+        execve(str_join, &my_cmd->cmd[0], NULL);
+        if (j == p->cnt)
+        {
+            printf("minishell$ command not found\n");
+            exit(0);
+        }
+        j++;
+        }
+    }
+    wait(NULL);
+}
 
 // void    execute(t_cmd *my_cmd, char **env)
 // {
@@ -223,36 +223,37 @@ int execute_builtins(char **env, char *input, struct Node* head, t_cmd *my_cmd)
 //     }
 // }
 
-void    excute_cpy(t_cmd *my_cmd, char **env)
+void    excute_cpy(t_cmd *my_cmd, char **env, struct Node* head, char *input)
 {
-    char *input;
-    struct Node* head = NULL;
+    // char *input;
+    // struct Node* head = NULL;
     t_path *p = malloc(sizeof(p));
     char* path = malloc(sizeof(char *));
     path = getenv("PATH");
 
 	p = get_path(path);
-    create_env(env, &head);
+    // create_env(env, &head);
 
-    rl_initialize();
     int bl = 0;
-    while (1)
-    {
-        input = readline("minishell$ ");
-        // char *delimiter = "END";
-        // char *heredocInput = ft_redir_herdoc(my_cmd, delimiter);
-        // if (heredocInput == NULL) {
-        //     return ;
-        // }
-        // free(heredocInput);
-        add_history(input);
-        bl = execute_builtins(env, input, head, my_cmd);
-        if(bl == 0)
-        {
-            printf("part cmd && pipe\n");
-        }
-        free(input);
-    }
+    // char *delimiter = "END";
+    // char *heredocInput = ft_redir_herdoc(my_cmd, delimiter);
+    // if (heredocInput == NULL) {
+    //     return ;
+    // }
+    // free(heredocInput);
+    bl = execute_builtins(env, input, head, my_cmd);
+    // if(bl == 0)
+    // {
+    //     // if (my_cmd->pipe == 0 && my_cmd->redir->cnt_redir <= 1)
+    //     // {
+    //     //     printf("redir\n");
+    //     //     ft_redir(my_cmd, p);
+    //     // }
+    //     if (my_cmd->pipe == 0)
+    //         excute_cmd(my_cmd, p);
+    //     else if (my_cmd->pipe == 1)
+    //         pi_pe(my_cmd, p);
+    // }
 }
 
 // int main(int ac, char **av, char **env)

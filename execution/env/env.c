@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 19:57:27 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/25 20:41:35 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:08:57 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ void displayList(struct Node* head)
     {
         if (temp->key[0] && temp->val[0])
         {
+            temp->content = temp->key;
+            temp->content = ft_strjoin(temp->content, temp->val);
+            // printf("%s\n", temp->content);
             printf("%s", temp->key);
             printf("%s\n", temp->val);
         }
@@ -61,7 +64,8 @@ void displayList_export(struct Node* head)
 {
     printf("%s\n",head->key);
     struct Node* temp = head;
-    while (temp != NULL) {
+    while (temp != NULL)
+    {
             printf("declare -x %s", temp->key);
             printf("%s\n", temp->val);
         temp = temp->next;

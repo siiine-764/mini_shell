@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniShell.h"
+#include "../minishell.h"
 
 t_lxr	*lxr_initialize(char *ctt)
 {
@@ -25,7 +25,7 @@ t_lxr	*lxr_initialize(char *ctt)
 	return (lxr);
 }
 
-t_tkn	*tkn_nxt(t_lxr *lxr, t_cata *env_list)
+t_tkn	*tkn_nxt(t_lxr *lxr, t_env *env_list)
 {
 	while (lxr->i < ft_strlen(lxr->ctt))
 	{
@@ -35,22 +35,22 @@ t_tkn	*tkn_nxt(t_lxr *lxr, t_cata *env_list)
 		{
 			ft_move(lxr);
 			space_skip(lxr);
-			return (tkn_initialize(T_PIPE, ""));
+			return (tkn_initialize("", T_PIPE));
 		}
 		else if (lxr->cmd == '"' || lxr->cmd == '\'')
-			return (tkn_initialize(T_WORD, get_data(lxr, env_list, 1)));
+			return (tkn_initialize(get_data(lxr, env_list, 1), T_WORD));
 		else if (ft_strncmp(&lxr->ctt[lxr->i], "<<", 2) == 0 || \
 			ft_strncmp(&lxr->ctt[lxr->i], ">>", 2) == 0)
 			return (handle_her(lxr, env_list));
 		else if (lxr->cmd == '<' || lxr->cmd == '>')
 			return (ft_redirection(lxr, env_list));
 		else
-			return (tkn_initialize(T_WORD, get_data(lxr, env_list, 1)));
+			return (tkn_initialize(get_data(lxr, env_list, 1), T_WORD));
 	}
 	return (NULL);
 }
 
-char	*get_data(t_lxr *lxr, t_cata *env_list, int l)
+char	*get_data(t_lxr *lxr, t_env *env_list, int l)
 {
 	char	*s;
 	char	*t;

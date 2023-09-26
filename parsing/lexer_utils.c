@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniShell.h"
+#include "../minishell.h"
 
-t_tkn	*ft_redirection(t_lxr *lxr, t_cata *env_list)
+t_tkn	*ft_redirection(t_lxr *lxr, t_env *env_list)
 {
 	if (lxr->cmd == '<')
 	{
@@ -20,8 +20,8 @@ t_tkn	*ft_redirection(t_lxr *lxr, t_cata *env_list)
 		space_skip(lxr);
 		if (lxr->ctt[lxr->i] == '\0' || lxr->cmd == '<' || \
 			lxr->cmd == '>')
-			return (tkn_initialize(T_IN, NULL));
-		return (tkn_initialize(T_IN, get_data(lxr, env_list, 1)));
+			return (tkn_initialize(NULL, T_IN));
+		return (tkn_initialize(get_data(lxr, env_list, 1), T_IN));
 	}
 	else
 	{
@@ -30,12 +30,12 @@ t_tkn	*ft_redirection(t_lxr *lxr, t_cata *env_list)
 		space_skip(lxr);
 		if (lxr->ctt[lxr->i] == '\0' || \
 			lxr->cmd == '<' || lxr->cmd == '>')
-			return (tkn_initialize(T_OUT, NULL));
-		return (tkn_initialize(T_OUT, get_data(lxr, env_list, 1)));
+			return (tkn_initialize(NULL, T_OUT));
+		return (tkn_initialize(get_data(lxr, env_list, 1), T_OUT));
 	}
 }
 
-t_tkn	*handle_her(t_lxr *lxr, t_cata *env_list)
+t_tkn	*handle_her(t_lxr *lxr, t_env *env_list)
 {
 	if (ft_strncmp(&lxr->ctt[lxr->i], "<<", 2) == 0)
 	{
@@ -45,8 +45,8 @@ t_tkn	*handle_her(t_lxr *lxr, t_cata *env_list)
 		if (lxr->ctt[lxr->i] == '\0' || \
 			lxr->cmd == '<' || lxr->cmd == '>'
 			|| lxr->cmd == '|')
-			return (tkn_initialize(T_HEREDOC, NULL));
-		return (tkn_initialize(T_HEREDOC, get_data(lxr, env_list, 0)));
+			return (tkn_initialize(NULL, T_HERDOC));
+		return (tkn_initialize(get_data(lxr, env_list, 0), T_HERDOC));
 	}
 	else
 	{
@@ -56,7 +56,7 @@ t_tkn	*handle_her(t_lxr *lxr, t_cata *env_list)
 		if (lxr->ctt[lxr->i] == '\0' || \
 			lxr->cmd == '<' || lxr->cmd == '>'
 			|| lxr->cmd == '|')
-			return (tkn_initialize(T_APPEND, NULL));
-		return (tkn_initialize(T_APPEND, get_data(lxr, env_list, 1)));
+			return (tkn_initialize(NULL, T_APPEND));
+		return (tkn_initialize(get_data(lxr, env_list, 1), T_APPEND));
 	}
 }

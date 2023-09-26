@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   aft_dollar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:02:03 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/09/25 13:22:25 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/09/26 15:21:54 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniShell.h"
+#include "../minishell.h"
 
 int	cases_check(t_lxr *lxr)
 {
@@ -26,7 +26,7 @@ int	cases_check(t_lxr *lxr)
 		return (0);
 }
 
-char	*get_var(t_lxr *lxr, t_cata *env_list)
+char	*get_var(t_lxr *lxr, t_env *env_list)
 {
 	char	*l;
 	char	*s;
@@ -54,7 +54,7 @@ char	*get_var(t_lxr *lxr, t_cata *env_list)
 	return (s);
 }
 
-char	*aft_dollar(t_lxr *lxr, t_cata *env_list)
+char	*aft_dollar(t_lxr *lxr, t_env *env_list)
 {
 	char	*s;
 

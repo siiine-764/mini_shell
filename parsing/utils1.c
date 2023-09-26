@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:06:17 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/09/25 13:11:01 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/09/26 15:59:23 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../miniShell.h"
+#include "../minishell.h"
 
 t_tkn	*tkn_initialize(char *data, int typ)
 {
@@ -38,13 +38,13 @@ void	space_skip(t_lxr	*lxr)
 		ft_move(lxr);
 }
 
-char	*join_str(t_lxr *lxr, t_cata *env_list, int l)
+char	*join_str(t_lxr *lxr, t_env *env_list, int l)
 {
 	char	*t;
 
 	if (lxr->cmd == '\'' || lxr->cmd == '"')
 	{
-		t = str_collect(lxr, lxr->cmd, env_list, l);
+		t = str_collect(lxr, env_list, lxr->cmd, l);
 		ft_move(lxr);
 		return (t);
 	}

@@ -6,10 +6,12 @@ int main(int ac, char **av, char **env)
     (void)av;
     (void)env;
 
+    struct Node* head = NULL;
+    create_env(env, &head);
     // my struct
     t_cmd *my_cmd = (t_cmd *)malloc(sizeof(t_cmd));
     
-    // for example :
+    // for example : //
     char *flag = "-nnnnnnnn";
     char *arguments[][3] = 
     {
@@ -40,8 +42,23 @@ int main(int ac, char **av, char **env)
         }
     }
     my_cmd->flag = flag;
-    
-    // my function
-    excute_cpy(my_cmd, env);
+
+    // end example //
+
+    // //
+    char *input;
+
+    rl_initialize();
+    while (1)
+    {
+        input = readline("minishell$ ");
+        add_history(input);
+        // my function
+        excute_cpy(my_cmd, env, head, input);
+
+        free(input);
+    }
+    // //
+
     return 0;
 }

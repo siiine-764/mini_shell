@@ -1,4 +1,4 @@
-NAME	= parsing
+NAME	= parsing.a
 CC		= cc
 CFLAGS 	= -Wall -Wextra -Werror
 
@@ -19,8 +19,8 @@ all: $(NAME)
 OBJS = $(SRCS:.c=.o)
 
 $(NAME) : $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) 
-	@echo "make it"
+	@ar rcs $(NAME) $(OBJS)
+	@echo "make parsing"
 
 clean:
 	@rm -f $(OBJS)
@@ -31,5 +31,6 @@ fclean: clean
 	@echo "fclean parsing"
 
 re: fclean $(NAME)
+	@echo "re execution"
 
 .PHONY: clean fclean re all
