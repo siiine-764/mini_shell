@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:04:08 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/09/26 16:42:08 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:00:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,33 @@ char	*find_env(t_env *env_list, char *name)
 	// }
 	// free(temp);
 	// return (NULL);
+}
+
+char	*ft_get_env_val(t_list *env_list, char *var_name)
+{
+	char	*temp;
+	char	**l;
+	int		i;
+	char	*f;
+
+	temp = ft_strdup("");
+	while (env_list)
+	{	
+		l = ft_split(env_list->content, '=');
+		f = temp;
+		temp = ft_strdup(l[0]);
+		free(f);
+		i = 0;
+		free_2d_array(l);
+		if (!temp || !*temp)
+			return (NULL);
+		if (ft_strcmp(temp, var_name) == 0)
+		{
+			free(temp);
+			return (join_var(ft_split(env_list->content, '=')));
+		}
+		env_list = env_list->next;
+	}
+	free(temp);
+	return (NULL);
 }

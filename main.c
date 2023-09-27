@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+//t_vars_g	g_global_vars;
+
 int main(int ac, char **av, char **env)
 {
     (void)ac;
