@@ -76,8 +76,10 @@ t_path    *get_path(char *path)
     return (p);
 }
 
-int    run_builtins0(char *input, struct Node* head, char **env)
+int    run_builtins0(char *input, struct Node* head, char **env, t_cmd *my_cmd)
 {
+
+    (void)my_cmd;
     if (strcmp(input, "exit") == 0)
     {
         free(input);
@@ -92,7 +94,7 @@ int    run_builtins0(char *input, struct Node* head, char **env)
     }
     else if(strcmp(input, "cd") == 0)
     {
-        cd(env, head);
+        cd(env, head, my_cmd);
         return (1);
     }
     else if(strcmp(input, "env") == 0)
@@ -151,7 +153,7 @@ int execute_builtins(char **env, char *input, struct Node* head, t_cmd *my_cmd)
     i = -1;
     while (++i < 2)
     {
-        if (run_builtins0(input, head, env) == 1)
+        if (run_builtins0(input, head, env, my_cmd) == 1)
             return (1);
         else if (strcmp(input, "echo") == 0)
         {
@@ -223,6 +225,16 @@ void    excute_cmd(t_cmd *my_cmd, t_path *p)
 //     }
 // }
 
+void free_path(t_path *p)
+{
+    // Free any memory allocated within the t_path struct
+    // For example, if there's a dynamically allocated path string:
+    // free(p->path);
+    
+    // Free the t_path struct itself
+    free(p);
+}
+
 void    excute_cpy(t_cmd *my_cmd, char **env, struct Node* head, char *input)
 {
     // char *input;
@@ -242,8 +254,9 @@ void    excute_cpy(t_cmd *my_cmd, char **env, struct Node* head, char *input)
     // }
     // free(heredocInput);
     bl = execute_builtins(env, input, head, my_cmd);
-    // if(bl == 0)
-    // {
+    if(bl == 0)
+    {
+        printf("cmd && pipe\n");
     //     // if (my_cmd->pipe == 0 && my_cmd->redir->cnt_redir <= 1)
     //     // {
     //     //     printf("redir\n");
@@ -253,7 +266,9 @@ void    excute_cpy(t_cmd *my_cmd, char **env, struct Node* head, char *input)
     //         excute_cmd(my_cmd, p);
     //     else if (my_cmd->pipe == 1)
     //         pi_pe(my_cmd, p);
-    // }
+    // free_path(p);
+    // free(path);
+    }
 }
 
 // int main(int ac, char **av, char **env)

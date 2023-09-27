@@ -14,6 +14,7 @@
 
 void    ft_ex_port(struct Node* head, char *add_key, char *add_val, char **env)
 {
+    struct Node* temp = head;
     int bl = 0;
     (void)env;
 
@@ -29,7 +30,6 @@ void    ft_ex_port(struct Node* head, char *add_key, char *add_val, char **env)
         printf("export: `%s': not a valid identifier\n", strjoin);
         exit(1);    
     }
-    struct Node* temp = head;
 
     while (temp != NULL)
     {
@@ -37,7 +37,7 @@ void    ft_ex_port(struct Node* head, char *add_key, char *add_val, char **env)
         {
             bl = 1;
             printf("------>this key is repeat<--------\n");
-            strcpy(temp->val, add_val);
+            ft_strlcpy(temp->val, add_val, ft_strlen(temp->val));
         }
         temp = temp->next;
     }
