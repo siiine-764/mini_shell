@@ -262,7 +262,6 @@ void    excute_cpy(t_cmd *my_cmd, char **env, struct Node* head, char *input)
     {
         free(input);
         free_path(p);
-        // free(path);
         free(my_cmd);
         ex_it();
     }
