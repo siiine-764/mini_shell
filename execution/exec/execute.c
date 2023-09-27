@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 22:42:01 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/26 18:54:49 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/26 23:06:02 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int    run_builtins0(char *input, struct Node* head, char **env)
     }
     else if(strcmp(input, "cd") == 0)
     {
-        cd(env, head);
+        cd(env, head, input);
         return (1);
     }
     else if(strcmp(input, "env") == 0)
@@ -242,18 +242,18 @@ void    excute_cpy(t_cmd *my_cmd, char **env, struct Node* head, char *input)
     // }
     // free(heredocInput);
     bl = execute_builtins(env, input, head, my_cmd);
-    // if(bl == 0)
-    // {
-    //     // if (my_cmd->pipe == 0 && my_cmd->redir->cnt_redir <= 1)
-    //     // {
-    //     //     printf("redir\n");
-    //     //     ft_redir(my_cmd, p);
-    //     // }
-    //     if (my_cmd->pipe == 0)
-    //         excute_cmd(my_cmd, p);
-    //     else if (my_cmd->pipe == 1)
-    //         pi_pe(my_cmd, p);
-    // }
+    if(bl == 0)
+    {
+        // if (my_cmd->pipe == 0 && my_cmd->redir->cnt_redir <= 1)
+        // {
+        //     printf("redir\n");
+        //     ft_redir(my_cmd, p);
+        // }
+        if (my_cmd->pipe == 0)
+            excute_cmd(my_cmd, p);
+        else if (my_cmd->pipe == 1)
+            pi_pe(my_cmd, p);
+    }
 }
 
 // int main(int ac, char **av, char **env)

@@ -12,10 +12,10 @@ int main(int ac, char **av, char **env)
     t_cmd *my_cmd = (t_cmd *)malloc(sizeof(t_cmd));
     
     // for example : //
-    char *flag = "-nnnnnnnn";
+    char *flag = "-nnnn";
     char *arguments[][3] = 
     {
-        {"unset", "LANG", ""},
+        {"echo", "$USER", ""},
         {"export", "xx", "sssss"},
     };
     if (my_cmd == NULL)
@@ -24,7 +24,8 @@ int main(int ac, char **av, char **env)
         return 1;
     }
     my_cmd->arguments = (char ***)malloc(2 * sizeof(char **));
-    if (my_cmd->arguments == NULL) {
+    if (my_cmd->arguments == NULL)
+    {
         perror("Memory allocation failed");
         free(my_cmd);
         return 1;

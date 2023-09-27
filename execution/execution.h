@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 21:56:49 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/26 18:42:19 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/26 23:04:42 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ typedef struct s_path
 
 /// functions builtins ///
 void		pwd(void);
-void        cd(char **env, struct Node* head);
+void        cd(char **env, struct Node* head, char *input);
 void		un_set(struct Node* head, char *add_key);
 void		ft_ex_port(struct Node* head, char *add_key, char *add_val,char **env);
 void		e_cho(char **arr, char *flag);
