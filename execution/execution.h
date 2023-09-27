@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 21:56:49 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/26 23:04:42 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:31:38 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ typedef struct s_path
 
 /// functions builtins ///
 void		pwd(void);
-void        cd(char **env, struct Node* head, char *input);
+void        cd(char **env, struct Node* head, t_cmd *my_cmd);
 void		un_set(struct Node* head, char *add_key);
 void		ft_ex_port(struct Node* head, char *add_key, char *add_val,char **env);
 void		e_cho(char **arr, char *flag);
@@ -106,7 +106,7 @@ void		ex_it(void);
 // void    execute_cmd(char *cmd, struct Node* head, char *add_key, char *add_val);
 void    execute(t_cmd *my_cmd, char **env);
 void    excute_cpy(t_cmd *my_cmd, char **env, struct Node* head, char *input);
-int     run_builtins0(char *input, struct Node* head, char **env);
+int     run_builtins0(char *input, struct Node* head, char **env, t_cmd *my_cmd);
 int     run_builtins1(t_cmd *my_cmd, char **env, char *input, struct Node* head);
 int     run_builtins2(t_cmd *my_cmd, char *input, struct Node* head);
 int     execute_builtins(char **env, char *input, struct Node* head, t_cmd *my_cmd);

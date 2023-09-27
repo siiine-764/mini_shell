@@ -1,6 +1,6 @@
 NAME	= execution.a
 CC		= cc
-CFLAGS 	= -Wall -Wextra -Werror #-fsanitize=address -g
+CFLAGS 	= -Wall -Wextra -Werror -fsanitize=address -g
 
 SRCS =	builtins/cd.c\
 		builtins/pwd.c\

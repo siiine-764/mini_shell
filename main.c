@@ -15,8 +15,8 @@ int main(int ac, char **av, char **env)
     char *flag = "-nnnn";
     char *arguments[][3] = 
     {
-        {"echo", "$USER", ""},
-        {"export", "xx", "sssss"},
+        {"cd", "..", ""},
+        {"echo", "xx", "sssss"},
     };
     if (my_cmd == NULL)
     {

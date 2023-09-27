@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 22:42:01 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/26 23:06:02 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/27 19:05:12 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // {
 // 	if (cmd && (ft_strcmp(cmd, "export") == 0))
 // 		return (1);
-// 	else if (cmd && (ft_strcmp(cmd, "unset") == 0))
+// 	else if (cmd && (ft_ft_strcmp(cmd, "unset") == 0))
 // 		return (1);
 // 	else if (cmd && (ft_strcmp(cmd, "pwd") == 0))
 // 		return (1);
@@ -76,31 +76,35 @@ t_path    *get_path(char *path)
     return (p);
 }
 
-int    run_builtins0(char *input, struct Node* head, char **env)
-{
-    if (strcmp(input, "exit") == 0)
+int    run_builtins0(char *input, struct Node* head, char **env, t_cmd *my_cmd)
+{ 
+    // (void)my_cmd;
+    if (ft_strcmp(input, "exit") == 0)
     {
-        free(input);
-        printf("exit\n");
-        exit(0);
-        return (1);
+        // free(input);
+        // ex_it();
+        // printf("0\n");
+        return (2);
     }
-    else if(strcmp(input, "pwd") == 0)
+    else if(ft_strcmp(input, "pwd") == 0)
     {
+        // printf("1\n");
         pwd();
-        return (1);
+        return ( 1);
     }
-    else if(strcmp(input, "cd") == 0)
+    else if(ft_strcmp(input, "cd") == 0)
     {
-        cd(env, head, input);
-        return (1);
+        // printf("2\n");
+        cd(env, head, my_cmd);
+        return ( 1);
     }
-    else if(strcmp(input, "env") == 0)
+    else if(ft_strcmp(input, "env") == 0)
     {
+        // printf("3\n");
         displayList(head);
-        return (1);
+        return ( 1);
     }
-    return (0);
+    return ( 0);
 }
 
 int run_builtins1(t_cmd *my_cmd, char **env, char *input, struct Node* head)
@@ -110,8 +114,8 @@ int run_builtins1(t_cmd *my_cmd, char **env, char *input, struct Node* head)
     i = -1;
     while (++i < 2)
     {
-        if(strcmp(my_cmd->arguments[i][0], "export") == 0
-        && strcmp(input, "export") == 0)
+        if(ft_strcmp(my_cmd->arguments[i][0], "export") == 0
+        && ft_strcmp(input, "export") == 0)
         {
             if (fork() == 0)
             {
@@ -131,8 +135,8 @@ int run_builtins2(t_cmd *my_cmd, char *input, struct Node* head)
     i = -1;
     while (++i < 2)
     {
-        if(strcmp(my_cmd->arguments[i][0], "unset") == 0
-        && strcmp(input, "unset") == 0)
+        if(ft_strcmp(my_cmd->arguments[i][0], "unset") == 0
+        && ft_strcmp(input, "unset") == 0)
         {
             if (fork() == 0)
             {
@@ -151,9 +155,11 @@ int execute_builtins(char **env, char *input, struct Node* head, t_cmd *my_cmd)
     i = -1;
     while (++i < 2)
     {
-        if (run_builtins0(input, head, env) == 1)
+        if (run_builtins0(input, head, env, my_cmd) == 1)
             return (1);
-        else if (strcmp(input, "echo") == 0)
+        if (run_builtins0(input, head, env, my_cmd) == 2)
+            return (2);
+        else if (ft_strcmp(input, "echo") == 0)
         {
             e_cho(my_cmd->arguments[i], my_cmd->flag);
             return (1);
@@ -223,12 +229,22 @@ void    excute_cmd(t_cmd *my_cmd, t_path *p)
 //     }
 // }
 
+void free_path(t_path *p)
+{
+    // Free any memory allocated within the t_path struct
+    // For example, if there's a dynamically allocated path string:
+    // free(p->path);
+    
+    // Free the t_path struct itself
+    free(p);
+}
+
 void    excute_cpy(t_cmd *my_cmd, char **env, struct Node* head, char *input)
 {
     // char *input;
     // struct Node* head = NULL;
-    t_path *p = malloc(sizeof(p));
-    char* path = malloc(sizeof(char *));
+    t_path  *p = malloc(sizeof(p));
+    char    *path = malloc(sizeof(char *));
     path = getenv("PATH");
 
 	p = get_path(path);
@@ -242,18 +258,26 @@ void    excute_cpy(t_cmd *my_cmd, char **env, struct Node* head, char *input)
     // }
     // free(heredocInput);
     bl = execute_builtins(env, input, head, my_cmd);
-    if(bl == 0)
+    if (bl == 2)
     {
-        // if (my_cmd->pipe == 0 && my_cmd->redir->cnt_redir <= 1)
-        // {
-        //     printf("redir\n");
-        //     ft_redir(my_cmd, p);
-        // }
-        if (my_cmd->pipe == 0)
-            excute_cmd(my_cmd, p);
-        else if (my_cmd->pipe == 1)
-            pi_pe(my_cmd, p);
+        free(input);
+        free_path(p);
+        // free(path);
+        free(my_cmd);
+        ex_it();
     }
+    // if(bl == 0)
+    // {
+    //     // if (my_cmd->pipe == 0 && my_cmd->redir->cnt_redir <= 1)
+    //     // {
+    //     //     printf("redir\n");
+    //     //     ft_redir(my_cmd, p);
+    //     // }
+    //     if (my_cmd->pipe == 0)
+    //         excute_cmd(my_cmd, p);
+    //     else if (my_cmd->pipe == 1)
+    //         pi_pe(my_cmd, p);
+    // }
 }
 
 // int main(int ac, char **av, char **env)
