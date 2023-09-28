@@ -77,6 +77,17 @@ typedef struct lxr
 	size_t	i;
 }t_lxr;
 
+typedef struct my_cmd
+{
+	t_env		*env_list;
+	t_env		*arguments
+	char		**env;
+	t_top_cmd	*top;
+	t_comm		*comm;
+}t_cmd;
+
+//extern t_vars_g	g_global_vars;
+
 char	*find_env(t_env *env_list, char *name);
 void	ft_move(t_lxr	*lxr);
 int	exit_code(void);
