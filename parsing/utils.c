@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:04:08 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/09/29 11:01:03 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/29 21:25:13 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,21 @@ void	free_2d(char **a)
 	while (a[i])
 		free(a[i++]);
 	free(a);
+}
+
+void	free_list(t_list *list)
+{
+	t_list	*temp;
+
+	while (list)
+	{
+		temp = list;
+		list = list->next;
+		free(temp->content);
+		free(temp);
+		temp->content = NULL;
+		temp = NULL;
+	}
 }
 
 char	*join_join(char **temp)
@@ -48,10 +63,6 @@ char	*join_join(char **temp)
 
 char	*find_env(t_env *env_list, char *name)
 {
-	(void)env_list;
-	(void)name;
-
-	return(NULL);
 	// int		i;
 	// char	*cmd;
 	// char	**j;

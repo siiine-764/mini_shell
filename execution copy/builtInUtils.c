@@ -1,90 +1,38 @@
 #include "../minishell_copy.h"
 
-t_list	*get_env_list(char **env)
+t_env	*get_env_list(char **i)
 {
-	t_list	*env_list;
-	int		i;
+	t_env	*env_list;
+	int		c;
 
-	i = 0;
-	env_list = ft_lstnew(ft_strdup(env[i++]));
-	while (env[i])
-		ft_lstadd_back(&env_list, ft_lstnew(ft_strdup(env[i++])));
+	c = 0;
+	env_list = ft_lstnew(ft_strdup(i[c++]));
+	while (i[c])
+		ft_lstadd_back(&env_list, ft_lstnew(ft_strdup(i[c++])));
 	return (env_list);
 }
 
-void	sort_list(t_list **env_list)
+void	sort_list(t_env **env_list)
 {
-	t_list	*p;
-	t_list	*q;
-	char	*val;
+	t_env	*i;
+	t_env	*i;
+	char	*res;
 
-	p = *env_list;
-	while (p)
+	i = *env_list;
+	while (i)
 	{
-		q = *env_list;
-		while (q->next)
+		j = *env_list;
+		while (j->next)
 		{
-			if (ft_strcmp(q->content, q->next->content) > 0)
+			if (ft_strcmp(j->ctt, j->nxt->ctt) > 0)
 			{
-				val = q->content;
-				q->content = q->next->content;
-				q->next->content = val;
+				res = j->ctt;
+				j->ctt = j->nxt->ctt;
+				j->nxt->ctt = res;
 			}
-			q = q->next;
+			j = j->nxt;
 		}
-		p = p ->next;
+		i = i ->nxt;
 	}
 }
 
-char	*join_var(char **temp)
-{
-	int		i;
-	char	*result;
-	char	*t;
-
-	i = 0;
-	result = ft_strdup("");
-	while (temp[++i])
-	{
-		t = result;
-		result = ft_strjoin(result, temp[i]);
-		free(t);
-		if (temp[i + 1])
-		{
-			t = result;
-			result = ft_strjoin(result, "=");
-			free(t);
-		}
-	}
-	free_2d_array(temp);
-	return (result);
-}
-
-char	*ft_get_env_val(t_list *env_list, char *var_name)
-{
-	char	*temp;
-	char	**l;
-	int		i;
-	char	*f;
-
-	temp = ft_strdup("");
-	while (env_list)
-	{	
-		l = ft_split(env_list->content, '=');
-		f = temp;
-		temp = ft_strdup(l[0]);
-		free(f);
-		i = 0;
-		free_2d_array(l);
-		if (!temp || !*temp)
-			return (NULL);
-		if (ft_strcmp(temp, var_name) == 0)
-		{
-			free(temp);
-			return (join_var(ft_split(env_list->content, '=')));
-		}
-		env_list = env_list->next;
-	}
-	free(temp);
-	return (NULL);
-}

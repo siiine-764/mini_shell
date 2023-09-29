@@ -1,87 +1,87 @@
 #include "../minishell_copy.h"
 
-void	check_echo(char *s, char flag, int fd, t_contex contex)
+void	check_echo(char *str, char flag, int fd, t_frame frame)
 {
 	if (flag == 'n')
 	{
 		if (fd != STDOUT_FILENO)
-			ft_putstr_fd(s, fd);
+			ft_putstr_fd(str, fd);
 		else
-			ft_putstr_fd(s, contex.fd_out);
+			ft_putstr_fd(sre, frame.fd_out);
 	}
 	else
 	{
 		if (fd != STDOUT_FILENO)
-			ft_putendl_fd(s, fd);
+			ft_putendl_fd(str, fd);
 		else
-			ft_putendl_fd(s, contex.fd_out);
+			ft_putendl_fd(str, frame.fd_out);
 	}
 }
 
-void	ft_echo(t_command *command, char *s, char flag, t_contex contex)
+void	ft_echo(t_comm *comm, char *str, char flag, t_frame frame)
 {
 	int		fd;
 
-	fd = open_files(*command->redi).fd_out;
+	fd = open_files(*comm->redirection).fd_out;
 	if (fd == -1)
 	{
 		set_exit_code(1);
 		return ;
 	}
-	if (s == NULL)
+	if (str == NULL)
 	{
 		write(fd, "\n", 2);
 		return ;
 	}
-	check_echo(s, flag, fd, contex);
-	free(s);
+	check_echo(str, flag, fd, frame);
+	free(str);
 	set_exit_code(EXIT_SUCCESS);
 }
 
-int	check_echo_flag(char *s)
+int	check_echo_flag(char *str)
 {
 	int	i;
 
 	i = 0;
-	if (!s)
+	if (!str)
 		return (false);
-	if (ft_strcmp(s, "-") == 0)
+	if (ft_strcmp(str, "-") == 0)
 		return (false);
-	if (s[i++] != '-')
+	if (str[i++] != '-')
 		return (false);
-	while (s[i])
+	while (str[i])
 	{
-		if (s[i] != 'n')
+		if (str[i] != 'n')
 			return (false);
 		i += 1;
 	}
 	return (true);
 }
 
-char	*check_for_space(char **s, char *result, int i)
+char	*check_for_space( int i, char **str, char *res)
 {
-	char	*temp;
+	char	*val;
 
-	if (s[i + 1] && s[i][0] != '\0')
+	if (str[i + 1] && str[i][0] != '\0')
 	{
-		temp = result;
-		result = ft_strjoin(result, " ");
-		free(temp);
+		val = res;
+		res = ft_strjoin(res, " ");
+		free(val);
 	}
-	return (result);
+	return (res);
 }
 
-bool	exec_echo(t_vars vars, t_command *command, t_contex contex)
+bool	exec_echo(t_data data, t_comm *comm, t_frame frame)
 {
-	(void)vars;
-	if (ft_strcmp(command->flags[0], "echo") == 0)
+	(void)data;
+	if (ft_strcmp(comm->flags[0], "echo") == 0)
 	{
-		if (command->flags[1] == NULL)
-			ft_echo(command, NULL, '0', contex);
-		else if ((check_echo_flag(command->flags[1])))
-			ft_echo(command, join_for_echo(command->flags, 'n'), 'n', contex);
+		if (comm->flags[1] == NULL)
+			ft_echo(comm, NULL, '0', frame);
+		else if ((check_echo_flag(comm->flags[1])))
+			ft_echo(comm, join_for_echo(comm->flags, 'n'), 'n', frame);
 		else
-			ft_echo(command, join_for_echo(command->flags, '\0'), '\0', contex);
+			ft_echo(comm, join_for_echo(comm->flags, '\0'), '\0', frame);
 		return (true);
 	}
 	return (false);

@@ -1,48 +1,48 @@
 #include "../minishell_copy.h"
 
-void	check_command_error(t_vars *vars, t_command *command)
+void	check_command_error(t_data *data, t_comm *comm)
 {
-	(void)vars;
-	if (access(command->flags[0], F_OK | X_OK) != 0)
+	(void)data;
+	if (access(comm->flags[0], F_OK | X_OK) != 0)
 		set_exit_code(PERMISSION_DENIED);
 	else
 		set_exit_code(0);
 }
 
-void	check_command_error_2(t_vars *vars, t_command *command)
+void	check_command_error_2(t_data *data, t_comm *comm)
 {
-	(void)vars;
-	if (access(command->flags[0], F_OK | X_OK) != 0)
+	(void)data;
+	if (access(comm->flags[0], F_OK | X_OK) != 0)
 		set_exit_code(PERMISSION_DENIED);
 	else
 		set_exit_code(0);
 }
 
-void	check_path(t_vars *vars, t_command *command)
+void	check_path(t_data *data, t_comm *comm)
 {
-	char	*path;
+	char	*p;
 
-	path = get_path(vars->env_list, command->flags[0]);
-	if (path == NULL)
+	p = get_path(data->env_list, comm->flags[0]);
+	if (p == NULL)
 		set_exit_code(COMMAND_NOT_FOUND);
 	else
 		set_exit_code(0);
-	free(path);
+	free(p);
 }
 
-void	check_files(t_token_head redi)
+void	check_files(t_tkn_top redirection)
 {
 	int	out_file;
 
-	while (redi.first_token != NULL)
+	while (redirection.fst_tkn != NULL)
 	{
-		if (redi.first_token->token == T_IN)
+		if (redirection.fst_tkn->tkn == T_IN)
 		{
-			out_file = open(redi.first_token->value, O_RDONLY);
+			out_file = open(redirection.fst_tkn->val, O_RDONLY);
 			if (out_file == -1)
 				set_exit_code(1);
 		}
-		redi.first_token = redi.first_token->next;
+		redirection.fst_tkn = redirection.fst_tkn->nxt;
 	}
 }
 

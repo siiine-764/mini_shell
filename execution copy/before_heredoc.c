@@ -1,69 +1,69 @@
 #include "../minishell_copy.h"
 
-bool	heredoc_exist(t_vars *vars)
+bool	heredoc_exist(t_data *data)
 {
-	while (vars->command)
+	while (data->comm)
 	{
-		if (vars->command->herdoc->first_token != NULL)
+		if (data->comm->heredoc->fst_tkn != NULL)
 			return (true);
-		vars ->command = vars->command->next_command;
+		data->comm = data->comm->nxt_comm;
 	}
 	return (false);
 }
 
-int	count_commands_before_heredoc(t_command *command)
+int	count_commands_before_heredoc(t_comm *comm)
 {
-	int	count;
+	int	i;
 
-	count = 0;
-	while (command && command->herdoc->first_token == NULL )
+	i = 0;
+	while (comm && comm->heredoc->fst_tkn == NULL )
 	{
-		command = command->next_command;
-		count += 1;
+		comm = comm->nxt_comm;
+		i += 1;
 	}
-	return (count);
+	return (i);
 }
 
-void	check_before_heredoc_commands(t_vars *vars, t_norm data, int i)
+void	check_before_heredoc_commands(t_data *data, t_elem elems, int i)
 {
 	if (i == 0)
-		exec_first_command_before_heredoc(vars, data);
+		exec_first_command_before_heredoc(data, elems);
 	else if (i == data.size - 1)
-		exec_last_command_before_heredoc(vars, data);
+		exec_last_command_before_heredoc(data, elems);
 	else
-		exec_other_command_before_heredoc(vars, data);
+		exec_other_command_before_heredoc(data, elems);
 }
 
-void	run_commands_before_heredoc(t_vars *vars, t_norm data, int i)
+void	run_commands_before_heredoc(t_data *data, t_elem elems, int i)
 {
 	g_global_vars.pid = fork();
 	if (g_global_vars.pid == 0)
 	{
-		check_before_heredoc_commands(vars, data, i);
+		check_before_heredoc_commands(data, elems, i);
 		exit(0);
 	}
 }
 
-void	exec_commands_before_heredoc(t_vars *vars)
+void	exec_commands_before_heredoc(t_data *data)
 {
-	int		i;
-	t_norm	data;
+	int		j;
+	t_elem	elems;
 
-	i = 0;
-	data.size = count_commands_before_heredoc(vars->head->first_c);
-	data.ids = malloc(sizeof(int) * data.size);
-	vars->command = vars->head->first_c;
-	while (i < data.size && vars->command)
+	j = 0;
+	elems.size = count_commands_before_heredoc(data->top->fst_cmd);
+	elems.ids = malloc(sizeof(int) * elems.size);
+	data->comm = data->top->fst_cmd;
+	while (i < elems.size && data->comm)
 	{
-		data.contex.fd_in = STDIN_FILENO;
-		data.contex.fd_out = STDOUT_FILENO;
-		pipe(data.fd);
-		run_commands_before_heredoc(vars, data, i);
-		data.ids[i++] = g_global_vars.pid;
-		vars->command = vars->command->next_command;
-		data.temp_fd = dup(data.fd[0]);
-		close_pipe(data.fd);
+		elems.contex.fd_in = STDIN_FILENO;
+		elems.contex.fd_out = STDOUT_FILENO;
+		pipe(elems.fd);
+		run_commands_before_heredoc(data, elems, i);
+		elems.ids[i++] = g_global_vars.pid;
+		data->comm = data->comm->nxt_comm;
+		elems.temp_fd = dup(elems.fd[0]);
+		close_pipe(elems.fd);
 	}
-	wait_for_child(data.ids, i, data.temp_fd);
-	free(data.ids);
+	wait_for_child(elems.ids, i, elems.temp_fd);
+	free(elems.ids);
 }

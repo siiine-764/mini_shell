@@ -1,32 +1,15 @@
 #include "../minishell_copy.h"
 
-void	set_exit_code(int num)
+bool	check_redirection(t_data *data, t_comm *comm)
 {
-	if (num == SYNTAX_ERROR_EXIT)
-		g_global_vars.exit_code = num;
-	else
+	if (comm->redirection->fst_tkn != NULL)
 	{
-		while (num > 255)
-			num -= 256;
-		g_global_vars.exit_code = num;
-	}
-}
-
-int	get_exit_code(void)
-{
-	return (g_global_vars.exit_code);
-}
-
-bool	check_redirection(t_vars *vars, t_command *command)
-{
-	if (command->redi->first_token != NULL)
-	{
-		if (command->redi->first_token->token == T_OUT)
-			ft_redirect_output_trunc_mode(vars, command);
-		else if (command->redi->first_token->token == T_APPEND)
-			ft_redirect_output_append_mode(command, vars);
-		else if (command->redi->first_token->token == T_IN)
-			redirect_input(vars, command);
+		if (comm->redirection->fst_tkn->tkn == T_OUT)
+			ft_redirect_output_trunc_mode(data, comm);
+		else if (comm->redirection->fst_tkn->tkn == T_APPEND)
+			ft_redirect_output_append_mode(comm, data);
+		else if (comm->redirection->fst_tkn->tkn == T_IN)
+			redirect_input(data, comm);
 		return (true);
 	}
 	else

@@ -1,86 +1,86 @@
 #include "../minishell_copy.h"
 
-void	ft_env(t_vars vars, t_command *command, t_contex contex)
+void	ft_env(t_data data, t_comm *comm, t_frame frame)
 {
-	t_contex	fd;
+	t_frame	fd;
 
-	fd = open_files(*command->redi);
+	fd = open_files(*comm->redirection);
 	if (fd.fd_in == -1 || fd.fd_in == -1)
 	{
 		set_exit_code(1);
 		return ;
 	}
-	while (vars.env_list)
+	while (data.env_list)
 	{
-		if (vars.env_list->content)
+		if (data.env_list->ctt)
 		{
 			if (fd.fd_out == STDOUT_FILENO)
-				ft_putendl_fd(vars.env_list->content, contex.fd_out);
+				ft_putendl_fd(data.env_list->ctt, frame.fd_out);
 			else
-				ft_putendl_fd(vars.env_list->content, fd.fd_out);
+				ft_putendl_fd(data.env_list->ctt, fd.fd_out);
 		}
-		vars.env_list = vars.env_list->next;
+		data.env_list = data.env_list->nxt;
 	}
 }
 
-bool	run_env(t_vars vars, t_command *command, t_contex contex)
+bool	run_env(t_data data, t_comm *comm, t_frame frame)
 {
-	if (!ft_strcmp(command->flags[0], "env"))
+	if (!ft_strcmp(comm->flags[0], "env"))
 	{
-		ft_env(vars, command, contex);
+		ft_env(data, comm, frame);
 		return (true);
 	}
 	return (false);
 }
 
-int	is_properly_named(char *s)
+int	is_properly_named(char *str)
 {
-	return (ft_isalpha(s[0]) || s[0] == '_');
+	return (ft_isalpha(str[0]) || str[0] == '_');
 }
 
-t_list	*ft_getenv(t_list *env_list, char *var_name)
+t_env	*ft_getenv(t_env *env_list, char *variable)
 {
-	char	*temp;
-	char	**l;
-	int		i;
+	char	*val;
+	char	**j;
+	int		c;
 
 	while (env_list)
 	{
-		l = ft_split(env_list->content, '=');
-		temp = ft_strdup(l[0]);
-		i = 0;
-		free_2d_array(l);
-		if (!temp || !*temp)
+		j = ft_split(env_list->ctt, '=');
+		val = ft_strdup(j[0]);
+		c = 0;
+		free_2d_array(j);
+		if (!val || !*val)
 			return (NULL);
-		if (ft_strcmp(temp, var_name) == 0)
+		if (ft_strcmp(val, variable) == 0)
 		{
-			free(temp);
+			free(val);
 			return (env_list);
 		}
-		env_list = env_list ->next;
-		free(temp);
+		env_list = env_list ->nxt;
+		free(val);
 	}
 	return (NULL);
 }
 
-void	ft_setenv(t_list **env_list, char *var_name, char *var_val)
+void	ft_setenv(t_env **env_list, char *variable, char *value)
 {
-	char	*var;
-	t_list	*temp;
-	char	*t;
+	t_env	*str;
+	char	*res;
+	char	*j;
 
-	temp = ft_getenv(*env_list, var_name);
-	if (temp == NULL)
+	str = ft_getenv(*env_list, variable);
+	if (str == NULL)
 	{
-		var = ft_strjoin(var_name, "=");
-		t = var;
-		var = ft_strjoin(var, var_val);
-		free(t);
-		ft_lstadd_back(env_list, ft_lstnew(var));
+		res = ft_strjoin(variable, "=");
+		j = res;
+		var = ft_strjoin(res, value);
+		free(j);
+		ft_lstadd_back(env_list, ft_lstnew(res));
 	}
 	else
 	{
-		ft_unset(env_list, var_name);
-		ft_setenv(env_list, var_name, var_val);
+		ft_unset(env_list, variable);
+		ft_setenv(env_list, variable, value);
 	}
 }

@@ -1,25 +1,25 @@
 #include "../minishell_copy.h"
 
-char	*join_for_echo(char **s, char flag)
+char	*join_for_echo(char **str, char flag)
 {
 	int		i;
-	char	*result;
-	char	*temp;
-
+	char	*j;
+	char	*res;
+	
 	if (flag == 'n')
 		i = 2;
 	else
 		i = 1;
-	result = ft_strdup("");
-	while (check_echo_flag(s[i]))
+	res = ft_strdup("");
+	while (check_echo_flag(str[i]))
 		i++;
-	while (s[i])
+	while (str[i])
 	{
-		temp = result;
-		result = ft_strjoin(result, s[i]);
-		free(temp);
-		result = check_for_space(s, result, i);
+		j = res;
+		res = ft_strjoin(res, str[i]);
+		free(j);
+		res = check_for_space(str, res, i);
 		i++;
 	}
-	return (result);
+	return (res);
 }
