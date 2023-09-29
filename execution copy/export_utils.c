@@ -1,5 +1,4 @@
-
-#include "../MiniShell.h"
+#include "../minishell_copy.h"
 
 bool	add_variable(t_command *command, t_vars *vars, char **temp, int i)
 {

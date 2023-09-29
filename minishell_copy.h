@@ -47,13 +47,15 @@ typedef struct vars
 	int		sig_type;
 }t_vars_g;
 
-typedef struct TOKEN{
+typedef struct TOKEN
+{
 	t_type			token;
 	char			*value;
 	struct TOKEN	*next;
 }t_token;
 
-typedef struct t_token_head{
+typedef struct t_token_head
+{
 	t_token	*first_token;
 }t_token_head;
 
@@ -152,7 +154,6 @@ void		exec_node(t_vars *vars, t_command *command, t_contex contex);
 int			check_built_in_commands(t_vars *vars,
 				t_command *command, t_contex contex);
 void		exec_node(t_vars *vars, t_command *command, t_contex contex);
-char		*join_for_echo(char **s, char flag);
 void		check_commands_order(t_vars *vars, t_norm *data);
 void		ft_free_all(t_head_c *head);
 int			heredoc_return(int outfile, t_contex contex);
@@ -252,6 +253,7 @@ char		*ft_get_value(t_lexer *lexer, t_list *env_list, int h);
 char		*ft_get_str(t_lexer *lexer, t_list *env_list, int h);
 char		*ft_get_str_without_quote(t_lexer *lexer, t_list *env_list, int h);
 char		**ft_replace(char **av, int i, char *value);
+// char		*join_for_echo(char **s, char flag);
 char		*join_for_echo(char **s, char flag);
 char		*check_for_space(char **s, char *result, int i);
 char		*join_for_echo(char **s, char flag);

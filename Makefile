@@ -2,7 +2,7 @@ NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 EXECUTION = execution/execution.a
-PARSING = parsing/parsing.a
+#PARSING = parsing/parsing.a
 
 SRCS = main.c\
 

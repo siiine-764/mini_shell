@@ -1,6 +1,4 @@
-
-
-#include "../MiniShell.h"
+#include "../minishell_copy.h"
 
 void	ft_redirect_output_append_mode(t_command *command, t_vars *vars)
 {

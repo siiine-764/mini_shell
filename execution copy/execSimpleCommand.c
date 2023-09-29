@@ -1,6 +1,4 @@
-
-
-#include "../MiniShell.h"
+#include "../minishell_copy.h"
 
 char	*get_path(t_list *env_list, char *cmd)
 {

@@ -1,4 +1,4 @@
-#include "../MiniShell.h"
+#include "../minishell_copy.h"
 
 int	get_len(t_command *command)
 {

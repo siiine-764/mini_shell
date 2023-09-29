@@ -1,6 +1,4 @@
-
-
-#include "../MiniShell.h"
+#include "../minishell_copy.h"
 
 void	ft_exit(char *arg, char flag)
 {

@@ -1,6 +1,6 @@
 
 
-#include "../MiniShell.h"
+#include "../minishell_copy.h"
 
 void	ft_pwd(t_vars vars, t_command *command, t_contex contex)
 {

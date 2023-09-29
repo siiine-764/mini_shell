@@ -1,6 +1,4 @@
-
-
-#include "../MiniShell.h"
+#include "../minishell_copy.h"
 
 int	open_input_files(t_token_head redi)
 {

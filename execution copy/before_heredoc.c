@@ -1,4 +1,4 @@
-#include "../MiniShell.h"
+#include "../minishell_copy.h"
 
 bool	heredoc_exist(t_vars *vars)
 {

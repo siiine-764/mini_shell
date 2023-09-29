@@ -77,14 +77,17 @@ typedef struct lxr
 	size_t	i;
 }t_lxr;
 
-typedef struct my_cmd
-{
-	t_env		*env_list;
-	t_env		*arguments
-	char		**env;
-	t_top_cmd	*top;
-	t_comm		*comm;
-}t_cmd;
+// typedef struct my_cmd
+// {
+// 	// t_env		*env_list;
+// 	// t_env		*arguments;
+// 	// char		**env;
+// 	t_top_cmd	*top;
+// 	t_comm		*comm;
+// 	char ***arguments; // arguments
+// 	int pipe; // boolean 0 || 1
+//     int cnt_pipe; // count pipe how much
+// }t_cmd;
 
 //extern t_vars_g	g_global_vars;
 

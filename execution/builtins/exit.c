@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 21:25:08 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/27 17:57:37 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/29 12:52:47 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,14 @@ int	check_args_for_exit(char **args)
 	return (0);
 }
 
-void    ex_it(void)
+void    ex_it(char *arg, char flag)
 {
+	int ex_it;
+	if (arg == NULL)
+	{
+		set_exit_code(0);
+		exit(0);
+	}
     printf("exit\n");
     // if (check_args_for_exit(cd->args))
     //     return (1);

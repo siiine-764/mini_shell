@@ -1,4 +1,4 @@
-#include "./../MiniShell.h"
+#include "../minishell_copy.h"
 
 void	set_exit_code(int num)
 {

@@ -1,4 +1,4 @@
-#include "./../MiniShell.h"
+#include "../minishell_copy.h"
 
 char	*join_for_echo(char **s, char flag)
 {

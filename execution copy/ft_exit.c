@@ -1,6 +1,4 @@
-
-
-#include "../MiniShell.h"
+#include "../minishell_copy.h"
 
 bool	is_number(char *s)
 {

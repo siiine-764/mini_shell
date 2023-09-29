@@ -1,6 +1,5 @@
 
-#include "../MiniShell.h"
-
+#include "../minishell_copy.h"
 void	exec_first_node(t_vars *vars, t_norm data)
 {
 	close(data.fd[0]);

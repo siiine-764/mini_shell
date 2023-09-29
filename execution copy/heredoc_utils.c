@@ -1,6 +1,4 @@
-
-
-#include "../MiniShell.h"
+#include "../minishell_copy.h"
 
 void	exec_first_command_before_heredoc(t_vars *vars, t_norm data)
 {

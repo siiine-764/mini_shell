@@ -1,5 +1,4 @@
-#include "../MiniShell.h"
-
+#include "../minishell_copy.h"
 t_list	*delete_head(t_list **env_list, char **cmd, char *to_delete)
 {
 	t_list	*temp;

@@ -1,5 +1,4 @@
-
-#include "../MiniShell.h"
+#include "../minishell_copy.h"
 
 void	ft_export(t_command *command, t_list *env, char *arg)
 {

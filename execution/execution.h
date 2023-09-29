@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 21:56:49 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/27 16:31:38 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/29 12:52:08 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,6 @@ typedef struct s_env
     // struct s_env    *next;
 }	t_env;
 
-typedef struct s_add_env
-{
-    char            **new_env;
-}	t_add_env;
-
 typedef struct s_redir
 {
     char    *file;
@@ -74,14 +69,14 @@ typedef struct s_redir
 typedef struct s_cmd
 {
     char    **cmd; //comand 
-	char	*flag; // flangs 
+	char	*flag; // flangs
     int cnt; // count comnad how much 
     // int fpipe;
     // int rpipe;
     int pipe; // boolean 0 || 1
     int cnt_pipe; // count pipe how much
     char ***arguments; // arguments
-    char  **txt; // text 
+    // char  **txt; // text 
     t_redir *redir; // directions
 } t_cmd;
 
@@ -97,7 +92,7 @@ void        cd(char **env, struct Node* head, t_cmd *my_cmd);
 void		un_set(struct Node* head, char *add_key);
 void		ft_ex_port(struct Node* head, char *add_key, char *add_val,char **env);
 void		e_cho(char **arr, char *flag);
-void		ex_it(void);
+void        ex_it(char *arg, char flag);
 
 /// end functions builtins ///
 
@@ -161,6 +156,8 @@ int	ft_strcmp(char *s1, char *s2);
 void	*ft_memset(void *b, int c, size_t len);
 void	*ft_calloc(size_t count, size_t size);
 int	sizew(char const *s, char c, int i);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+void *my_realloc(void *ptr, size_t new_size);
 /// end functions utils ///
 
 #endif

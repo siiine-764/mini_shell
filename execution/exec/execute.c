@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 22:42:01 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/27 19:05:12 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/09/27 22:55:29 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,8 +241,6 @@ void free_path(t_path *p)
 
 void    excute_cpy(t_cmd *my_cmd, char **env, struct Node* head, char *input)
 {
-    // char *input;
-    // struct Node* head = NULL;
     t_path  *p = malloc(sizeof(p));
     char    *path = malloc(sizeof(char *));
     path = getenv("PATH");
@@ -251,13 +249,19 @@ void    excute_cpy(t_cmd *my_cmd, char **env, struct Node* head, char *input)
     // create_env(env, &head);
 
     int bl = 0;
-    // char *delimiter = "END";
-    // char *heredocInput = ft_redir_herdoc(my_cmd, delimiter);
-    // if (heredocInput == NULL) {
-    //     return ;
-    // }
-    // free(heredocInput);
     bl = execute_builtins(env, input, head, my_cmd);
+    if(bl == 0)
+    {
+        if (my_cmd->pipe == 0 && my_cmd->redir->cnt_redir <= 1)
+        {
+            printf("redir\n");
+            ft_redir(my_cmd, p);
+        }
+        if (my_cmd->pipe == 0)
+            excute_cmd(my_cmd, p);
+        else if (my_cmd->pipe == 1)
+            pi_pe(my_cmd, p);
+    }
     if (bl == 2)
     {
         free(input);
@@ -265,18 +269,6 @@ void    excute_cpy(t_cmd *my_cmd, char **env, struct Node* head, char *input)
         free(my_cmd);
         ex_it();
     }
-    // if(bl == 0)
-    // {
-    //     // if (my_cmd->pipe == 0 && my_cmd->redir->cnt_redir <= 1)
-    //     // {
-    //     //     printf("redir\n");
-    //     //     ft_redir(my_cmd, p);
-    //     // }
-    //     if (my_cmd->pipe == 0)
-    //         excute_cmd(my_cmd, p);
-    //     else if (my_cmd->pipe == 1)
-    //         pi_pe(my_cmd, p);
-    // }
 }
 
 // int main(int ac, char **av, char **env)

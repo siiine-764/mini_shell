@@ -1,4 +1,4 @@
-#include "../MiniShell.h"
+#include "../minishell_copy.h"
 
 void	check_command_error(t_vars *vars, t_command *command)
 {
