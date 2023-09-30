@@ -1,79 +1,79 @@
 #include "../minishell_copy.h"
 
-int	get_len(t_command *command)
+int	get_len(t_comm *comm)
 {
-	int	count;
-
-	count = 0;
-	while (command)
-	{
-		count += 1;
-		command = command->next_command;
-	}
-	return (count);
-}
-
-void	exec_node(t_vars *vars, t_command *command, t_contex contex)
-{
-	int		i;
+	int	i;
 
 	i = 0;
-	if (check_built_in_commands(vars, command, contex) == false)
+	while (comm)
 	{
-		if (!check_redirection(vars, command))
+		i += 1;
+		comm = comm->nxt_comm;
+	}
+	return (i);
+}
+
+void	exec_node(t_data *data, t_comm *comm, t_frame frame)
+{
+	int		j;
+
+	j= 0;
+	if (check_built_in_commands(data, comm, frame) == false)
+	{
+		if (!check_redirection(data, comm))
 		{
-			if (command->herdoc->first_token == NULL)
+			if (comm->heredoc->fst_tkn == NULL)
 			{
-				ft_execute(command, vars, contex);
+				ft_execute(comm, data, frame);
 				wait(NULL);
 			}
 		}
 	}
 }
 
-int	check_built_in_commands(t_vars *vars, t_command *command, t_contex contex)
+int	check_built_in_commands(t_data *data, t_comm *comm, t_frame frame)
 {
-	if (command->flags[0] != NULL)
+	if (comm->flags[0] != NULL)
 	{
-		if (run_pwd(*vars, command, contex))
+		if (run_pwd(*data, comm, frame))
 			return (true);
-		else if (run_env(*vars, command, contex))
+		else if (run_env(*data, comm, frame))
 			return (true);
-		else if (run_exit(*vars, command))
+		else if (run_exit(*data, comm))
 			return (true);
-		else if (run_cd(*vars, command))
+		else if (run_cd(*data, comm))
 			return (true);
-		else if (run_unset(vars, command))
+		else if (run_unset(data, comm))
 			return (true);
-		else if (run_export(command, vars, contex))
+		else if (run_export(comm, data, frame))
 			return (true);
-		else if (exec_echo(*vars, command, contex))
+		else if (exec_echo(*data, comm, frame))
 			return (true);
 		return (false);
 	}
 	return (false);
 }
 
-void	ft_execute(t_command *command, t_vars *vars, t_contex contex)
+void	ft_execute(t_comm *comm, t_data *data, t_frame frame)
 {
-	char	*command_path;
+	char	*p_comm;
 
-	if (command->flags[0] == NULL)
+	if (comm->flags[0] == NULL)
 		return ;
-	command_path = get_path(vars->env_list, command->flags[0]);
-	if (command->flags[0][0] == '/' || command->flags[0][0] == '.')
-		check_cmd(command, vars, contex);
-	else if (command_path == NULL)
-		ft_error(command->flags[0], " :command not found", COMMAND_NOT_FOUND);
+	p_comm = get_path(data->env_list, comm->flags[0]);
+	if (comm->flags[0][0] == '/' || comm->flags[0][0] == '.')
+		check_cmd(comm, data, frame);
+	else if (p_comm == NULL)
+		ft_error(comm->flags[0], " :command not found", COMMAND_NOT_FOUND);
 	else
 	{
-		if (command->flags[0][0])
-			exec_command(command, vars, contex, command_path);
+		if (comm->flags[0][0])
+			exec_command(comm, data, frame, p_comm);
 		else
-			ft_error(command->flags[0], " :command not found",
+			ft_error(comm->flags[0], " :command not found",
 				COMMAND_NOT_FOUND);
 	}
-	free(command_path);
+	free(p_comm);
 	g_global_vars.pid = -1;
 }
 
