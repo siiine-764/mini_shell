@@ -1,79 +1,79 @@
 
 #include "../minishell_copy.h"
-void	exec_first_node(t_vars *vars, t_norm data)
+void	exec_first_node(t_data *data, t_info my_info)
 {
-	close(data.fd[0]);
-	dup2(data.fd[1], STDOUT_FILENO);
-	exec_node(vars, vars->command, data.contex);
+	close(my_info.fd[0]);
+	dup2(my_info.fd[1], STDOUT_FILENO);
+	exec_node(data, data->comm, my_info.frame);
 }
 
-void	exec_last_node(t_vars *vars, t_norm data)
+void	exec_last_node(t_data *data, t_info my_info)
 {
-	close(data.fd[0]);
-	close(data.fd[1]);
-	if (data.contex.herdoc_fildes != 1337)
+	close(my_info.fd[0]);
+	close(my_info.fd[1]);
+	if (my_info.frame.heredoc_docs != 42)
 	{
-		close(data.contex.herdoc_fildes);
-		data.contex.herdoc_fildes = open("/tmp/temp_out_file", O_RDONLY, 0644);
-		if (data.contex.herdoc_fildes == 0)
+		close(my_info.frame.heredoc_docs);
+		my_info.frame.heredoc_docs = open("/tmp/temp_output", O_RDONLY, 0644);
+		if (my_info.frame.heredoc_docs == 0)
 		{
 			unlink("/tmp/trash");
-			data.contex.herdoc_fildes = open("/tmp/trash", O_RDONLY | O_CREAT);
-			dup2(data.contex.herdoc_fildes, STDIN_FILENO);
+			mt_info.frame.heredoc_docs = open("/tmp/trash", O_RDONLY | O_CREAT);
+			dup2(my_info.frame.heredoc_docs, STDIN_FILENO);
 		}
 		else
 		{
-			dup2(data.contex.herdoc_fildes, STDIN_FILENO);
+			dup2(my_info.frame.heredoc_docs, STDIN_FILENO);
 		}
 	}
 	else
 	{
-		dup2(data.temp_fd, STDIN_FILENO);
+		dup2(my_info.fd_temp, STDIN_FILENO);
 	}
-	exec_node(vars, vars->command, data.contex);
+	exec_node(data, data->comm, my_info.frame);
 }
 
-void	exec_other_node(t_vars *vars, t_norm data)
+void	exec_other_node(t_data *data, t_info my_info)
 {
-	close(data.fd[0]);
-	if (data.contex.herdoc_fildes != 1337)
+	close(my_info.fd[0]);
+	if (my_info.frame.heredoc_docs != 42)
 	{
-		close(data.temp_fd);
-		close(data.contex.herdoc_fildes);
-		data.contex.herdoc_fildes = open("/tmp/temp_out_file", O_RDONLY);
-		dup2(data.contex.herdoc_fildes, STDIN_FILENO);
-		dup2(data.fd[1], STDOUT_FILENO);
+		close(my_info.fd_temp);
+		close(my_info.frame.heredoc_docs);
+		my_info.frame.heredoc_docs = open("/tmp/temp_output", O_RDONLY);
+		dup2(my_info.frame.heredoc_docs, STDIN_FILENO);
+		dup2(my_info.fd[1], STDOUT_FILENO);
 	}
 	else
 	{
-		dup2(data.fd[1], STDOUT_FILENO);
-		dup2(data.temp_fd, STDIN_FILENO);
+		dup2(my_info.fd[1], STDOUT_FILENO);
+		dup2(my_info.fd_temp, STDIN_FILENO);
 	}
-	exec_node(vars, vars->command, data.contex);
+	exec_node(data, data->comm, my_info.frame);
 }
 
-void	wait_for_child(int *ids, int i, int temp_fd)
+void	wait_for_child(int *ids, int fd_temp, int i)
 {
-	int		status;
+	int		sts;
 
-	(void)temp_fd;
+	(void)fd_temp;
 	while (--i >= 0)
-		waitpid(ids[i], &status, 0);
+		waitpid(ids[i], &sts, 0);
 }
 
-void	check_commands_order(t_vars *vars, t_norm *data)
+void	check_commands_order(t_data *data, t_info *my_info)
 {
-	pipe(data->fd);
+	pipe(my_info->fd);
 	g_global_vars.pid = fork();
 	if (g_global_vars.pid == 0)
 	{
-		if (data->i == 0)
-			exec_first_node(vars, *data);
-		else if (data->i == data->size - 1)
-			exec_last_node(vars, *data);
+		if (my_info->i == 0)
+			exec_first_node(data, *my_info);
+		else if (my_info->i == my_info->size - 1)
+			exec_last_node(data, *my_info);
 		else
-			exec_other_node(vars, *data);
+			exec_other_node(data, *my_info);
 		exit(127);
 	}
-	data->temp_fd = dup(data->fd[0]);
+	my_info->fd_temp = dup(my_info->fd[0]);
 }

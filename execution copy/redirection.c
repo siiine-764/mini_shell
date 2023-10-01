@@ -1,105 +1,105 @@
 #include "../minishell_copy.h"
 
-void	ft_redirect_output_append_mode(t_command *command, t_vars *vars)
+void	ft_redirect_output_append_mode(t_comm *comm, t_data *data)
 {
-	t_contex	contex;
+	t_frame	frame;
 
-	contex.herdoc_fildes = -1;
-	contex = open_files(*command->redi);
-	if (contex.fd_in == -1 || contex.fd_out == -1)
+	frame.heredoc_docs = -1;
+	frame = open_files(*comm->redirection);
+	if (frame.fd_in == -1 || frame.fd_out == -1)
 	{
 		set_exit_code(1);
 		return ;
 	}
-	if (command->flags[0] != NULL)
-		if (!check_built_in_commands(vars, command, contex))
-			ft_execute(command, vars, contex);
+	if (comm->flags[0] != NULL)
+		if (!check_built_in_commands(data, comm, frame))
+			ft_execute(comm, data, frame);
 	set_exit_code(EXIT_SUCCESS);
 }
 
-void	ft_redirect_output_trunc_mode(t_vars *vars, t_command *command)
+void	ft_redirect_output_trunc_mode(t_comm *comm, t_data *data)
 {
-	t_contex	contex;
+	t_frame	frame;
 
-	contex.herdoc_fildes = -1;
-	contex = open_files(*command->redi);
-	if (contex.fd_in == -1 || contex.fd_out == -1)
+	frame.heredoc_docs = -1;
+	frame = open_files(*comm->redirection);
+	if (frame.fd_in == -1 || frame.fd_out == -1)
 	{
 		set_exit_code(1);
 		return ;
 	}
-	if (command->flags[0] != NULL)
+	if (comm->flags[0] != NULL)
 	{
-		if (!check_built_in_commands(vars, command, contex))
-			ft_execute(command, vars, contex);
+		if (!check_built_in_commands(data, comm, frame))
+			ft_execute(comm, data, frame);
 	}
 	set_exit_code(EXIT_SUCCESS);
 }
 
-void	redirect_input(t_vars *vars, t_command *command)
+void	redirect_input(t_comm *comm, t_data *data)
 {
-	t_contex	contex;
+	t_frame	frame;
 
-	contex.herdoc_fildes = -1;
-	contex = open_files(*command->redi);
-	if (contex.fd_out == -1 || contex.fd_in == -1)
+	frame.heredoc_docs = -1;
+	frame = open_files(*comm->redirection);
+	if (frame.fd_out == -1 || frame.fd_in == -1)
 	{
 		set_exit_code(1);
 		return ;
 	}
-	else if (command->flags[0] != NULL)
-		if (!check_built_in_commands(vars, command, contex))
-			ft_execute(command, vars, contex);
+	else if (comm->flags[0] != NULL)
+		if (!check_built_in_commands(data, comm, frame))
+			ft_execute(comm, data, frame);
 	set_exit_code(EXIT_SUCCESS);
 }
 
-void	exec_herdoc_command(t_command *command, t_vars *vars, t_contex contex)
+void	exec_herdoc_command(t_comm *comm, t_data *data, t_frame frame)
 {
 	char	*path;
 
-	if (command->flags[0] != NULL)
+	if (comm->flags[0] != NULL)
 	{
-		path = get_path(vars->env_list, command->flags[0]);
+		path = get_path(data->env_list, comm->flags[0]);
 		if (path)
 		{
 			if (fork() == 0)
 			{
-				dup2(contex.herdoc_fildes, STDIN_FILENO);
-				dup2(contex.fd_out, STDOUT_FILENO);
-				execve(path, command->flags, vars->env);
-				perror("execve");
+				dup2(frame.heredoc_docs, STDIN_FILENO);
+				dup2(frame.fd_out, STDOUT_FILENO);
+				execve(path, comm->flags, data->env);
+				perror("exe");
 				exit(COMMAND_NOT_FOUND);
 			}
 		}
 		else
-			ft_error(command->flags[0],
-				": command, not found\n", COMMAND_NOT_FOUND);
+			ft_error(comm->flags[0],
+				": COMMAND NOT FOUND\n", COMMAND_NOT_FOUND);
 	}
 	set_exit_code(EXIT_SUCCESS);
 }
 
-int	ft_heredoc(t_vars *vars, t_command *command, t_contex contex)
+int	ft_heredoc(t_data *data, t_comm *comm, t_frame frame)
 {
-	int		temp_stdin;
-	int		out_file;
+	int		output;
+	int		stdin_temp;
 
-	out_file = 1337;
-	temp_stdin = fill_temp_stdin(command);
-	contex = open_files(*command->redi);
-	if (contex.fd_in == -1 || contex.fd_out == -1)
+	output = 42;
+	stdin_temp = fill_temp_stdin(comm);
+	frame = open_files(*comm->redirection);
+	if (frame.fd_in == -1 || frame.fd_out == -1)
 	{
 		set_exit_code(1);
 		return (0);
 	}
-	check_out_files(&out_file, &contex.fd_out);
-	check_in_files(&contex.fd_in, &temp_stdin);
-	contex.fd_out = dup(contex.fd_out);
-	if (!check_built_in_commands(vars, command, contex))
+	check_out_files(&output, &frame.fd_out);
+	check_in_files(&frame.fd_in, &stdin_temp);
+	frame.fd_out = dup(frame.fd_out);
+	if (!check_built_in_commands(data, comm, frame))
 	{
-		ft_execute(command, vars, contex);
+		ft_execute(comm, data, frame);
 		wait(NULL);
-		close(contex.fd_out);
+		close(frame.fd_out);
 	}
 	unlink("tmp/temp");
-	return (heredoc_return(out_file, contex));
+	return (heredoc_return(output, frame));
 }

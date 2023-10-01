@@ -1,78 +1,78 @@
 #include "../minishell_copy.h"
-t_list	*delete_head(t_list **env_list, char **cmd, char *to_delete)
+t_list	*delete_head(char **command, t_env **env_list, char *del)
 {
-	t_list	*temp;
+	t_env	*p;
 
-	if (ft_strcmp(cmd[0], to_delete) == 0)
+	if (ft_strcmp(command[0], del) == 0)
 	{
-		temp = *env_list;
-		*env_list = (*env_list)->next;
-		free(temp->content);
-		free(temp);
-		free_2d_array(cmd);
+		p = *env_list;
+		*env_list = (*env_list)->nxt;
+		free(p->ctt);
+		free(p);
+		free_2d_array(command);
 		set_exit_code(EXIT_SUCCESS);
 		return (*env_list);
 	}
 	return (NULL);
 }
 
-void	delete_body(t_norm *vars)
+void	delete_body(t_info *data)
 {
-	vars->temp = vars->second;
-	free_2d_array(vars->cmd);
-	vars->first->next = vars->second->next;
-	free(vars->temp->content);
-	free(vars->temp);
+	data->p = data->sec;
+	free_2d_array(data->c);
+	data->fst->nxt = data->sec->nxt;
+	free(data->p->ctt);
+	free(data->p);
 }
 
-void	ft_unset(t_list **env_list, char *to_delete)
+void	ft_unset(t_env **env_list, char *del)
 {
-	t_norm	vars;
-	t_list	*head;
+	t_env	*top;
+	t_info	data;
 
 	if (!*env_list)
 		return ;
-	vars.first = *env_list;
-	vars.cmd = ft_split((*env_list)->content, '=');
-	if (vars.cmd[0] == NULL)
+	data.fst = *env_list;
+	data.c = ft_split((*env_list)->ctt, '=');
+	if (data.c[0] == NULL)
 		return ;
-	head = delete_head(env_list, vars.cmd, to_delete);
-	if (head != NULL)
+	top = delete_head(env_list, data.c, del);
+	if (top != NULL)
 		return ;
-	if (vars.first == NULL)
-		vars.second = vars.first->next;
+	if (data.fst == NULL)
+		data.sec = data.fst->nxt;
 	else
 	{
-		ft_putendl_fd("am here", 2);
+		ft_putendl_fd("IAM HERE LOL", 2);
 		return ;
 	}
-	while (vars.second)
+	while (data.sec)
 	{
-		free_2d_array(vars.cmd);
-		vars.cmd = ft_split(vars.second->content, '=');
-		if (ft_strcmp(vars.cmd[0], to_delete) == 0)
+		free_2d_array(data.c);
+		data.c = ft_split(data.sec->ctt, '=');
+		if (ft_strcmp(data.c[0], del) == 0)
 		{
-			delete_body(&vars);
+			delete_body(&data);
 			return ;
 		}
-		vars.first = vars.second;
-		vars.second = vars.second->next;
+		data.fst = data.sec;
+		data.sec = data.sec->nxt;
 	}
-	free_2d_array(vars.cmd);
+	free_2d_array(data.c);
 	set_exit_code(EXIT_SUCCESS);
 }
 
-bool	run_unset(t_vars *vars, t_command *command)
+bool	run_unset(t_data *data, t_comm *comm)
 {
 	int	i;
 
-	if (!ft_strcmp(command->flags[0], "unset"))
+	if (!ft_strcmp(comm->flags[0], "unset"))
 	{
 		i = 0;
-		while (command->flags[++i])
+		while (comm->flags[++i])
 		{
-			ft_unset(&vars->env_list, command->flags[i]);
-			ft_unset(&vars->export_list, command->flags[i]);
+			ft_unset(&data->env_list, comm->flags[i]);
+			ft_unset(&data->pub_list, comm->flags[i]);
 		}
 		return (true);
 	}

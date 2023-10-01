@@ -1,88 +1,88 @@
 #include "../minishell_copy.h"
 
-int	open_input_files(t_token_head redi)
+int	open_input_files(t_tkn_top redirection)
 {
 	int	fd_in;
 
-	if (redi.first_token->token == T_IN)
+	if (redirection.fst_tkn->tkn == T_IN)
 	{
-		fd_in = open(redi.first_token->value, O_RDONLY);
+		fd_in = open(redirection.fst_tkn->val, O_RDONLY);
 		if (fd_in == -1)
-			perror(redi.first_token->value);
+			perror(redirection.fst_tkn->val);
 		return (fd_in);
 	}
 	return (INT_MIN);
 }
 
-int	open_trunc_mode_files(t_token_head redi)
+int	open_trunc_mode_files(t_tkn_top redirection)
 {
 	int	fd_out;
 
-	if (redi.first_token->token == T_OUT)
+	if (redirection.fst_tkn->tkn == T_OUT)
 	{
-		fd_out = open(redi.first_token->value, \
+		fd_out = open(redirection.fst_tkn->val, \
 			O_CREAT | O_TRUNC | O_RDWR, 0644);
 		if (fd_out == -1)
-			perror(redi.first_token->value);
+			perror(redirection.fst_tkn->val);
 		return (fd_out);
 	}
 	return (INT_MIN);
 }
 
-int	open_append_mode_files(t_token_head redi)
+int	open_append_mode_files(t_tkn_top redirection)
 {
-	int		fd_out;
 	char	*file;
+	int		output_fd;
 
-	file = ft_strdup(redi.first_token->value);
-	if (redi.first_token->token == T_APPEND)
+	file = ft_strdup(redirection.fst_tkn->val);
+	if (redirection.fst_tkn->tkn == T_APPEND)
 	{
-		fd_out = open(file,
+		output_fd = open(file,
 				O_CREAT | O_APPEND | O_RDWR, 0644);
-		if (fd_out == -1)
+		if (output_fd == -1)
 			perror(file);
 		free(file);
-		return (fd_out);
+		return (output_fd);
 	}
 	free(file);
 	return (INT_MIN);
 }
 
-t_files	init_files(t_token_head redi)
+t_files	init_files(t_tkn_top redirection)
 {
-	t_files	files;
+	t_docs	my_files;
 
-	files.in = open_input_files(redi);
-	files.trunc = open_trunc_mode_files(redi);
-	files.append = open_append_mode_files(redi);
-	return (files);
+	my_files.in = open_input_files(redirection);
+	my_files.trunc = open_trunc_mode_files(redirection);
+	my_files.append = open_append_mode_files(redirection);
+	return (my_files);
 }
 
-t_contex	open_files(t_token_head redi)
+t_frame	open_files(t_tkn_top redirection)
 {
-	t_contex	contex;
-	t_files		files;
+	t_docs		my_files;
+	t_frame		frame;
 
-	init_contex(&contex);
-	while (redi.first_token)
+	init_contex(&frame);
+	while (redirection.fst_tkn)
 	{
-		files = init_files(redi);
-		if (files.in == -1 || files.trunc == -1 || files.append == -1)
+		my_files = init_files(redirection);
+		if (my_files.in == -1 || my_files.trunc == -1 || my_files.append == -1)
 		{
-			contex.fd_in = -1;
-			contex.fd_out = -1;
-			return (contex);
+			frame.fd_in = -1;
+			frame.fd_out = -1;
+			return (frame);
 		}
 		else
 		{
-			if (files.in != INT_MIN)
-				contex.fd_in = files.in;
-			if (files.trunc != INT_MIN)
-				contex.fd_out = files.trunc;
-			if (files.append != INT_MIN)
-				contex.fd_out = files.append;
+			if (my_files.in != INT_MIN)
+				frame.fd_in = my_files.in;
+			if (my_files.trunc != INT_MIN)
+				frame.fd_out = my_files.trunc;
+			if (my_files.append != INT_MIN)
+				frame.fd_out = my_files.append;
 		}
-		redi.first_token = redi.first_token->next;
+		redirection.fst_tkn = redirection.fst_tkn->nxt;
 	}
-	return (contex);
+	return (frame);
 }

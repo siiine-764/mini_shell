@@ -2,32 +2,32 @@
 
 #include "../minishell_copy.h"
 
-void	ft_pwd(t_vars vars, t_command *command, t_contex contex)
+void	ft_pwd(t_data data, t_comm *comm, t_frame frame)
 {
-	t_contex		ctx;
-	char			working_directory[PATH_MAX];
+	t_frame		fm;
+	char		dir[PATH_MAX];
 
-	ctx = open_files(*command->redi);
-	if (ctx.fd_out == -1 || ctx.fd_in == -1)
+	fm = open_files(*comm->redirection);
+	if (fm.fd_out == -1 || fm.fd_in == -1)
 	{
 		set_exit_code(1);
 		return ;
 	}
-	getcwd(working_directory, sizeof(working_directory));
-	ft_setenv(&vars.env_list, "PWD", working_directory);
-	ft_setenv(&vars.export_list, "PWD", working_directory);
-	if (ctx.fd_out == STDOUT_FILENO)
-		ft_putendl_fd(working_directory, contex.fd_out);
+	getcwd(dir, sizeof(dir));
+	ft_setenv(&data.env_list, "PWD", dir);
+	ft_setenv(&data.pub_list, "PWD", dir);
+	if (fm.fd_out == STDOUT_FILENO)
+		ft_putendl_fd(dir, frame.fd_out);
 	else
-		ft_putendl_fd(working_directory, ctx.fd_out);
+		ft_putendl_fd(dir, fm.fd_out);
 	set_exit_code(EXIT_SUCCESS);
 }
 
-bool	run_pwd(t_vars vars, t_command *command, t_contex contex)
+bool	run_pwd(t_data data, t_comm *comm, t_frame frame)
 {
-	if (!ft_strcmp(command->flags[0], "pwd"))
+	if (!ft_strcmp(comm->flags[0], "pwd"))
 	{
-		ft_pwd(vars, command, contex);
+		ft_pwd(data, comm, frame);
 		return (true);
 	}
 	return (false);
