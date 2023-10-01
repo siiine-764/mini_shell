@@ -21,8 +21,8 @@
 # include <signal.h>
 # include <stdlib.h>
 # include <errno.h>
-# include <curses.h>
-# include <term.h>
+// # include <curses.h>
+// # include <term.h>
 # include <sys/wait.h>
 # include <termios.h>
 # include <sys/ioctl.h>
