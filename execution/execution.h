@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 21:56:49 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/29 12:52:08 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/10/01 16:33:58 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ typedef struct s_path
 /// functions builtins ///
 void		pwd(void);
 void        cd(char **env, struct Node* head, t_cmd *my_cmd);
+void	cd_home(struct Node* head, char **env);
 void		un_set(struct Node* head, char *add_key);
 void		ft_ex_port(struct Node* head, char *add_key, char *add_val,char **env);
 void		e_cho(char **arr, char *flag);
-void        ex_it(char *arg, char flag);
-
+void    ex_it(t_cmd *my_cmd, int flag);
 /// end functions builtins ///
 
 /// functions execution ///
@@ -112,9 +112,18 @@ void    excute_cmd(t_cmd *my_cmd, t_path *p);
 /// functions pipe ///
 void    pi_pe(t_cmd *my_cmd, t_path *p);
 void    my_execve(char *file, char *args[], t_path *p);
-void    wait_all(int cnt_pipe);
-
 /// end functions pipe ///
+
+///  function utils pipe  ///
+void    wait_all(int cnt_pipe);
+void run_pipe(int i, t_cmd *my_cmd, t_path *p);
+void ft_error();
+void ft_close1(int pipes[][2], int i);
+void ft_close2(int pipes[][2], int i);
+void ft_close3(int i, int cnt_pipe, int pipes[][2]);
+void ft_error2(int cnt_pipe, int pipes[][2]);
+void    check_pid_error(pid_t pid);
+///  function utils pipe  ///
 
 /// functions redirect ///
 void ft_redir(t_cmd *my_cmd, t_path *p);

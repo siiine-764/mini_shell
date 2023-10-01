@@ -65,7 +65,6 @@ void	ft_cd(t_env *env_list, t_env *pub_list, char *path)
 		cd_previouswd(env_list, pub_list);
 	else if (ft_strcmp("~", path) == 0)
 	{
-		home:
 		cd_home(env_list, pub_list);
 	}
 	else

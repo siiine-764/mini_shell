@@ -1,4 +1,4 @@
-NAME	= execution.a
+NAME	= execution
 CC		= cc
 CFLAGS 	= -Wall -Wextra -Werror #-fsanitize=address -g
 
@@ -14,6 +14,8 @@ SRCS =	builtins/cd.c\
 		utils/utils1.c\
 		utils/utils2.c\
 		utils/utils3.c\
+		utils/utils_pipe0.c\
+		utils/utils_pipe1.c\
 		exec/pipe.c\
 		exec/execute.c\
 		exec/redir.c\
@@ -22,9 +24,13 @@ all: $(NAME)
 
 OBJS = $(SRCS:.c=.o)
 
-$(NAME) : $(OBJS)
-	@ar rcs $(NAME) $(OBJS)
-	@echo "make execution"
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lreadline
+	@echo "make minishell"
+
+# $(NAME) : $(OBJS)
+# 	@ar rcs $(NAME) $(OBJS)
+# 	@echo "make execution"
 
 clean:
 	@rm -f $(OBJS)

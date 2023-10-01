@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 21:25:08 by mayache-          #+#    #+#             */
-/*   Updated: 2023/09/29 12:52:47 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/10/01 13:53:15 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ int	check_args_for_exit(char **args)
 	return (0);
 }
 
-void    ex_it(char *arg, char flag)
+void    ex_it(t_cmd *my_cmd, int flag)
 {
-	int ex_it;
-	if (arg == NULL)
-	{
-		set_exit_code(0);
-		exit(0);
-	}
+	(void)flag;
+	// int ex_it;
     printf("exit\n");
+	if (my_cmd->arguments[0][1] == NULL)
+	{
+		exit(1);
+	}
     // if (check_args_for_exit(cd->args))
     //     return (1);
     exit(1);

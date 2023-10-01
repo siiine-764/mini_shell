@@ -10,6 +10,6 @@ int main() {
     printf("%s\n", b);
     chdir(a);
     chdir(b);
-
+prtinf
 return 0;
 }
