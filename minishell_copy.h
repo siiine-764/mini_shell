@@ -1,7 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "./libft/libft.h"
+// # include "./libft/libft.h"
 # include <stdio.h>
 # include <sys/types.h>
 # include <sys/uio.h>
@@ -22,6 +22,7 @@
 # include <string.h>
 # include <sys/stat.h>
 # include <limits.h>
+
 # define PERMISSION_DENIED 126
 # define COMMAND_NOT_FOUND 127
 # define SUCCESS 0

@@ -1,70 +1,70 @@
 #include "../minishell_copy.h"
 
-bool	add_variable(t_command *command, t_vars *vars, char **temp, int i)
+bool	add_variable(t_data *data, t_comm *comm, char **s, int j)
 {
-	if (is_variable(command->flags[i]))
+	if (is_variable(comm->flags[i]))
 	{
-		if (ft_getenv(vars->env_list, temp[0]) == NULL)
+		if (ft_getenv(data->env_list, s[0]) == NULL)
 		{
-			if (ft_getenv(vars->export_list, temp[0]) != NULL)
+			if (ft_getenv(data->pub_list, s[0]) != NULL)
 			{
-				ft_unset(&vars->export_list, temp[0]);
-				add_unexisted_variable(command, vars, temp, i);
+				ft_unset(&data->pub_list, s[0]);
+				add_unexisted_variable(comm, data, s, j);
 			}
 			else
-				add_unexisted_variable(command, vars, temp, i);
+				add_unexisted_variable(comm, data, s, j);
 		}
 		else
-			add_existed_variable(command, vars, i, temp);
+			add_existed_variable(comm, data, j, s);
 		return (true);
 	}
 	return (false);
 }
 
-void	add_non_variable(t_command *command, t_vars *vars, char **temp, int i)
+void	add_non_variable(t_data *data, t_comm *comm, char **s, int j)
 {
-	if (ft_getenv(vars->export_list, temp[0]) == NULL)
+	if (ft_getenv(data->pub_list, s[0]) == NULL)
 	{
-		ft_lstadd_front(&(vars)->export_list,
-			ft_lstnew(ft_strdup(command->flags[i])));
-		sort_list(&vars->export_list);
+		ft_lstadd_front(&(data)->pub_list,
+			ft_lstnew(ft_strdup(comm->flags[i])));
+		sort_list(&data->pub_list);
 	}
 }
 
-void	show_export_error(int *flag, int i, t_command *command)
+void	show_export_error(t_comm *comm, int j, int *flag)
 {
 	if (*flag == 0)
 	{
-		ft_error(command->flags[i], " :export: not an identifier", 1);
+		ft_error(comm->flags[j], " :EXP: IDENTIFIER DOSEN'T EXIST", 1);
 		*flag = 1;
 	}
 }
 
-void	add_properly_named_word(t_command *command, t_vars *vars, int i)
+void	add_properly_named_word( t_data *data, t_comm *comm, int j)
 {
-	char	**temp;
-	int		r;
+	char	**s;
+	int		i;
 
-	temp = ft_split(command->flags[i], '=');
-	if (!add_variable(command, vars, temp, i))
-		add_non_variable(command, vars, temp, i);
-	r = 0;
-	while (temp[r])
+	s = ft_split(comm->flags[j], '=');
+	if (!add_variable(comm, data, s, j))
+		add_non_variable(comm, data, s, j);
+	i = 0;
+	while (s[i])
 	{
-		free(temp[r]);
-		r++;
+		free(s[i]);
+		i++;
 	}
-	free(temp);
+	free(s);
 }
 
-int	is_variable(char *s)
+int	is_variable(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (str[i])
 	{
-		if (s[i] == '=' && i - 1 >= 0 && s[i - 1] != '=')
+		if (str[i] == '=' && i - 1 >= 0 && str[i - 1] != '=')
 			return (true);
 		i++;
 	}

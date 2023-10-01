@@ -32,43 +32,43 @@ void	check_path(t_data *data, t_comm *comm)
 
 void	check_files(t_tkn_top redirection)
 {
-	int	out_file;
+	int	output;
 
 	while (redirection.fst_tkn != NULL)
 	{
 		if (redirection.fst_tkn->tkn == T_IN)
 		{
-			out_file = open(redirection.fst_tkn->val, O_RDONLY);
-			if (out_file == -1)
+			output = open(redirection.fst_tkn->val, O_RDONLY);
+			if (output == -1)
 				set_exit_code(1);
 		}
 		redirection.fst_tkn = redirection.fst_tkn->nxt;
 	}
 }
 
-void	set_exit_code_inside_pipe(t_vars *vars, t_command *command)
+void	set_exit_code_inside_pipe(t_data *data, t_comm *comm)
 {
 	int		i;
 
 	i = 0;
-	while (command)
+	while (comm)
 	{
-		if (command->flags[0])
+		if (comm->flags[0])
 		{
-			if (ft_strcmp(command->flags[0], "exit") == 0)
-				ft_exit(command->flags[1], 'e');
-			else if (ft_strcmp(command->flags[0], "export") == 0)
-				check_export_error(vars, command);
-			else if (ft_strcmp(command->flags[0], "cd") == 0)
-				check_cd_errors(vars, command);
-			else if (command->flags[0][0] == '/')
-				check_command_error(vars, command);
-			else if (command->flags[0][0] == '.')
-				check_command_error_2(vars, command);
+			if (ft_strcmp(comm->flags[0], "exit") == 0)
+				ft_exit(comm->flags[1], 'e');
+			else if (ft_strcmp(comm->flags[0], "export") == 0)
+				check_export_error(data, comm);
+			else if (ft_strcmp(comm->flags[0], "cd") == 0)
+				check_cd_errors(data, comm);
+			else if (comm->flags[0][0] == '/')
+				check_command_error(data, comm);
+			else if (comm->flags[0][0] == '.')
+				check_command_error_2(data, comm);
 			else
-				check_path(vars, command);
+				check_path(data, comm);
 		}
-		check_files(*command->redi);
-		command = command->next_command;
+		check_files(*comm->redirection);
+		comm = comm->nxt_comm;
 	}
 }
