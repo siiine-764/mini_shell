@@ -1,14 +1,14 @@
 #include "../minishell_copy.h"
 
-int	ft_strcmp(char *s, char *str)
+int	ft_strcmp(char *str, char *p)
 {
 	int	i;
 
 	i = 0;
-	while (s[i] || str[i])
+	while (str[i] || p[i])
 	{
-		if (s[i] != str[i])
-			return (s[i] - str[i]);
+		if (str[i] != p[i])
+			return (str[i] - p[i]);
 		i++;
 	}
 	return (0);
@@ -16,22 +16,22 @@ int	ft_strcmp(char *s, char *str)
 
 char	*get_promt(void)
 {
-	char	*cmd;
+	char	*command;
 
-	cmd = readline("\033[0;34mMinishell$> :\033[0;37m");
-	if (cmd && *cmd)
-		add_history(cmd);
-	return (cmd);
+	command = readline("\033[0;34mMinishell$> :\033[0;37m");
+	if (command && *command)
+		add_history(command);
+	return (command);
 }
 
-void	init_contex(t_contex *contex)
+void	init_contex(t_frame *frame)
 {
-	contex->fd_in = STDIN_FILENO;
-	contex->fd_out = STDOUT_FILENO;
+	frame->fd_in = STDIN_FILENO;
+	frame->fd_out = STDOUT_FILENO;
 }
 
-void	walk_to_heredoc(t_command **command)
+void	walk_to_heredoc(t_comm **comm)
 {
-	while (*command && (*command)->herdoc->first_token == NULL)
-		*command = (*command)->next_command;
+	while (*comm && (*comm)->heredoc->fst_tkn == NULL)
+		*comm = (*comm)->nxt_comm;
 }

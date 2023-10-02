@@ -1,100 +1,100 @@
 #include "../minishell_copy.h"
 
-void	ft_export(t_command *command, t_list *env, char *arg)
+void	ft_export(t_comm *comm, t_env *env, char *var)
 {
 	int	fd;
 
-	fd = open_files(*command->redi).fd_out;
+	fd = open_files(*comm->redirection).fd_out;
 	if (fd == -1)
 	{
 		set_exit_code(1);
 		return ;
 	}
-	if (arg == NULL)
+	if (var == NULL)
 	{
 		sort_list(&env);
 		while (env)
 		{
-			ft_putstr_fd("declare -x\t", fd);
-			ft_putendl_fd(env->content, fd);
-			env = env->next;
+			ft_putstr_fd("DEC -x\t", fd);
+			ft_putendl_fd(env->ctt, fd);
+			env = env->nxt;
 		}
 	}
 	else
 	{
-		ft_lstadd_front(&env, ft_lstnew(arg));
+		ft_lstadd_front(&env, ft_lstnew(var));
 		sort_list(&env);
 	}
 }
 
-void	show_export_list(t_command *command, t_vars vars, t_contex contex)
+void	show_export_list(t_comm *comm, t_data data, t_frame frame)
 {
-	t_contex	ctx;
+	t_frame	fm;
 
-	ctx = open_files(*command->redi);
-	if (ctx.fd_in == -1 || ctx.fd_out == -1)
+	fm = open_files(*comm->redirection);
+	if (fm.fd_in == -1 || fm.fd_out == -1)
 	{
 		set_exit_code(1);	
 		return ;
 	}
-	while (vars.export_list && vars.export_list->content != NULL)
+	while (data.pub_list && data.pub_list->ctt != NULL)
 	{
-		if (ctx.fd_out == STDOUT_FILENO)
+		if (fm.fd_out == STDOUT_FILENO)
 		{
-			ft_putstr_fd("declare -x  ", contex.fd_out);
-			ft_putendl_fd(vars.export_list->content, contex.fd_out);
+			ft_putstr_fd("DEC -x  ", frame.fd_out);
+			ft_putendl_fd(data.pub_list->ctt, frame.fd_out);
 		}
 		else
 		{
-			ft_putstr_fd("declare -x  ", ctx.fd_out);
-			ft_putendl_fd(vars.export_list->content, ctx.fd_out);
+			ft_putstr_fd("DEC -x  ", fm.fd_out);
+			ft_putendl_fd(data.pub_list->ctt, fm.fd_out);
 		}
-		vars.export_list = vars.export_list->next;
+		data.pub_list = data.pub_list->nxt;
 	}
 }
 
-void	add_unexisted_variable(t_command *command, t_vars *vars,
-		char **temp, int i)
+void	add_unexisted_variable(t_data *data, t_comm*comm,
+		char **s, int i)
 {
-	ft_unset(&vars->env_list, temp[0]);
-	ft_unset(&vars->export_list, temp[0]);
-	ft_lstadd_front(&(vars)->env_list, ft_lstnew(ft_strdup(command->flags[i])));
-	ft_lstadd_front(&(vars)->export_list,
-		ft_lstnew(ft_strdup(command->flags[i])));
-	sort_list(&vars->export_list);
+	ft_unset(&data->env_list, s[0]);
+	ft_unset(&data->pub_list, s[0]);
+	ft_lstadd_front(&(data)->env_list, ft_lstnew(ft_strdup(comm->flags[i])));
+	ft_lstadd_front(&(data)->pub_list,
+		ft_lstnew(ft_strdup(comm->flags[i])));
+	sort_list(&data->pub_list);
 }
 
-void	add_existed_variable(t_command *command, t_vars *vars,
-		int i, char **temp)
+void	add_existed_variable(t_data *data, t_comm *comm, 
+		char **s, int i)
 {
-	ft_unset(&vars->env_list, temp[0]);
-	ft_unset(&vars->export_list, temp[0]);
-	ft_lstadd_front(&(vars)->env_list, ft_lstnew(ft_strdup(command->flags[i])));
-	ft_lstadd_front(&(vars)->export_list,
-		ft_lstnew(ft_strdup(command->flags[i])));
-	sort_list(&vars->export_list);
+	ft_unset(&data->env_list, s[0]);
+	ft_unset(&data->pub_list, s[0]);
+	ft_lstadd_front(&(data)->env_list, ft_lstnew(ft_strdup(comm->flags[i])));
+	ft_lstadd_front(&(data)->pub_list,
+		ft_lstnew(ft_strdup(comm->flags[i])));
+	sort_list(&data->pub_list);
 }
 
-bool	run_export(t_command *command, t_vars *vars, t_contex contex)
+bool	run_export(t_comm *comm, t_data *data, t_frame frame)
 {
-	int			i;
 	int			flag;
+	int			j;
 
 	flag = 0;
-	i = 0;
-	if (ft_strcmp(command->flags[0], "export")
-		&& ft_strcmp(command->flags[0], "EXPORT"))
+	j = 0;
+	if (ft_strcmp(comm->flags[0], "exp")
+		&& ft_strcmp(comm->flags[0], "EXP"))
 		return (false);
-	if (command->flags[1] == NULL)
-		show_export_list(command, *vars, contex);
+	if (comm->flags[1] == NULL)
+		show_export_list(comm, *data, frame);
 	else
 	{
-		while (command->flags[++i])
+		while (comm->flags[++i])
 		{
-			if (is_properly_named(command->flags[i]))
-				add_properly_named_word(command, vars, i);
+			if (is_properly_named(comm->flags[i]))
+				add_properly_named_word(comm, data, j);
 			else
-				show_export_error(&flag, i, command);
+				show_export_error(&flag, j, comm);
 		}
 	}
 	return (true);

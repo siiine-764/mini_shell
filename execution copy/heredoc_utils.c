@@ -1,78 +1,78 @@
 #include "../minishell_copy.h"
 
-void	exec_first_command_before_heredoc(t_vars *vars, t_norm data)
+void	exec_first_command_before_heredoc(t_data *data, t_info my_info)
 {
-	close(data.fd[0]);
-	dup2(data.fd[1], STDOUT_FILENO);
-	exec_node(vars, vars->command, data.contex);
+	close(my_info.fd[0]);
+	dup2(my_info.fd[1], STDOUT_FILENO);
+	exec_node(data, data->comm, my_info.frame);
 }
 
-void	exec_last_command_before_heredoc(t_vars *vars, t_norm data)
+void	exec_last_command_before_heredoc(t_data *data, t_info my_info)
 {
-	if (vars->command->redi->first_token == NULL && vars->command->next_command)
-		dup2(data.fd[1], STDOUT_FILENO);
+	if (data->comm->redirection->fst_tkn == NULL && data->comm->nxt_comm)
+		dup2(my_info.fd[1], STDOUT_FILENO);
 	else
-		close(data.fd[1]);
-	close(data.fd[0]);
-	dup2(data.temp_fd, STDIN_FILENO);
-	exec_node(vars, vars->command, data.contex);
+		close(my_info.fd[1]);
+	close(my_info.fd[0]);
+	dup2(my_info.temp_fd, STDIN_FILENO);
+	exec_node(data, data->comm, my_info.frame);
 }
 
-void	exec_other_command_before_heredoc(t_vars *vars, t_norm data)
+void	exec_other_command_before_heredoc(t_data *data, t_info my_info)
 {
-	close(data.fd[0]);
-	dup2(data.fd[1], STDOUT_FILENO);
-	dup2(data.temp_fd, STDIN_FILENO);
-	exec_node(vars, vars->command, data.contex);
+	close(my_info.fd[0]);
+	dup2(my_info.fd[1], STDOUT_FILENO);
+	dup2(my_info.temp_fd, STDIN_FILENO);
+	exec_node(data, data->comm, my_info.frame);
 }
 
-void	open_heredoc(t_command **command)
+void	open_heredoc(t_comm **comm)
 {
-	char	*line;
+	char	*l;
 
-	if ((*command)->herdoc->first_token == NULL
-		|| (*command)->herdoc->first_token->next == NULL)
+	if ((*comm)->heredoc->fst_tkn == NULL
+		|| (*comm)->heredoc->fst_tkn->nxt == NULL)
 		return ;
-	while (*command)
+	while (*comm)
 	{
-		if ((*command)->herdoc->first_token->next == NULL)
+		if ((*comm)->heredoc->fst_tkn->nxt == NULL)
 			return ;
 		while (true)
 		{
-			line = readline(">");
-			if (line == NULL
-				|| ft_strcmp(line, (*command)->herdoc->first_token->value) == 0)
+			l = readline(">");
+			if (l == NULL
+				|| ft_strcmp(l, (*comm)->heredoc->fst_tkn->val) == 0)
 				break ;
-			free(line);
+			free(l);
 		}
-		(*command)->herdoc->first_token = (*command)->herdoc->first_token->next;
+		(*comm)->heredoc->fst_tkn = (*comm)->heredoc->fst_tkn->nxt;
 	}
 }
 
-bool	heredoc_outside_pipe(t_vars *vars, t_command *command)
+bool	heredoc_outside_pipe(t_data *data, t_comm *comm)
 {
-	t_contex	contex;
-	t_contex	temp_contex;
+	t_frame	frame_temp;
+	t_frame	frame;
 
-	open_heredoc(&command);
+	open_heredoc(&comm);
 	unlink("/tmp/temp");
-	contex.fd_in = open("/tmp/temp", O_RDWR | O_TRUNC | O_CREAT, 0777);
-	if (command->herdoc->first_token == NULL)
+	frame.fd_in = open("/tmp/temp", O_RDWR | O_TRUNC | O_CREAT, 0777);
+	if (comm->heredoc->fst_tkn == NULL)
 		return (false);
-	read_for_heredoc(command, contex.fd_in);
-	temp_contex = open_files(*vars->command->redi);
-	if (temp_contex.fd_in == -1 || temp_contex.fd_out == -1)
+	read_for_heredoc(comm, frame.fd_in);
+	frame_temp = open_files(*data->comm->redirection);
+	if (frame_temp.fd_in == -1 || frame_temp.fd_out == -1)
 	{
 		set_exit_code(1);
 		return (true);
 	}
-	contex.fd_out = dup(temp_contex.fd_out);
-	if (temp_contex.fd_in != STDIN_FILENO)
-		contex.fd_in = dup(temp_contex.fd_in);
+	frame.fd_out = dup(frame_temp.fd_out);
+	if (frame_temp.fd_in != STDIN_FILENO)
+		frame.fd_in = dup(frame_temp.fd_in);
 	else
-		contex.fd_in = dup(contex.fd_in);
-	if (!check_built_in_commands(vars, command, contex))
-		ft_execute(command, vars, contex);
+		frame.fd_in = dup(frame.fd_in);
+	if (!check_built_in_commands(data, comm, frame))
+		ft_execute(comm, data, frame);
 	wait(NULL);
 	unlink("/tmp/temp");
 	return (true);

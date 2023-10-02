@@ -1,51 +1,51 @@
 #include "../minishell_copy.h"
 
-bool	is_number(char *s)
+bool	is_number(char *str)
 {
 	int	i;
 
 	i = 0;
-	if (s[i] == '-')
+	if (str[i] == '-')
 		i++;
-	while (s[i])
+	while (str[i])
 	{
-		if (!ft_isdigit(s[i]))
+		if (!ft_isdigit(str[i]))
 			return (false);
 		i++;
 	}
 	return (true);
 }
 
-bool	run_exit(t_vars vars, t_command *command)
+bool	run_exit(t_data data, t_comm *comm)
 {
-	if (!ft_strcmp(command->flags[0], "exit"))
+	if (!ft_strcmp(comm->flags[0], "exit"))
 	{
-		if (vars.num_of_commands == 1)
+		if (data.comm_num == 1)
 		{
-			ft_exit(command->flags[1], '\0');
+			ft_exit(comm->flags[1], '\0');
 		}
 		else
-			ft_exit(command->flags[1], 'p');
+			ft_exit(comm->flags[1], 'p');
 		return (true);
 	}
 	return (false);
 }
 
-void	check_export_error(t_vars *vars, t_command *command)
+void	check_export_error(t_data *data, t_comm *comm)
 {
 	int	i;
 
-	(void)vars;
+	(void)data;
 	i = 0;
-	while (command->flags[++i])
-		if (!is_properly_named(command->flags[i]))
+	while (comm->flags[++i])
+		if (!is_properly_named(comm->flags[i]))
 			set_exit_code(1);
 }
 
-void	check_cd_errors(t_vars *vars, t_command *command)
+void	check_cd_errors(t_data *data, t_comm *comm)
 {
-	if (command->flags[1] == NULL
-		|| ft_strcmp("~", command->flags[1]) == 0)
-		if (ft_getenv(vars->env_list, "HOME") == NULL)
+	if (comm->flags[1] == NULL
+		|| ft_strcmp("~", comm->flags[1]) == 0)
+		if (ft_getenv(data->env_list, "HOME") == NULL)
 			set_exit_code(1);
 }
