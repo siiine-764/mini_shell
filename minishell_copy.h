@@ -22,7 +22,6 @@
 # include <string.h>
 # include <sys/stat.h>
 # include <limits.h>
-
 # define PERMISSION_DENIED 126
 # define COMMAND_NOT_FOUND 127
 # define SUCCESS 0
@@ -30,7 +29,7 @@
 # define CNTRL_BACKSLASH 131
 # define SYNTAX_ERROR_EXIT 258
 
-typedef enum type
+typedef enum typ
 {
 	T_WORD,
 	T_IN,
@@ -38,237 +37,246 @@ typedef enum type
 	T_HERDOC,
 	T_APPEND,
 	T_PIPE
-}	t_type;
+}	t_typ;
 
-typedef struct vars
+typedef struct s_env
+{
+    char            **val;
+    char            **key;
+    int             len_key;
+    int             test;
+    // struct s_env    *next;
+}	t_env;
+
+typedef struct data
 {
 	pid_t	pid;
 	int		exit_code;
 	int		signal_flag;
 	int		sig_type;
-}t_vars_g;
+}t_data_g;
 
-typedef struct TOKEN
+typedef struct TKN
 {
-	t_type			token;
-	char			*value;
-	struct TOKEN	*next;
-}t_token;
+	t_typ			tkn;
+	char			*val;
+	struct TKN		*nxt;
+}t_tkn;
 
-typedef struct t_token_head
+typedef struct t_tkn_top
 {
-	t_token	*first_token;
-}t_token_head;
+	t_tkn	*fst_tkn;
+}t _tkn_top;
 
-typedef struct minishellpars{
+typedef struct parsing
+{
 	char					**flags;
-	struct minishellpars	*next_command;
-	t_token_head			*redi;
-	t_token_head			*herdoc;
-}t_command;
+	struct minishellpars	*nxt_comm;
+	t_tkn_top			*redirection;
+	t_tkn_top			*heredoc;
+}t_comm;
 
-typedef struct head
+typedef struct top
 {
-	int			taille;
-	t_command	*first_c;
-}t_head_c;
+	int			size;
+	t_comm	*fst_cmd;
+}t_top_cmd;
 
-typedef struct lexer
+typedef struct lxr
 {
-	char	*content;
-	char	c;
+	char	*ctt;
+	char	cmd;
 	size_t	i;
-}t_lexer;
+}t_lxr;
 
-typedef struct s_files
+typedef struct s_docs
 {
 	int	in;
 	int	trunc;
 	int	append;
-}t_files;
+}t_docs;
 
-typedef struct s_path_vars{
+typedef struct s_p_data
+{
 	char	*path;
 	char	*temp;
-	char	**command_path;
+	char	**comm_path;
 	int		i;
-}t_path_vars;
+}t_p_data;
 
-typedef struct s_cd_vars
+typedef struct s_cd_data
 {
-	char	current_wd[PATH_MAX];
-	char	buffer[PATH_MAX];
-	char	*temp_path;
-	char	**temp;
-	t_list	*old_wd;
+	char	new_wd[PATH_MAX];
+	char	buff[PATH_MAX];
+	char	*t_path;
+	char	**t;
+	t_env	*previous_wd;
 	int		i;
-}t_cd_vars;
+}t_cd_data;
 
-typedef struct s_vars
+typedef struct s_data
 {
-	t_list		*env_list;
-	t_list		*export_list;
+	t_env		*env_list;
+	t_env		*pub_list;
 	char		**env;
-	t_head_c	*head;
-	int			num_of_commands;
-	t_command	*command;
-}t_vars;
+	t_top_cmd	*top;
+	int			comm_num;
+	t_comm		*comm;
+}t_data;
 
-typedef struct s_contex
+typedef struct s_frame
 {
 	int		fd_in;
 	int		fd_out;
-	int		herdoc_fildes;
-}t_contex;
+	int		heredoc_docs;
+}t_frame;
 
-typedef struct s_norm
+typedef struct s_info
 {
-	t_list		*first;
-	t_list		*second;
-	t_list		*temp;
-	char		**cmd;
+	t_env		*fst;
+	t_env		*sec;
+	t_env		*temp;
+	char		**command;
 	int			*ids;
 	int			i;
 	int			id;
 	int			size;
 	int			temp_fd;
-	t_contex	contex;
+	t_frame	frame;
 	int			fd[2];
-}t_norm;
+}t_info;
 
 extern t_vars_g	g_global_vars;
 
-t_token		*ft_init_token(int type, char *value);
-t_lexer		*ft_init_lexer(char *content);
-t_token		*ft_get_next_token(t_lexer *lexer, t_list *env_list);
+bool	heredoc_exist(t_data *data);
+int		count_commands_before_heredoc(t_comm *comm);
+void	check_before_heredoc_commands(t_data *data, t_elem elems, int i);
+void	run_commands_before_heredoc(t_data *data, t_elem elems, int i);
+void	exec_commands_before_heredoc(t_data *data);
+t_env	*get_env_list(char **i);
+void	sort_list(t_env **env_list);
+void	cd_oldwd(t_env *env_list, t_env *pub_list);
+void	cd_home(t_env *env_list, t_env *pub_list);
+void	ft_cd(t_env *env_list, t_env *pub_list, char *path);
+bool	run_cd(t_data data, t_comm *comm);
+bool	check_redirection(t_data *data, t_comm *comm);
+char	*join_for_echo(char **str, char flag);
+void	check_echo(char *str, char flag, int fd, t_frame frame);
+void	ft_echo(t_comm *comm, char *str, char flag, t_frame frame);
+int		check_echo_flag(char *str);
+char	*check_for_space( int i, char **str, char *res);
+bool	exec_echo(t_data data, t_comm *comm, t_frame frame);
+void	ft_env(t_data data, t_comm *comm, t_frame frame);
+bool	run_env(t_data data, t_comm *comm, t_frame frame);
+int		is_properly_named(char *str);
+t_env	*ft_getenv(t_env *env_list, char *variable);
+void	ft_setenv(t_env **env_list, char *variable, char *value);
+void	check_command_error(t_data *data, t_comm *comm);
+void	check_command_error_2(t_data *data, t_comm *comm);
+void	check_path(t_data *data, t_comm *comm);
+void	check_files(t_tkn_top redirection);
+void	set_exit_code_inside_pipe(t_data *data, t_comm *comm);
+int		get_len(t_comm *comm);
+void	exec_node(t_data *data, t_comm *comm, t_frame frame);
+int		check_built_in_commands(t_data *data, t_comm *comm, t_frame frame);
+void	ft_execute(t_comm *comm, t_data *data, t_frame frame);
+void	close_pipe(int *fd);
+char	*get_path(t_env *env_list, char *c);
+void	ft_error(char *i, char *l, int exit);
+void	exec_command( t_data *data, t_comm *comm,
+		t_frame frame, char *p_comm);
+void	run_excutable(t_comm *comm, t_data *data, t_frame frame);
+void	check_cmd(t_comm *comm, t_data *data, t_frame frame);
+void	ft_exit(char flag, char *var);
+bool	add_variable(t_data *data, t_comm *comm, char **s, int j);
+void	add_non_variable(t_data *data, t_comm *comm, char **s, int j);
+void	show_export_error(t_comm *comm, int j, int *flag);
+void	add_properly_named_word( t_data *data, t_comm *comm, int j);
+int		is_variable(char *str);
+void	ft_export(t_comm *comm, t_env *env, char *var);
+void	show_export_list(t_comm *comm, t_data data, t_frame frame);
+void	add_unexisted_variable(t_data *data, t_comm*comm,
+		char **s, int i);
+void	add_existed_variable(t_data *data, t_comm *comm, 
+		char **s, int i);
+bool	run_export(t_comm *comm, t_data *data, t_frame frame);
+bool	is_number(char *str);
+bool	run_exit(t_data data, t_comm *comm);
+void	check_export_error(t_data *data, t_comm *comm);
+void	check_cd_errors(t_data *data, t_comm *comm);
+void	ft_pwd(t_data data, t_comm *comm, t_frame frame);
+bool	run_pwd(t_data data, t_comm *comm, t_frame frame);
+void	exec_first_command_before_heredoc(t_data *data, t_info my_info);
+void	exec_last_command_before_heredoc(t_data *data, t_info my_info);
+void	exec_other_command_before_heredoc(t_data *data, t_info my_info);
+void	open_heredoc(t_comm **comm);
+bool	heredoc_outside_pipe(t_data *data, t_comm *comm);
+int		fill_temp_stdin(t_comm *comm);
+void	check_out_files(int *fd_out, int *output);
+void	check_in_files(int *stdin_temp, int *fd_in);
+int		heredoc_return(int output, t_frame frame);
+void	read_for_heredoc(t_comm *comm, int fd_in);
+void	exec_first_node(t_data *data, t_info my_info);
+void	exec_last_node(t_data *data, t_info my_info);
+void	exec_other_node(t_data *data, t_info my_info);
+void	wait_for_child(int *ids, int fd_temp, int i);
+void	check_commands_order(t_data *data, t_info *my_info);
+void	exec_after_heredoc(t_info *my_info, t_data *data, int *p);
+void	run_heredoc(t_data *data, int *fd_heredoc, t_info my_info);
+void	loop_through_nodes(t_data *data, t_info my_info);
+bool	check_heredoc(t_comm *comm);
+void	ft_pipe(t_data *data);
+int		ft_strcmp(char *str, char *p);
+char	*get_promt(void);
+void	init_contex(t_frame *frame);
+void	walk_to_heredoc(t_comm **comm);
+int		open_input_files(t_tkn_top redirection);
+int		open_trunc_mode_files(t_tkn_top redirection);
+int		open_append_mode_files(t_tkn_top redirection);
+t_files	init_files(t_tkn_top redirection);
+t_frame	open_files(t_tkn_top redirection);
+void	ft_redirect_output_append_mode(t_comm *comm, t_data *data);
+void	ft_redirect_output_trunc_mode(t_comm *comm, t_data *data);
+void	redirect_input(t_comm *comm, t_data *data);
+void	exec_herdoc_command(t_comm *comm, t_data *data, t_frame frame);
+int		ft_heredoc(t_data *data, t_comm *comm, t_frame frame);
+t_env	*delete_head(char **command, t_env **env_list, char *del);
+void	delete_body(t_info *data);
+void	ft_unset(t_env **env_list, char *del);
+bool	run_unset(t_data *data, t_comm *comm);
+char	*find_env(t_env *env_list, char *name);
+void	ft_move(t_lxr	*lxr);
+int		exit_code(void);
+char	*ft_itoa(int n);
+char	*ft_strdup(const char *s1);
+int		ft_isalnum(int c);
+int		ft_isdigit(int digit);
+void	space_skip(t_lxr	*lxr);
+t_tkn	*tkn_initialize(char *data, int typ);
+char	*get_data(t_lxr *lxr, t_env *env_list, int l);
+int		ft_strncmp(const char *str1, const char *str2, size_t n);
+t_tkn	*handle_her(t_lxr *lxr, t_env *env_list);
+t_tkn	*ft_redirection(t_lxr *lxr, t_env *env_list);
+char	*join_free(char *s, char *t);
+char	*join_str(t_lxr *lxr, t_env *env_list, int l);
+int		syntax_handle(char *data, t_tkn *tk, t_top_cmd *top);
+void		ft_initialize(t_top_cmd *top);
+t_top_cmd	*ft_execution(char *ctt, t_env *env_list);
+t_tkn		*tkn_nxt(t_lxr *lxr, t_env *env_list);
+int			cmd_add(t_top_cmd *top, t_lxr *lxr, t_env *env_list);
+int			node_load(t_comm *red, t_lxr *lxr, t_env *env_list, t_top_cmd *top);
+t_lxr		*lxr_initialize(char *ctt);
+char		**ft_dup(char **av, char *data, int i);
+int			token_check(t_tkn *tkn, t_comm *red, t_top_cmd *top, int *i);
+void		all_free(t_top_cmd *top);
+void		put_exit(int i);
+int			rederiction_handle(t_comm *red, t_tkn *tkn, t_top_cmd *top);
+int			aft_dollar_check(t_lxr *lxr);
+char		*aft_dollar(t_lxr *lxr, t_env *env_list);
+char		*unquoted_str(t_lxr *lxr, t_env *env_list, int l);
+char		*str_collect(t_lxr *lxr, t_env *env_list, char cmd, int l);
+char		*get_var(t_lxr *lxr, t_env *env_list);
+char		*ft_strjoin(char *s1, char *s2);
 
-t_head_c	*ft_get_for_exec(char *content, t_list *env_list);
-t_token		*ft_red(t_lexer *lexer, t_list *env_list);
-t_token		*ft_her_app(t_lexer *lexer, t_list *env_list);
 
-t_list		*ft_getenv(t_list *env_list, char *var_name);
-t_list		*get_env_list(char **env);
-t_contex	open_files(t_token_head redi);
-
-int			fill_temp_stdin(t_command *command);
-void		exec_node(t_vars *vars, t_command *command, t_contex contex);
-int			check_built_in_commands(t_vars *vars,
-				t_command *command, t_contex contex);
-void		exec_node(t_vars *vars, t_command *command, t_contex contex);
-void		check_commands_order(t_vars *vars, t_norm *data);
-void		ft_free_all(t_head_c *head);
-int			heredoc_return(int outfile, t_contex contex);
-void		check_out_files(int *out_file, int *fd_out);
-void		walk_to_heredoc(t_command **command);
-void		close_pipe(int *fd);
-void		check_in_files(int *fd_in, int *temp_stdin);
-void		ft_add_red(t_token_head *head, t_token *t);
-void		ft_init_head(t_head_c *head);
-void		ft_add_node(t_head_c *head, t_command *commande);
-void		ft_advance(t_lexer	*lexer);
-void		ft_skip_spaces(t_lexer	*lexer);
-void		check_export_error(t_vars *vars, t_command *command);
-void		check_cd_errors(t_vars *vars, t_command *command);
-void		set_exit_code_inside_pipe(t_vars *vars, t_command *command);
-void		read_for_heredoc(t_command *command, int fd_in);
-void		open_heredoc(t_command **command);
-void		set_signal_flag(int num);
-void		free_list(t_list *list);
-void		ft_error(char *arg, char *msg, int exit_code);
-void		wait_for_child(int *ids, int i, int temp_fd);
-void		exec_commands_before_heredoc(t_vars *vars);
-void		check_cmd(t_command *command, t_vars *vars, t_contex contex);
-void		exec_node(t_vars *vars, t_command *command, t_contex contex);
-void		ft_execute(t_command *command, t_vars *vars, t_contex contex);
-void		ft_pipe(t_vars *vars);
-void		ft_env(t_vars vars, t_command *command, t_contex contex);
-void		free_2d_array(char **a);
-void		sig_handler(int sig);
-void		ft_pwd(t_vars vars, t_command *command, t_contex contex);
-void		sort_list(t_list **env_list);
-void		ft_unset(t_list **env_list, char *to_delete);
-void		ft_setenv(t_list **env_list, char *var_name, char *var_val);
-void		set_exit_code(int num);
-void		ft_redirect_output_append_mode(t_command *command, t_vars *vars);
-void		ft_redirect_output_trunc_mode(t_vars *vars, t_command *command);
-void		redirect_input(t_vars *vars, t_command *command);
-void		exec_last_node(t_vars *vars, t_norm data);
-void		exec_first_node(t_vars *vars, t_norm data);
-void		exec_other_node(t_vars *vars, t_norm data);
-void		ft_export(t_command *command, t_list *env, char *arg);
-void		exec_first_command_before_heredoc(t_vars *vars, t_norm data);
-void		exec_last_command_before_heredoc(t_vars *vars, t_norm data);
-void		exec_other_command_before_heredoc(t_vars *vars, t_norm data);
-void		add_properly_named_word(t_command *command, t_vars *vars, int i);
-void		show_export_error(int *flag, int i, t_command *command);
-void		ft_exit(char *arg, char flag);
-void		add_existed_variable(t_command *command, t_vars *vars,
-				int i, char **temp);
-void		add_non_variable(t_command *command,
-				t_vars *vars, char **temp, int i);
-void		add_unexisted_variable(t_command *command, t_vars *vars,
-				char **temp, int i);
-void		exec_command(t_command *command, t_vars *vars,
-				t_contex contex, char *command_path);
-void		set_exit_code_inside_pipe(t_vars *vars, t_command *command);
-void		init_contex(t_contex *contex);
-void		show_export_list(t_command *command, t_vars vars, t_contex contex);
-void		cd_oldwd(t_list *env_list, t_list *export_list);
-void		cd_home(t_list *env_list, t_list *export_list);
-void		ft_cd(char *path, t_list *env_list, t_list *export_list);
-
-int			check_built_in_commands(t_vars *vars,
-				t_command *command, t_contex contex);
-int			ft_add_commande(t_head_c *head, t_lexer *lexer, t_list *env_list);
-int			ft_strcmp(char *s, char *str);
-int			get_len(t_command *command);
-int			cut_exit_code(char *arg);
-int			get_exit_code(void);
-int			get_parts(char	*s, char c);
-int			is_variable(char *s);
-int			ft_check_after_dollar(t_lexer *lexer);
-int			check_echo_flag(char *s);
-int			is_properly_named(char *s);
-int			ft_heredoc(t_vars *vars, t_command *command, t_contex contex);
-int			count_commands_before_heredoc(t_command *command);
-int			get_signal_flag(void);
-int			ft_syntax(char *value, t_token *t, t_head_c *head);
-int			ft_rederictions(t_command *re, t_token *token, t_head_c *head);
-int			ft_check_pipe(t_lexer *lexer, t_token *token,
-				int k, t_head_c *head);
-int			ft_check_token(t_token *token, t_command *re,
-				int *i, t_head_c *head);
-int			ft_fill_node(t_command *re, t_lexer *lexer,
-				t_list *env_list, t_head_c *head);
-bool		run_pwd(t_vars vars, t_command *command, t_contex contex);
-char		*get_promt(void);
-char		*get_path(t_list *env_list, char *cmd);
-char		*ft_get_env_val(t_list *env_list, char *var_name);
-char		*ft_help_collect_str(t_lexer *lexer, \
-			t_list *env_list, char c, int h);
-char		*ft_join_and_clean(char *str, char *s);
-char		*ft_str_for_join(t_lexer *lexer, t_list *env_list, int h);
-char		*ft_after_dollar(t_lexer *lexer, t_list *env_list);
-char		*ft_collect_string(t_lexer *lexer, char c, t_list *env_list, int h);
-char		*ft_get_value(t_lexer *lexer, t_list *env_list, int h);
-char		*ft_get_str(t_lexer *lexer, t_list *env_list, int h);
-char		*ft_get_str_without_quote(t_lexer *lexer, t_list *env_list, int h);
-char		**ft_replace(char **av, int i, char *value);
-// char		*join_for_echo(char **s, char flag);
-char		*join_for_echo(char **s, char flag);
-char		*check_for_space(char **s, char *result, int i);
-char		*join_for_echo(char **s, char flag);
-
-bool		is_number(char *s);
-bool		exec_echo(t_vars vars, t_command *command, t_contex contex);
-bool		add_variable(t_command *command, t_vars *vars, char **temp, int i);
-bool		check_redirection(t_vars *vars, t_command *command);
-bool		heredoc_outside_pipe(t_vars *vars, t_command *command);
-bool		run_exit(t_vars vars, t_command *command);
-bool		run_cd(t_vars vars, t_command *command);
-bool		run_env(t_vars vars, t_command *command, t_contex contex);
-bool		run_unset(t_vars *vars, t_command *command);
-void		ft_echo(t_command *command, char *s, char flag, t_contex contex);
-bool		run_export(t_command *command, t_vars *vars, t_contex contex);
-void		show_export_list(t_command *command, t_vars vars, t_contex contex);
 #endif

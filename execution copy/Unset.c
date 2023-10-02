@@ -1,16 +1,20 @@
 
 #include "../minishell_copy.h"
 
+<<<<<<< HEAD
 t_list	*delete_head(char **command, t_env **env_list, char *del)
+=======
+t_env	*delete_head(char **command, t_env **env_list, char *del)
+>>>>>>> 50906c57125dc70873f888bbbe30f3382ad8de2f
 {
-	t_env	*p;
+	t_env	*temp;
 
 	if (ft_strcmp(command[0], del) == 0)
 	{
-		p = *env_list;
+		temp = *env_list;
 		*env_list = (*env_list)->nxt;
-		free(p->ctt);
-		free(p);
+		free(temp->ctt);
+		free(temp);
 		free_2d_array(command);
 		set_exit_code(EXIT_SUCCESS);
 		return (*env_list);
