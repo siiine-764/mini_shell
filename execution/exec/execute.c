@@ -174,32 +174,26 @@ int execute_builtins(char **env, char *input, struct Node* head, t_cmd *my_cmd)
 
 void    excute_cmd(t_cmd *my_cmd, t_path *p)
 {
-    // int j = 0;
-    // char *str_join;
-    // char *dele;
+    int j;
+    char *str_join;
 
-    (void)p;
-    (void)my_cmd;
-    printf("excute_cmd\n");
-    // if (fork() == 0)
-    // {
-    //     while (j <= p->cnt)
-    //     {
-    //     str_join = ft_strjoin(p->path[j], "/");
-    //     dele = str_join;
-    //     str_join = ft_strjoin(str_join, &my_cmd->cmd[0][0]);
-    //     free(dele);
-    //     // printf("---> %s\n", str_join);
-    //     execve(str_join, &my_cmd->cmd[0], NULL);
-    //     if (j == p->cnt)
-    //     {
-    //         printf("minishell$ command not found\n");
-    //         exit(0);
-    //     }
-    //     j++;
-    //     }
-    // }
-    // wait(NULL);
+    j = 0;
+    if (fork() == 0)
+    {
+        while (j <= p->cnt)
+        {
+            str_join = ft_strjoin(p->path[j], "/");
+            str_join = ft_strjoin(str_join, my_cmd->arguments[0][0]);
+            execve(str_join, &my_cmd->arguments[0][0], NULL);
+            if (j == p->cnt)
+            {
+                printf("minishell$ command not found\n");
+                exit(0);
+            }
+            j++;
+        }
+    }
+    wait(NULL);
 }
 
 // void    execute(t_cmd *my_cmd, char **env)
@@ -252,7 +246,6 @@ void    excute_cpy(t_cmd *my_cmd, char **env, struct Node* head, char *input)
     char    *path = malloc(sizeof(char *));
     path = getenv("PATH");
 
-    printf("ddddd");
 	p = get_path(path);
     // create_env(env, &head);
 
@@ -292,19 +285,19 @@ int main(int ac, char **av, char **env)
     
     // for example : //
     
-    char *flag = "-nnnn";
     char *arguments[][3] = 
     {   
-        {"cat", "./testing/main_ex.c"},
-        // {"grep", "main"},
+        {"ls", "-l"},
+        {"grep", "main"},
         // {"sort"},
         // {"uniq"},
         // ls -l | grep "myfile" | sort
         // cat main_ex.c | grep "keyword" | sort | uniq
     };
     
-    my_cmd->cnt_pipe = 0;
+    my_cmd->cnt_pipe = 1;
     my_cmd->pipe = 0;
+    my_cmd->flag = "-nnnn";
     if (my_cmd == NULL)
     {
         perror("Memory allocation failed");
@@ -329,7 +322,6 @@ int main(int ac, char **av, char **env)
             my_cmd->arguments[i][j] = arguments[i][j];
         }
     }
-    my_cmd->flag = flag;
 
     // end example //
 

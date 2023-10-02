@@ -17,6 +17,7 @@
 
 void    pi_pe(t_cmd *my_cmd, t_path *p)
 {
+    
     pid_t pid;
     int i;
     int pipes[my_cmd->cnt_pipe - 1][2];
