@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 22:42:01 by mayache-          #+#    #+#             */
-/*   Updated: 2023/10/01 16:48:14 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/10/02 11:53:17 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,32 +174,33 @@ int execute_builtins(char **env, char *input, struct Node* head, t_cmd *my_cmd)
 
 void    excute_cmd(t_cmd *my_cmd, t_path *p)
 {
-    // int j = 0;
-    // char *str_join;
+    int j = 0;
+    char *str_join;
     // char *dele;
 
     (void)p;
     (void)my_cmd;
     printf("excute_cmd\n");
-    // if (fork() == 0)
-    // {
-    //     while (j <= p->cnt)
-    //     {
-    //     str_join = ft_strjoin(p->path[j], "/");
-    //     dele = str_join;
-    //     str_join = ft_strjoin(str_join, &my_cmd->cmd[0][0]);
-    //     free(dele);
-    //     // printf("---> %s\n", str_join);
-    //     execve(str_join, &my_cmd->cmd[0], NULL);
-    //     if (j == p->cnt)
-    //     {
-    //         printf("minishell$ command not found\n");
-    //         exit(0);
-    //     }
-    //     j++;
-    //     }
-    // }
-    // wait(NULL);
+    if (fork() == 0)
+    {
+        while (j <= p->cnt)
+        {
+            str_join = ft_strjoin(p->path[j], "/");
+            printf("\n              j = %d\n", j);
+            // dele = str_join;
+            str_join = ft_strjoin(str_join, &my_cmd->cmd[0][0]);
+            // free(dele);
+            // printf("---> %s\n", str_join);
+            execve(str_join, &my_cmd->cmd[0], NULL);
+            if (j == p->cnt)
+            {
+                printf("minishell$ command not found\n");
+                exit(0);
+            }
+            j++;
+        }
+    }
+    wait(NULL);
 }
 
 // void    execute(t_cmd *my_cmd, char **env)
@@ -296,7 +297,7 @@ int main(int ac, char **av, char **env)
     char *arguments[][3] = 
     {   
         {"cat", "./testing/main_ex.c"},
-        // {"grep", "main"},
+        {"grep", "main"},
         // {"sort"},
         // {"uniq"},
         // ls -l | grep "myfile" | sort
