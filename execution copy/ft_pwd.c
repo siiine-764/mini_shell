@@ -1,5 +1,4 @@
 
-
 #include "../minishell_copy.h"
 
 void	ft_pwd(t_data data, t_comm *comm, t_frame frame)

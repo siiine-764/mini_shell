@@ -30,31 +30,31 @@ void	sig_handler(int sig)
 	}
 }
 
-void	minishell_routine(t_vars *vars)
+void	minishell_routine(t_data *data)
 {
-	char	*cmd;
+	char	*command;
 
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
-	cmd = get_promt();
-	if (cmd == NULL)
+	command = get_promt();
+	if (command == NULL)
 	{
-		free(cmd);
+		free(command);
 		exit(EXIT_SUCCESS);
 	}
-	else if (*cmd)
+	else if (*command)
 	{
-		vars->head = ft_get_for_exec(cmd, vars->env_list);
-		if (vars->head != NULL)
+		data->top = ft_get_for_exec(command, data->env_list);
+		if (data->top != NULL)
 		{
-			vars->command = vars->head->first_c;
-			vars->num_of_commands = get_len(vars->command);
-			if (vars->command != NULL)
-				ft_pipe(vars);
-			ft_free_all(vars->head);
+			data->comm = data->top->fst_cmd;
+			data->comm_num = get_len(data->comm);
+			if (data->comm != NULL)
+				ft_pipe(data);
+			ft_free_all(data->top);
 		}
 	}
-	free(cmd);
+	free(command);
 }
 
 void	set_signals_exit_code(void)
@@ -63,7 +63,7 @@ void	set_signals_exit_code(void)
 	{
 		if (g_global_vars.sig_type == SIGQUIT)
 		{
-			ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
+			ft_putstr_fd("QUIT: 3\n", STDOUT_FILENO);
 			g_global_vars.exit_code = CNTRL_BACKSLASH;
 		}
 		else
@@ -77,20 +77,20 @@ void	set_signals_exit_code(void)
 
 int	main(int ac, char **av, char **env)
 {
-	t_vars	*vars;
+	t_data	*data;
 
 	(void)ac;
 	(void)av;
-	vars = malloc(sizeof(t_vars));
-	vars->env = env;
-	vars->env_list = get_env_list(vars->env);
-	vars->export_list = get_env_list(vars->env);
+	data = malloc(sizeof(t_data));
+	data->env = env;
+	data->env_list = get_env_list(data->env);
+	data->pub_list = get_env_list(data->env);
 	g_global_vars.pid = -1;
 	g_global_vars.signal_flag = 0;
 	g_global_vars.exit_code = 0;
 	while (true)
 	{
 		set_signals_exit_code();
-		minishell_routine(vars);
+		minishell_routine(data);
 	}
 }
