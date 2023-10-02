@@ -13,6 +13,7 @@
 #ifndef EXECUTION_H
 # define EXECUTION_H
 
+
 // # include "./libft/libft.h"
 # include <stdio.h>
 # include <sys/types.h>
@@ -21,8 +22,8 @@
 # include <signal.h>
 # include <stdlib.h>
 # include <errno.h>
-# include <curses.h>
-# include <term.h>
+// # include <curses.h>
+// # include <term.h>
 # include <sys/wait.h>
 # include <termios.h>
 # include <sys/ioctl.h>
@@ -43,7 +44,8 @@
 # define REDIRECT_INPUT 60 //redirect input  < = 60
 # define REDIRECT_OUTPUT_APPEND 124  //should redirect output in append mode >> = 62 + 62
 # define HERE_DOC 120      // redirect  delimite << = 60 + 60
-char **g_env;
+
+
 struct Node {
   char      *val;
   char      *key;

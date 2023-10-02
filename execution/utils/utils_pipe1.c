@@ -28,7 +28,7 @@ void ft_close3(int i, int cnt_pipe, int pipes[][2])
 
 void    my_execve(char *file, char *args[], t_path *p)
 {
-    char *str_join;
+    char *str_join = malloc(sizeof(char *));
     int j = 0;
 
     while (j <= p->cnt)

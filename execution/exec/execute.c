@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 22:42:01 by mayache-          #+#    #+#             */
-/*   Updated: 2023/10/02 11:53:17 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/10/02 16:59:27 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,24 +174,17 @@ int execute_builtins(char **env, char *input, struct Node* head, t_cmd *my_cmd)
 
 void    excute_cmd(t_cmd *my_cmd, t_path *p)
 {
-    int j = 0;
+    int j;
     char *str_join;
-    // char *dele;
 
-    (void)p;
-    (void)my_cmd;
-    printf("excute_cmd\n");
+    j = 0;
     if (fork() == 0)
     {
         while (j <= p->cnt)
         {
             str_join = ft_strjoin(p->path[j], "/");
-            printf("\n              j = %d\n", j);
-            // dele = str_join;
-            str_join = ft_strjoin(str_join, &my_cmd->cmd[0][0]);
-            // free(dele);
-            // printf("---> %s\n", str_join);
-            execve(str_join, &my_cmd->cmd[0], NULL);
+            str_join = ft_strjoin(str_join, my_cmd->arguments[0][0]);
+            execve(str_join, my_cmd->arguments[0], NULL);
             if (j == p->cnt)
             {
                 printf("minishell$ command not found\n");
@@ -253,7 +246,6 @@ void    excute_cpy(t_cmd *my_cmd, char **env, struct Node* head, char *input)
     char    *path = malloc(sizeof(char *));
     path = getenv("PATH");
 
-    printf("ddddd");
 	p = get_path(path);
     // create_env(env, &head);
 
@@ -261,15 +253,17 @@ void    excute_cpy(t_cmd *my_cmd, char **env, struct Node* head, char *input)
     bl = execute_builtins(env, input, head, my_cmd);
     if(bl == 0)
     {
-        // if (my_cmd->pipe == 0 && my_cmd->redir->cnt_redir <= 1)
-        // {
-        //     printf("redir\n");
-        //     ft_redir(my_cmd, p);
-        // }
+        if (my_cmd->pipe == 0 && my_cmd->redir->cnt_redir <= 1)
+        {
+            printf("redir\n");
+            ft_redir(my_cmd, p);
+        }
         if (my_cmd->pipe == 0)
             excute_cmd(my_cmd, p);
         else if (my_cmd->pipe == 1)
             pi_pe(my_cmd, p);
+        else
+            return;
     }
     if (bl == 2)
     {
@@ -293,19 +287,22 @@ int main(int ac, char **av, char **env)
     
     // for example : //
     
-    char *flag = "-nnnn";
     char *arguments[][3] = 
     {   
-        {"cat", "./testing/main_ex.c"},
+        {"echo", "./testing/main_ex.c"},
         {"grep", "main"},
         // {"sort"},
         // {"uniq"},
         // ls -l | grep "myfile" | sort
         // cat main_ex.c | grep "keyword" | sort | uniq
     };
-    
-    my_cmd->cnt_pipe = 0;
-    my_cmd->pipe = 0;
+
+    my_cmd->cnt_pipe = 1;
+    my_cmd->pipe = -1;
+    my_cmd->flag = "-nnnn";
+    my_cmd->redir = (t_redir *)malloc(sizeof(t_redir));
+    my_cmd->redir->cnt_redir = 1;
+    my_cmd->redir->typ_redir = REDIRECT_OUTPUT;
     if (my_cmd == NULL)
     {
         perror("Memory allocation failed");
@@ -330,7 +327,6 @@ int main(int ac, char **av, char **env)
             my_cmd->arguments[i][j] = arguments[i][j];
         }
     }
-    my_cmd->flag = flag;
 
     // end example //
 

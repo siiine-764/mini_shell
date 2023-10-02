@@ -42,5 +42,3 @@ fclean: clean
 
 re: fclean $(NAME)
 	@echo "re execution"
-
-.PHONY: clean fclean re all	

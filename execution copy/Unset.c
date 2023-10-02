@@ -1,3 +1,4 @@
+
 #include "../minishell_copy.h"
 
 t_list	*delete_head(char **command, t_env **env_list, char *del)
