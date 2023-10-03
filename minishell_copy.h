@@ -39,14 +39,14 @@ typedef enum typ
 	T_PIPE
 }	t_typ;
 
-typedef struct s_env
-{
-    char            **val;
-    char            **key;
-    int             len_key;
-    int             test;
-    // struct s_env    *next;
-}	t_env;
+// typedef struct s_env
+// {
+//     char            **val;
+//     char            **key;
+//     int             len_key;
+//     int             test;
+//     // struct s_env    *next;
+// }	t_env;
 
 typedef struct data
 {
@@ -66,7 +66,7 @@ typedef struct TKN
 typedef struct t_tkn_top
 {
 	t_tkn	*fst_tkn;
-}t _tkn_top;
+}t_tkn_top;
 
 typedef struct parsing
 {
@@ -146,7 +146,7 @@ typedef struct s_info
 	int			fd[2];
 }t_info;
 
-extern t_vars_g	g_global_vars;
+extern t_data_g	g_global_data;
 
 bool	heredoc_exist(t_data *data);
 int		count_commands_before_heredoc(t_comm *comm);
