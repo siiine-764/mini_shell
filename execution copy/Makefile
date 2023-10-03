@@ -1,6 +1,7 @@
 NAME = cpy
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+LIBFT = ./libft/libft.a
 
 SRCS = before_heredoc.c\
 		builtInUtils.c\
@@ -29,13 +30,19 @@ all: $(NAME)
 
 OBJS = $(SRCS:.c=.o)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lreadline
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) -lreadline
+
+$(LIBFT):
+	@make -C libft
+	@make -C libft bonus
 
 clean:
+	@make -C libft clean
 	@rm -f $(OBJS)
 
 fclean: clean
+	@make -C libft fclean
 	@rm -f $(NAME)
 
 re: fclean all
