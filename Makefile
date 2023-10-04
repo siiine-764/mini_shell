@@ -1,38 +1,44 @@
-NAME = minishell
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
-EXECUTION = execution/execution.a
-#PARSING = parsing/parsing.a
+NAME	= execution
+CC		= cc
+CFLAGS 	= -Wall -Wextra -Werror -fsanitize=address -g
 
-SRCS = main.c\
+SRCS =	builtins/cd.c\
+		builtins/pwd.c\
+		builtins/exit.c\
+		builtins/echo.c\
+		builtins/unset.c\
+		builtins/export.c\
+		env/env.c\
+		env/utils.c\
+		utils/utils0.c\
+		utils/utils1.c\
+		utils/utils2.c\
+		utils/utils3.c\
+		utils/utils_pipe0.c\
+		utils/utils_pipe1.c\
+		exec/pipe.c\
+		exec/execute.c\
+		exec/redir.c\
 
 all: $(NAME)
 
 OBJS = $(SRCS:.c=.o)
 
-$(NAME): $(OBJS) $(EXECUTION) $(PARSING)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(EXECUTION) $(PARSING) -lreadline
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lreadline
 	@echo "make minishell"
 
-$(EXECUTION):
-	@make -C execution
-
-$(PARSING):
-	@make -C parsing
+# $(NAME) : $(OBJS)
+# 	@ar rcs $(NAME) $(OBJS)
+# 	@echo "make execution"
 
 clean:
 	@rm -f $(OBJS)
-	@make -C execution clean
-	@make -C parsing clean
-	@echo "clean minishell"
+	@echo "clean execution"
 
 fclean: clean
 	@rm -f $(NAME)
-	@make -C execution fclean
-	@make -C parsing fclean
-	@echo "fclean minishell"
+	@echo "fclean execution"
 
-re: fclean all
-	@echo "re minishell"
-
-.PHONY: clean fclean re all
+re: fclean $(NAME)
+	@echo "re execution"
