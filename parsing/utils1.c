@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 13:06:17 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/09/26 15:59:23 by mayache-         ###   ########.fr       */
+/*   Created: 2023/10/03 19:51:50 by hben-mes          #+#    #+#             */
+/*   Updated: 2023/10/03 19:51:50 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_tkn	*tkn_initialize(char *data, int typ)
+t_tkn	*tkn_initialize(char *val, int typ)
 {
 	t_tkn	*tkn;
 
 	tkn = ft_calloc(1, sizeof(t_tkn));
 	tkn->nxt = NULL;
 	tkn->tkn = typ;
-	tkn->data = data;
+	tkn->val = val;
 	return (tkn);
 }
 

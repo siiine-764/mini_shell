@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 t_tkn	*ft_redirection(t_lxr *lxr, t_env *env_list)
 {
 	if (lxr->cmd == '<')

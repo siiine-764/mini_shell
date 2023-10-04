@@ -1,6 +1,6 @@
-NAME	= parsing.a
-CC		= cc
-CFLAGS 	= -Wall -Wextra -Werror
+NAME = parsing.a
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 
 SRCS =	aft_dollar.c\
 		free_all.c\
@@ -18,19 +18,15 @@ all: $(NAME)
 
 OBJS = $(SRCS:.c=.o)
 
-$(NAME) : $(OBJS)
-	@ar rcs $(NAME) $(OBJS)
-	@echo "make parsing"
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -lreadline
 
 clean:
 	@rm -f $(OBJS)
-	@echo "clean parsing"
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "fclean parsing"
 
-re: fclean $(NAME)
-	@echo "re execution"
+re: fclean all
 
 .PHONY: clean fclean re all

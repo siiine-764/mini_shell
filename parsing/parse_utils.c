@@ -46,7 +46,7 @@ void	node_add(t_top_cmd *top, t_comm *comm)
 	comm->nxt_comm = NULL;
 }
 
-char	**ft_dup(char **av, char *data, int i)
+char	**ft_dup(char **av, char *val, int i)
 {
 	int		j;
 	char	**t;
@@ -58,7 +58,7 @@ char	**ft_dup(char **av, char *data, int i)
 		t[j] = av[j];
 		j++;
 	}	
-	t[j] = ft_strdup(data);
+	t[j] = ft_strdup(val);
 	t[j + 1] = NULL;
 	free(av);
 	return (t);
@@ -66,7 +66,7 @@ char	**ft_dup(char **av, char *data, int i)
 
 int	rederiction_handle(t_comm *red, t_tkn *tkn, t_top_cmd *top)
 {
-	if (syntax_handle(tkn->data, tkn, top) == 1)
+	if (syntax_handle(tkn->val, tkn, top) == 1)
 		return (1);
 	else if (tkn->tkn == T_HERDOC)
 		redirection_add(red->heredoc, tkn);

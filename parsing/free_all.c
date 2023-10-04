@@ -20,14 +20,14 @@ void	ft_initialize(t_top_cmd *top)
 
 void	free_tokens(t_tkn_top *top)
 {
-	t_tkn	*t;
+	t_tkn	*temp;
 
 	while (top->fst_tkn)
 	{
-		t = top->fst_tkn;
+		temp = top->fst_tkn;
 		top->fst_tkn = top->fst_tkn->nxt;
-		free(t->data);
-		free(t);
+		free(temp->val);
+		free(temp);
 	}
 	free(top);
 }
