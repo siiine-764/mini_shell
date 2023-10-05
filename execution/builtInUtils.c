@@ -6,9 +6,9 @@ t_env	*get_env_list(char **i)
 	int		c;
 
 	c = 0;
-	env_list = ft_lstnew(ft_strdup(env[c++]));
-	while (env[c])
-		ft_lstadd_back(&env_list, ft_lstnew(ft_strdup(env[c++])));
+	env_list = ft_lstnew(ft_strdup(i[c++]));
+	while (i[c])
+		ft_lstadd_back(&env_list, ft_lstnew(ft_strdup(i[c++])));
 	return (env_list);
 }
 

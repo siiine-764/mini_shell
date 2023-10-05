@@ -41,6 +41,13 @@
 # define CNTRL_BACKSLASH 131
 # define SYNTAX_ERROR_EXIT 258
 
+
+typedef struct s_env
+{
+	char			*ctt;
+	struct s_env	*nxt;
+}t_env;
+
 typedef enum typ
 {
 	T_WORD,
@@ -54,9 +61,9 @@ typedef enum typ
 typedef struct data
 {
 	pid_t	pid;
-	int		exit_code;
+	int		e;
 	int		signal_flag;
-	int		sig_type;
+	int		sig_typ;
 }t_data_g;
 
 typedef struct TKN
@@ -256,7 +263,7 @@ void	ft_unset(t_env **env_list, char *del);
 bool	run_unset(t_data *data, t_comm *comm);
 char	*find_env(t_env *env_list, char *name);
 void	ft_move(t_lxr	*lxr);
-int		exit_code(void);
+int		set_exit_code(int i);
 char	*ft_itoa(int n);
 char	*ft_strdup(const char *s1);
 int		ft_isalnum(int c);
@@ -280,6 +287,5 @@ char		*aft_dollar(t_lxr *lxr, t_env *env_list);
 char		*unquoted_str(t_lxr *lxr, t_env *env_list, int l);
 char		*str_collect(t_lxr *lxr, t_env *env_list, char cmd, int l);
 char		*get_var(t_lxr *lxr, t_env *env_list);
-char		*ft_strjoin(char *s1, char *s2);
 
 #endif

@@ -48,7 +48,7 @@ int	open_append_mode_files(t_tkn_top redirection)
 	return (INT_MIN);
 }
 
-t_files	init_files(t_tkn_top redirection)
+t_docs	init_files(t_tkn_top redirection)
 {
 	t_docs	my_files;
 

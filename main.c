@@ -4,7 +4,7 @@ t_data_g	g_global_data;
 
 void	sig_handler(int sig)
 {
-	g_global_data.sig_type = sig;
+	g_global_data.sig_typ = sig;
 	if ((sig == SIGINT || sig == SIGQUIT) && g_global_data.pid != -1)
 	{
 		if (!kill(g_global_data.pid, sig))
@@ -44,14 +44,14 @@ void	minishell_routine(t_data *data)
 	}
 	else if (*command)
 	{
-		data->top = ft_get_for_exec(command, data->env_list);
+		data->top = ft_execution(command, data->env_list);
 		if (data->top != NULL)
 		{
 			data->comm = data->top->fst_cmd;
 			data->comm_num = get_len(data->comm);
 			if (data->comm != NULL)
 				ft_pipe(data);
-			ft_free_all(data->top);
+			all_free(data->top);
 		}
 	}
 	free(command);
@@ -61,15 +61,15 @@ void	set_signals_exit_code(void)
 {
 	if (g_global_data.signal_flag == 1)
 	{
-		if (g_global_data.sig_type == SIGQUIT)
+		if (g_global_data.sig_typ == SIGQUIT)
 		{
 			ft_putstr_fd("QUIT: 3\n", STDOUT_FILENO);
-			g_global_data.exit_code = CNTRL_BACKSLASH;
+			g_global_data.e = CNTRL_BACKSLASH;
 		}
 		else
 		{
 			ft_putchar_fd('\n', 1);
-			g_global_data.exit_code = CNTRL_C;
+			g_global_data.e = CNTRL_C;
 		}
 		g_global_data.signal_flag = 0;
 	}
@@ -87,7 +87,7 @@ int	main(int ac, char **av, char **env)
 	data->pub_list = get_env_list(data->env);
 	g_global_data.pid = -1;
 	g_global_data.signal_flag = 0;
-	g_global_data.exit_code = 0;
+	g_global_data.e = 0;
 	while (true)
 	{
 		set_signals_exit_code();

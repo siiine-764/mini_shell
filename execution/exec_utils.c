@@ -63,17 +63,17 @@ void	ft_execute(t_comm *comm, t_data *data, t_frame frame)
 	if (comm->flags[0][0] == '/' || comm->flags[0][0] == '.')
 		check_cmd(comm, data, frame);
 	else if (p_comm == NULL)
-		ft_error(comm->flags[0], " :command not found", COMMAND_NOT_FOUND);
+		ft_error(comm->flags[0], " :COMMAND NOT FOUND", COMMAND_NOT_FOUND);
 	else
 	{
 		if (comm->flags[0][0])
 			exec_command(comm, data, frame, p_comm);
 		else
-			ft_error(comm->flags[0], " :command not found",
+			ft_error(comm->flags[0], " :COMMAND NOT FOUND",
 				COMMAND_NOT_FOUND);
 	}
 	free(p_comm);
-	g_global_vars.pid = -1;
+	g_global_data.pid = -1;
 }
 
 void	close_pipe(int *fd)

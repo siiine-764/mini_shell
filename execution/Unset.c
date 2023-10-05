@@ -20,7 +20,7 @@ t_env	*delete_head(char **command, t_env **env_list, char *del)
 void	delete_body(t_info *data)
 {
 	data->temp = data->sec;
-	free_2d_array(data->c);
+	free_2d(data->command);
 	data->fst->nxt = data->sec->nxt;
 	free(data->temp->ctt);
 	free(data->temp);
@@ -34,10 +34,10 @@ void	ft_unset(t_env **env_list, char *del)
 	if (!*env_list)
 		return ;
 	data.fst = *env_list;
-	data.c = ft_split((*env_list)->ctt, '=');
-	if (data.c[0] == NULL)
+	data.command = ft_split((*env_list)->ctt, '=');
+	if (data.command[0] == NULL)
 		return ;
-	top = delete_head(env_list, data.c, del);
+	top = delete_head(env_list, data.command, del);
 	if (top != NULL)
 		return ;
 	if (data.fst == NULL)
@@ -49,9 +49,9 @@ void	ft_unset(t_env **env_list, char *del)
 	}
 	while (data.sec)
 	{
-		free_2d_array(data.c);
-		data.c = ft_split(data.sec->ctt, '=');
-		if (ft_strcmp(data.c[0], del) == 0)
+		free_2d(data.command);
+		data.command = ft_split(data.sec->ctt, '=');
+		if (ft_strcmp(data.command[0], del) == 0)
 		{
 			delete_body(&data);
 			return ;
@@ -59,7 +59,7 @@ void	ft_unset(t_env **env_list, char *del)
 		data.fst = data.sec;
 		data.sec = data.sec->nxt;
 	}
-	free_2d_array(data.c);
+	free_2d(data.command);
 	set_exit_code(EXIT_SUCCESS);
 }
 

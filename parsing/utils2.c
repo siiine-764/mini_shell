@@ -12,32 +12,15 @@
 
 #include "../minishell.h"
 
-void	set_exit_code(int i)
-{
-	if (i == SYNTAX_ERROR_EXIT)
-		g_global_data.exit_code = i;
-	else
-	{
-		while (i > 255)
-			i -= 256;
-		g_global_data.exit_code = i;
-	}
-}
-
-int	get_exit_code(void)
-{
-	return (g_global_data.exit_code);
-}
-
-int	syntax_handle(char *val, t_tkn *tkn, t_top_cmd *top)
+int	syntax_handle(char *val, t_tkn *t, t_top_cmd *top)
 {
 	if (val == NULL)
 	{
-		free(tkn);
-		free(tkn->val);
+		free(t);
+		free(t->val);
 		all_free(top);
 		printf("minishell:syntax error\n");
-		put_exit(SYNTAX_ERROR_EXIT);
+		set_exit_code(SYNTAX_ERROR_EXIT);
 		return (1);
 	}
 	return (0);

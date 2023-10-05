@@ -35,17 +35,17 @@ t_tkn	*tkn_nxt(t_lxr *lxr, t_env *env_list)
 		{
 			ft_move(lxr);
 			space_skip(lxr);
-			return (tkn_initialize("", T_PIPE));
+			return (tkn_initialize(T_PIPE, ""));
 		}
 		else if (lxr->cmd == '"' || lxr->cmd == '\'')
-			return (tkn_initialize(get_data(lxr, env_list, 1), T_WORD));
+			return (tkn_initialize(T_WORD, get_data(lxr, env_list, 1)));
 		else if (ft_strncmp(&lxr->ctt[lxr->i], "<<", 2) == 0 || \
 			ft_strncmp(&lxr->ctt[lxr->i], ">>", 2) == 0)
 			return (handle_her(lxr, env_list));
 		else if (lxr->cmd == '<' || lxr->cmd == '>')
 			return (ft_redirection(lxr, env_list));
 		else
-			return (tkn_initialize(get_data(lxr, env_list, 1), T_WORD));
+			return (tkn_initialize(T_WORD, get_data(lxr, env_list, 1)));
 	}
 	return (NULL);
 }
