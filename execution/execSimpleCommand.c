@@ -1,31 +1,31 @@
 #include "../minishell.h"
 
-char	*get_path(t_env *env_list, char *c)
+char	*get_path(t_env *env_list, char *command)
 {
 	t_p_data	data;
 
 	data.path = ft_get_env_val(env_list, "PATH");
-	if (data.path == NULL || c == NULL)
+	if (data.path == NULL || command == NULL)
 		return (NULL);
 	data.i = -1;
-	data.comm_path = ft_split(data.path, ':');
+	data.p_comm = ft_split(data.path, ':');
 	free(data.path);
-	while (data.comm_path[++data.i])
+	while (data.p_comm[++data.i])
 	{
-		data.t = data.comm_path[data.i];
-		data.comm_path[data.i] = ft_strjoin(data.comm_path[data.i], "/");
-		free(data.t);
-		data.t = data.comm_path[data.i];
-		data.comm_path[data.i] = ft_strjoin(data.comm_path[data.i], c);
-		free(data.t);
-		if (access(data.comm_path[data.i], F_OK) == 0)
+		data.temp = data.p_comm[data.i];
+		data.p_comm[data.i] = ft_strjoin(data.p_comm[data.i], "/");
+		free(data.temp);
+		data.temp = data.p_comm[data.i];
+		data.p_comm[data.i] = ft_strjoin(data.p_comm[data.i], command);
+		free(data.temp);
+		if (access(data.p_comm[data.i], F_OK) == 0)
 		{
-			data.t = ft_strdup(data.comm_path[data.i]);
-			free_2d_array(data.comm_path);
-			return (data.t);
+			data.t = ft_strdup(data.p_comm[data.i]);
+			free_2d_array(data.p_comm);
+			return (data.temp);
 		}
 	}
-	free_2d_array(data.comm_path);
+	free_2d_array(data.p_comm);
 	return (NULL);
 }
 
@@ -41,8 +41,8 @@ void	exec_command( t_data *data, t_comm *comm,
 {
 	int	s;
 
-	g_global_vars.pid = fork();
-	if (g_global_vars.pid == 0)
+	g_global_data.pid = fork();
+	if (g_global_data.pid == 0)
 	{
 		dup2(frame.fd_in, STDIN_FILENO);
 		dup2(frame.fd_out, STDOUT_FILENO);
@@ -52,7 +52,7 @@ void	exec_command( t_data *data, t_comm *comm,
 	}
 	wait(&s);
 	if (WIFEXITED(s))
-		g_global_vars.pid = -1;
+		g_global_data.pid = -1;
 	set_exit_code(WEXITSTATUS(s));
 }
 

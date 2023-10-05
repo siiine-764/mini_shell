@@ -32,14 +32,14 @@ void	check_path(t_data *data, t_comm *comm)
 
 void	check_files(t_tkn_top redirection)
 {
-	int	output;
+	int	f_output;
 
 	while (redirection.fst_tkn != NULL)
 	{
 		if (redirection.fst_tkn->tkn == T_IN)
 		{
-			output = open(redirection.fst_tkn->val, O_RDONLY);
-			if (output == -1)
+			f_output = open(redirection.fst_tkn->val, O_RDONLY);
+			if (f_output == -1)
 				set_exit_code(1);
 		}
 		redirection.fst_tkn = redirection.fst_tkn->nxt;

@@ -23,7 +23,7 @@ void	ft_exit(char flag, char *var)
 			return ;
 		}
 		printf("exit\n");
-		g_global_vars.exit_code = e;
+		g_global_data.e = e;
 		set_exit_code(e);
 		exit(e);
 	}
