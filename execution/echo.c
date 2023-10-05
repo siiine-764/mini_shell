@@ -7,7 +7,7 @@ void	check_echo(char *str, char flag, int fd, t_frame frame)
 		if (fd != STDOUT_FILENO)
 			ft_putstr_fd(str, fd);
 		else
-			ft_putstr_fd(sre, frame.fd_out);
+			ft_putstr_fd(str, frame.fd_out);
 	}
 	else
 	{
@@ -60,13 +60,13 @@ int	check_echo_flag(char *str)
 
 char	*check_for_space( int i, char **str, char *res)
 {
-	char	*val;
+	char	*s;
 
 	if (str[i + 1] && str[i][0] != '\0')
 	{
-		val = res;
+		s = res;
 		res = ft_strjoin(res, " ");
-		free(val);
+		free(s);
 	}
 	return (res);
 }

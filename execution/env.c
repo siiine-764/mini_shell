@@ -40,25 +40,25 @@ int	is_properly_named(char *str)
 
 t_env	*ft_getenv(t_env *env_list, char *variable)
 {
-	char	*val;
+	char	*s;
 	char	**j;
 	int		c;
 
 	while (env_list)
 	{
 		j = ft_split(env_list->ctt, '=');
-		val = ft_strdup(j[0]);
+		s = ft_strdup(j[0]);
 		c = 0;
 		free_2d_array(j);
-		if (!val || !*val)
+		if (!s || !*s)
 			return (NULL);
-		if (ft_strcmp(val, variable) == 0)
+		if (ft_strcmp(s, variable) == 0)
 		{
-			free(val);
+			free(s);
 			return (env_list);
 		}
 		env_list = env_list ->nxt;
-		free(val);
+		free(s);
 	}
 	return (NULL);
 }
@@ -74,7 +74,7 @@ void	ft_setenv(t_env **env_list, char *variable, char *value)
 	{
 		res = ft_strjoin(variable, "=");
 		j = res;
-		var = ft_strjoin(res, value);
+		res = ft_strjoin(res, value);
 		free(j);
 		ft_lstadd_back(env_list, ft_lstnew(res));
 	}
