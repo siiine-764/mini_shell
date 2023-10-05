@@ -41,6 +41,13 @@
 # define CNTRL_BACKSLASH 131
 # define SYNTAX_ERROR_EXIT 258
 
+
+typedef struct s_env
+{
+	char			*ctt;
+	struct s_env	*nxt;
+}t_env;
+
 typedef enum typ
 {
 	T_WORD,
