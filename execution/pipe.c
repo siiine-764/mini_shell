@@ -16,7 +16,7 @@ void	exec_after_heredoc(t_info *my_info, t_data *data, int *p)
 	}
 	my_info->ids[*p++] = my_info->id;
 	my_info->frame.heredoc_docs = 42;
-	my_info->fd_temp = dup(my_info->fd[0]);
+	my_info->temp_fd = dup(my_info->fd[0]);
 	close(my_info->fd[0]);
 	close(my_info->fd[1]);
 }
@@ -56,7 +56,7 @@ void	loop_through_nodes(t_data *data, t_info my_info)
 			close_pipe(my_info.fd);
 			my_info.frame.heredoc_docs = 42;
 		}
-		my_info.ids[k++] = g_global_vars.pid;
+		my_info.ids[k++] = g_global_data.pid;
 		my_info.i += 1;
 		data->comm = data->comm->nxt_comm;
 	}
@@ -95,5 +95,5 @@ void	ft_pipe(t_data *data)
 			exec_node(data, data->comm, my_info.frame);
 	}
 	free(my_info.ids);
-	g_global_vars.pid = -1;
+	g_global_data.pid = -1;
 }

@@ -47,11 +47,11 @@ void	check_in_files(int *stdin_temp, int *fd_in)
 		*fd_in = dup(*fd_in);
 }
 
-int	heredoc_return(int output, t_frame frame)
+int	heredoc_return(int f_output, t_frame frame)
 {
-	if (output == -1)
+	if (f_output == -1)
 		return (0);
-	else if (output == 0)
+	else if (f_output == 0)
 		return (frame.fd_in);
 	else
 		return (-1);
