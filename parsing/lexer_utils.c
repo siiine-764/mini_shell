@@ -19,8 +19,8 @@ t_tkn	*ft_redirection(t_lxr *lxr, t_env *env_list)
 		space_skip(lxr);
 		if (lxr->ctt[lxr->i] == '\0' || lxr->cmd == '<' || \
 			lxr->cmd == '>')
-			return (tkn_initialize(NULL, T_IN));
-		return (tkn_initialize(get_data(lxr, env_list, 1), T_IN));
+		return (tkn_initialize(T_IN, NULL));
+		return (tkn_initialize(T_IN, get_data(lxr, env_list, 1)));
 	}
 	else
 	{
@@ -29,8 +29,8 @@ t_tkn	*ft_redirection(t_lxr *lxr, t_env *env_list)
 		space_skip(lxr);
 		if (lxr->ctt[lxr->i] == '\0' || \
 			lxr->cmd == '<' || lxr->cmd == '>')
-			return (tkn_initialize(NULL, T_OUT));
-		return (tkn_initialize(get_data(lxr, env_list, 1), T_OUT));
+			return (tkn_initialize(T_OUT, NULL));
+		return (tkn_initialize(T_OUT, get_data(lxr, env_list, 1)));
 	}
 }
 
@@ -44,8 +44,8 @@ t_tkn	*handle_her(t_lxr *lxr, t_env *env_list)
 		if (lxr->ctt[lxr->i] == '\0' || \
 			lxr->cmd == '<' || lxr->cmd == '>'
 			|| lxr->cmd == '|')
-			return (tkn_initialize(NULL, T_HERDOC));
-		return (tkn_initialize(get_data(lxr, env_list, 0), T_HERDOC));
+			return (tkn_initialize(T_HERDOC, NULL));
+		return (tkn_initialize(T_HERDOC, get_data(lxr, env_list, 0)));
 	}
 	else
 	{
@@ -55,7 +55,7 @@ t_tkn	*handle_her(t_lxr *lxr, t_env *env_list)
 		if (lxr->ctt[lxr->i] == '\0' || \
 			lxr->cmd == '<' || lxr->cmd == '>'
 			|| lxr->cmd == '|')
-			return (tkn_initialize(NULL, T_APPEND));
-		return (tkn_initialize(get_data(lxr, env_list, 1), T_APPEND));
+			return (tkn_initialize(T_APPEND, NULL));
+		return (tkn_initialize(T_APPEND, get_data(lxr, env_list, 1)));
 	}
 }

@@ -2,7 +2,7 @@
 
 bool	add_variable(t_data *data, t_comm *comm, char **s, int j)
 {
-	if (is_variable(comm->flags[i]))
+	if (is_variable(comm->flags[j]))
 	{
 		if (ft_getenv(data->env_list, s[0]) == NULL)
 		{
@@ -26,7 +26,7 @@ void	add_non_variable(t_data *data, t_comm *comm, char **s, int j)
 	if (ft_getenv(data->pub_list, s[0]) == NULL)
 	{
 		ft_lstadd_front(&(data)->pub_list,
-			ft_lstnew(ft_strdup(comm->flags[i])));
+			ft_lstnew(ft_strdup(comm->flags[j])));
 		sort_list(&data->pub_list);
 	}
 }

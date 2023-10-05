@@ -30,11 +30,11 @@ int	token_check(t_tkn *tkn, t_comm *red, t_top_cmd *top, int *i)
 {
 	if (tkn->tkn == 0)
 	{
-		if (syntax_handle(tkn->data, tkn, top) == 1)
+		if (syntax_handle(tkn->val, tkn, top) == 1)
 			return (1);
-		red->flags = ft_dup(red->flags, tkn->data, *i);
+		red->flags = ft_dup(red->flags, tkn->val, *i);
 		*i += 1;
-		free(tkn->data);
+		free(tkn->val);
 		free(tkn);
 	}
 	else if (tkn->tkn >= 1 && tkn->tkn <= 4)
@@ -59,7 +59,7 @@ int	node_load(t_comm *red, t_lxr *lxr, \
 	{
 		if (tkn->tkn < 5)
 		{
-			if (token_check(tkn, red, top, &i) == 1)
+			if (token_check(tkn, red, &i, top) == 1)
 				return (1);
 		}
 		else if (tkn->tkn == 5)
@@ -97,7 +97,7 @@ int	cmd_add(t_top_cmd *top, t_lxr *lxr, t_env *env_list)
 		free(red);
 		return (1);
 	}
-	node_load(red,lxr, env_list, top);
+	node_load(top, red, env_list, top);
 	return (0);
 }
 

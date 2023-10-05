@@ -14,7 +14,7 @@ void	cd_oldwd(t_env *env_list, t_env *pub_list)
 	data.temp = ft_split(data.previous_wd->ctt, '=');
 	data.t_path = ft_strdup(data.temp[1]);
 	data.i = 0;
-	free_2d_array(data.temp);
+	free_2d(data.temp);
 	if (chdir(data.t_path) == -1)
 	{
 		set_exit_code(1);
@@ -62,7 +62,7 @@ void	ft_cd(t_env *env_list, t_env *pub_list, char *path)
 	if (path == NULL)
 		goto home;
 	if (ft_strcmp("-", path) == 0)
-		cd_previouswd(env_list, pub_list);
+		cd_oldwd(env_list, pub_list);
 	else if (ft_strcmp("~", path) == 0)
 	{
 		cd_home(env_list, pub_list);
