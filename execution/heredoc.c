@@ -23,16 +23,16 @@ int	fill_temp_stdin(t_comm *comm)
 	return (stdin_temp);
 }
 
-void	check_out_files(int *fd_out, int *output)
+void	check_out_files(int *fd_out, int *f_output)
 {
 	if (*fd_out == STDOUT_FILENO)
 	{
-		unlink("/tmp/temp_output");
-		*fd_out = open("/tmp/temp_output",
+		unlink("/tmp/temp_f_output");
+		*fd_out = open("/tmp/temp_f_output",
 				O_RDWR | O_TRUNC | O_CREAT, 0777);
 	}
 	else
-		*output = -1;
+		*f_output = -1;
 }
 
 void	check_in_files(int *stdin_temp, int *fd_in)
