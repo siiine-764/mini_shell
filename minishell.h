@@ -172,70 +172,67 @@ t_frame		open_files(t_tkn_top redirection);
 
 int			fill_temp_stdin(t_comm *comm);
 void		exec_node(t_data *data, t_comm *comm, t_frame frame);
-int			check_built_in_commands(t_data *data, t_comm *comm, t_frame frame)
-char		*join_for_echo(char **str, char flag)
-///////////////////////////////////////////////////////////
-void	check_commands_order(t_data *data, t_info *my_info);
-void		ft_free_all(t_head_c *head);
-int			heredoc_return(int outfile, t_contex contex);
-void		check_out_files(int *out_file, int *fd_out);
-void		walk_to_heredoc(t_command **command);
+int			check_built_in_commands(t_data *data, t_comm *comm, t_frame frame);
+char		*join_for_echo(char **str, char flag);
+void		check_commands_order(t_data *data, t_info *my_info);
+void		all_free(t_top_cmd *top);
+int			heredoc_return(int f_output, t_frame frame);
+void		walk_to_heredoc(t_comm **comm);
 void		close_pipe(int *fd);
-void		check_in_files(int *fd_in, int *temp_stdin);
-void		ft_add_red(t_token_head *head, t_token *t);
-void		ft_init_head(t_head_c *head);
-void		ft_add_node(t_head_c *head, t_command *commande);
-void		ft_advance(t_lexer	*lexer);
-void		ft_skip_spaces(t_lexer	*lexer);
-void		check_export_error(t_vars *vars, t_command *command);
-void		check_cd_errors(t_vars *vars, t_command *command);
-void		set_exit_code_inside_pipe(t_vars *vars, t_command *command);
-void		read_for_heredoc(t_command *command, int fd_in);
-void		open_heredoc(t_command **command);
-void		set_signal_flag(int num);
-void		free_list(t_list *list);
-void		ft_error(char *arg, char *msg, int exit_code);
-void		wait_for_child(int *ids, int i, int temp_fd);
-void		exec_commands_before_heredoc(t_vars *vars);
-void		check_cmd(t_command *command, t_vars *vars, t_contex contex);
-void		exec_node(t_vars *vars, t_command *command, t_contex contex);
-void		ft_execute(t_command *command, t_vars *vars, t_contex contex);
-void		ft_pipe(t_vars *vars);
-void		ft_env(t_vars vars, t_command *command, t_contex contex);
-void		free_2d_array(char **a);
+void		check_in_files(int *stdin_temp, int *fd_in);
+void		redirection_add(t_tkn_top *top, t_tkn *t);
+void		ft_initialize(t_top_cmd *top);
+void		node_add(t_top_cmd *top, t_comm *comm);
+void		ft_move(t_lxr	*lxr);
+void		space_skip(t_lxr	*lxr);
+void		check_export_error(t_data *data, t_comm *comm);
+void		check_cd_errors(t_data *data, t_comm *comm);
+void		set_exit_code_inside_pipe(t_data *data, t_comm *comm);
+void		read_for_heredoc(t_comm *comm, int fd_in);
+void		open_heredoc(t_comm **comm);
+void		free_list(t_env *env);
+void		ft_error(char *i, char *l, int exit);
+void		wait_for_child(int *ids, int temp_fd, int i);
+void		exec_commands_before_heredoc(t_data *data);
+void		check_cmd(t_comm *comm, t_data *data, t_frame frame);
+void		exec_node(t_data *data, t_comm *comm, t_frame frame);
+void		ft_execute(t_comm *comm, t_data *data, t_frame frame);
+void		ft_pipe(t_data *data);
+void		ft_env(t_data data, t_comm *comm, t_frame frame);
+void		free_2d(char **a);
 void		sig_handler(int sig);
-void		ft_pwd(t_vars vars, t_command *command, t_contex contex);
-void		sort_list(t_list **env_list);
-void		ft_unset(t_list **env_list, char *to_delete);
-void		ft_setenv(t_list **env_list, char *var_name, char *var_val);
-void		set_exit_code(int num);
-void		ft_redirect_output_append_mode(t_command *command, t_vars *vars);
-void		ft_redirect_output_trunc_mode(t_vars *vars, t_command *command);
-void		redirect_input(t_vars *vars, t_command *command);
-void		exec_last_node(t_vars *vars, t_norm data);
-void		exec_first_node(t_vars *vars, t_norm data);
-void		exec_other_node(t_vars *vars, t_norm data);
-void		ft_export(t_command *command, t_list *env, char *arg);
-void		exec_first_command_before_heredoc(t_vars *vars, t_norm data);
-void		exec_last_command_before_heredoc(t_vars *vars, t_norm data);
-void		exec_other_command_before_heredoc(t_vars *vars, t_norm data);
-void		add_properly_named_word(t_command *command, t_vars *vars, int i);
-void		show_export_error(int *flag, int i, t_command *command);
-void		ft_exit(char *arg, char flag);
-void		add_existed_variable(t_command *command, t_vars *vars,
-				int i, char **temp);
-void		add_non_variable(t_command *command,
-				t_vars *vars, char **temp, int i);
-void		add_unexisted_variable(t_command *command, t_vars *vars,
-				char **temp, int i);
-void		exec_command(t_command *command, t_vars *vars,
-				t_contex contex, char *command_path);
-void		set_exit_code_inside_pipe(t_vars *vars, t_command *command);
-void		init_contex(t_contex *contex);
-void		show_export_list(t_command *command, t_vars vars, t_contex contex);
-void		cd_oldwd(t_list *env_list, t_list *export_list);
-void		cd_home(t_list *env_list, t_list *export_list);
-void		ft_cd(char *path, t_list *env_list, t_list *export_list);
+void		ft_pwd(t_data data, t_comm *comm, t_frame frame);
+void		sort_list(t_env **env_list);
+void		ft_unset(t_env **env_list, char *del);
+void		ft_setenv(t_env **env_list, char *variable, char *value);
+void		set_exit_code(int i);
+void		ft_redirect_output_append_mode(t_comm *comm, t_data *data);
+void		ft_redirect_output_trunc_mode(t_comm *comm, t_data *data);
+void		redirect_input(t_comm *comm, t_data *data);
+void		exec_last_node(t_data *data, t_info my_info);
+void		exec_first_node(t_data *data, t_info my_info);
+void		exec_other_node(t_data *data, t_info my_info);
+void		ft_export(t_comm *comm, t_env *env, char *var);
+void		exec_first_command_before_heredoc(t_data *data, t_info my_info);
+void		exec_last_command_before_heredoc(t_data *data, t_info my_info);
+void		exec_other_command_before_heredoc(t_data *data, t_info my_info);
+void		add_properly_named_word( t_data *data, t_comm *comm, int j);
+void		show_export_error(t_comm *comm, int j, int *flag);
+void		ft_exit(char flag, char *var);
+void		add_existed_variable(t_data *data, t_comm *comm, 
+		char **s, int i);
+void		add_non_variable(t_data *data, t_comm *comm, char **s, int j);
+void		add_unexisted_variable(t_data *data, t_comm*comm,
+		char **s, int i);
+void	exec_command( t_data *data, t_comm *comm,
+		t_frame frame, char *p_comm);
+void	set_exit_code_inside_pipe(t_data *data, t_comm *comm);
+void	init_contex(t_frame *frame);
+void	show_export_list(t_comm *comm, t_data data, t_frame frame);
+void	ft_cd(t_env *env_list, t_env *pub_list, char *path);
+void	cd_oldwd(t_env *env_list, t_env *pub_list);
+void	cd_home(t_env *env_list, t_env *pub_list);
+
 ///////////////////////////////////////////////////////////////////////////////////////
 int			check_built_in_commands(t_vars *vars,
 				t_command *command, t_contex contex);
