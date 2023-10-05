@@ -178,6 +178,8 @@ void		check_commands_order(t_data *data, t_info *my_info);
 void		all_free(t_top_cmd *top);
 int			heredoc_return(int f_output, t_frame frame);
 void		walk_to_heredoc(t_comm **comm);
+int			check_built_in_commands(t_data *data, t_comm *comm, t_frame frame);
+char		*join_for_echo(char **str, char flag);
 void		close_pipe(int *fd);
 void		check_in_files(int *stdin_temp, int *fd_in);
 void		redirection_add(t_tkn_top *top, t_tkn *t);
@@ -232,60 +234,51 @@ void	show_export_list(t_comm *comm, t_data data, t_frame frame);
 void	ft_cd(t_env *env_list, t_env *pub_list, char *path);
 void	cd_oldwd(t_env *env_list, t_env *pub_list);
 void	cd_home(t_env *env_list, t_env *pub_list);
-
-///////////////////////////////////////////////////////////////////////////////////////
-int			check_built_in_commands(t_vars *vars,
-				t_command *command, t_contex contex);
-int			ft_add_commande(t_head_c *head, t_lexer *lexer, t_list *env_list);
-int			ft_strcmp(char *s, char *str);
-int			get_len(t_command *command);
-int			cut_exit_code(char *arg);
-int			get_exit_code(void);
+int			cmd_add(t_top_cmd *top, t_lxr *lxr, t_env *env_list);
 int			get_parts(char	*s, char c);
-int			is_variable(char *s);
-int			ft_check_after_dollar(t_lexer *lexer);
-int			check_echo_flag(char *s);
-int			is_properly_named(char *s);
-int			ft_heredoc(t_vars *vars, t_command *command, t_contex contex);
-int			count_commands_before_heredoc(t_command *command);
-int			get_signal_flag(void);
-int			ft_syntax(char *value, t_token *t, t_head_c *head);
-int			ft_rederictions(t_command *re, t_token *token, t_head_c *head);
-int			ft_check_pipe(t_lexer *lexer, t_token *token,
-				int k, t_head_c *head);
-int			ft_check_token(t_token *token, t_command *re,
-				int *i, t_head_c *head);
-int			ft_fill_node(t_command *re, t_lexer *lexer,
-				t_list *env_list, t_head_c *head);
-bool		run_pwd(t_vars vars, t_command *command, t_contex contex);
+int			aft_dollar_check(t_lxr *lxr);
+int			syntax_handle(char *val, t_tkn *t, t_top_cmd *top);
+int		rederiction_handle(t_comm *red, t_tkn *tkn, t_top_cmd *top);
+int		pipe_check(t_lxr *lxr, t_tkn *tkn, int l, t_top_cmd *top);
+int		token_check(t_tkn *tkn, t_comm *red, t_top_cmd *top, int *i);
+int	check_built_in_commands(t_data *data, t_comm *comm, t_frame frame);
+int	ft_strcmp(char *str, char *p);
+int	get_len(t_comm *comm);
+int	get_exit_code(void);
+int	is_variable(char *str);
+int	check_echo_flag(char *str);
+int			is_properly_named(char *str);
+int	ft_heredoc(t_data *data, t_comm *comm, t_frame frame);
+int	count_commands_before_heredoc(t_comm *comm);
+bool	run_pwd(t_data data, t_comm *comm, t_frame frame);
 char		*get_promt(void);
-char		*get_path(t_list *env_list, char *cmd);
-char		*ft_get_env_val(t_list *env_list, char *var_name);
-char		*ft_help_collect_str(t_lexer *lexer, \
-			t_list *env_list, char c, int h);
-char		*ft_join_and_clean(char *str, char *s);
-char		*ft_str_for_join(t_lexer *lexer, t_list *env_list, int h);
-char		*ft_after_dollar(t_lexer *lexer, t_list *env_list);
-char		*ft_collect_string(t_lexer *lexer, char c, t_list *env_list, int h);
-char		*ft_get_value(t_lexer *lexer, t_list *env_list, int h);
-char		*ft_get_str(t_lexer *lexer, t_list *env_list, int h);
-char		*ft_get_str_without_quote(t_lexer *lexer, t_list *env_list, int h);
-char		**ft_replace(char **av, int i, char *value);
-char		*join_for_echo(char **s, char flag);
-char		*check_for_space(char **s, char *result, int i);
-char		*join_for_echo(char **s, char flag);
-
-bool		is_number(char *s);
-bool		exec_echo(t_vars vars, t_command *command, t_contex contex);
-bool		add_variable(t_command *command, t_vars *vars, char **temp, int i);
-bool		check_redirection(t_vars *vars, t_command *command);
-bool		heredoc_outside_pipe(t_vars *vars, t_command *command);
-bool		run_exit(t_vars vars, t_command *command);
-bool		run_cd(t_vars vars, t_command *command);
-bool		run_env(t_vars vars, t_command *command, t_contex contex);
-bool		run_unset(t_vars *vars, t_command *command);
-void		ft_echo(t_command *command, char *s, char flag, t_contex contex);
-bool		run_export(t_command *command, t_vars *vars, t_contex contex);
-void		show_export_list(t_command *command, t_vars vars, t_contex contex);
+char	*get_path(t_env *env_list, char *command);
+char	*join_for_echo(char **str, char flag);
+char	*check_for_space( int i, char **str, char *res);
+bool	is_number(char *str);
+int		node_load(t_comm *red, t_lxr *lxr, \
+	t_env *env_list, t_top_cmd *top);
+char	*find_env(t_env *env_list, char *name);
+char	*prime_str_collect(t_lxr *lxr, t_env *env_list, char cmd, int l);
+char	*join_free(char *s, char *t);
+char	*join_str(t_lxr *lxr, t_env *env_list, int l);
+char	*aft_dollar(t_lxr *lxr, t_env *env_list);
+char	*str_collect(t_lxr *lxr, t_env *env_list, char cmd, int l);
+char		*get_data(t_lxr *lxr, t_env *env_list, int l);
+char		*str_put(t_lxr *lxr, t_env *env_list, int l);
+char		*unquoted_str(t_lxr *lxr, t_env *env_list, int l);
+char		**ft_dup(char **av, char *val, int i);
+bool	exec_echo(t_data data, t_comm *comm, t_frame frame);
+bool	add_variable(t_data *data, t_comm *comm, char **s, int j);
+bool	check_redirection(t_data *data, t_comm *comm);
+bool	heredoc_outside_pipe(t_data *data, t_comm *comm);
+bool	run_exit(t_data data, t_comm *comm);
+bool	run_cd(t_data data, t_comm *comm);
+bool	run_env(t_data data, t_comm *comm, t_frame frame);
+bool	run_env(t_data data, t_comm *comm, t_frame frame);
+bool	run_unset(t_data *data, t_comm *comm);
+void	ft_echo(t_comm *comm, char *str, char flag, t_frame frame);
+bool	run_export(t_comm *comm, t_data *data, t_frame frame);
+void	show_export_list(t_comm *comm, t_data data, t_frame frame);
 
 #endif
