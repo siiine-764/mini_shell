@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-bool	add_variable(t_data *data, t_comm *comm, char **s, int j)
+bool	add_variable(t_comm *comm, t_data *data, char **s, int j)
 {
 	if (is_variable(comm->flags[j]))
 	{
@@ -15,13 +15,13 @@ bool	add_variable(t_data *data, t_comm *comm, char **s, int j)
 				add_unexisted_variable(comm, data, s, j);
 		}
 		else
-			add_existed_variable(comm, data, j, s);
+			add_existed_variable(comm, data, s, j);
 		return (true);
 	}
 	return (false);
 }
 
-void	add_non_variable(t_data *data, t_comm *comm, char **s, int j)
+void	add_non_variable(t_comm *comm, t_data *data, char **s, int j)
 {
 	if (ft_getenv(data->pub_list, s[0]) == NULL)
 	{
@@ -31,7 +31,7 @@ void	add_non_variable(t_data *data, t_comm *comm, char **s, int j)
 	}
 }
 
-void	show_export_error(t_comm *comm, int j, int *flag)
+void	show_export_error( int *flag, int j, t_comm *comm)
 {
 	if (*flag == 0)
 	{
@@ -40,7 +40,7 @@ void	show_export_error(t_comm *comm, int j, int *flag)
 	}
 }
 
-void	add_properly_named_word( t_data *data, t_comm *comm, int j)
+void	add_properly_named_word(t_comm *comm, t_data *data, int j)
 {
 	char	**s;
 	int		i;

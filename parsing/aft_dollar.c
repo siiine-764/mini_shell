@@ -61,7 +61,7 @@ char	*aft_dollar(t_lxr *lxr, t_env *env_list)
 	ft_move(lxr);
 	if (lxr->cmd == '?')
 	{
-		s = ft_itoa(exit_code());
+		s = ft_itoa(get_exit_code());
 		ft_move(lxr);
 	}
 	else if (ft_isdigit(lxr->cmd) != 0 || lxr->cmd == '@' || lxr->cmd == '*')

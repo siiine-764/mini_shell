@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	ft_lstsize(t_list *lst)
+int	ft_lstsize(t_env *lst)
 {
 	int	len;
 
@@ -20,7 +20,7 @@ int	ft_lstsize(t_list *lst)
 	while (lst != NULL)
 	{
 		len++;
-		lst = lst -> next;
+		lst = lst -> nxt;
 	}
 	return (len);
 }

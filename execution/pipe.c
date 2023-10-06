@@ -6,9 +6,9 @@ void	exec_after_heredoc(t_info *my_info, t_data *data, int *p)
 	my_info->id = fork();
 	if (my_info->id == 0)
 	{
-		if (my_info->p == 0)
+		if (my_info->i == 0)
 			exec_first_node(data, *my_info);
-		else if (my_info->p == my_info->size - 1)
+		else if (my_info->i == my_info->size - 1)
 			exec_last_node(data, *my_info);
 		else
 			exec_other_node(data, *my_info);
@@ -21,12 +21,12 @@ void	exec_after_heredoc(t_info *my_info, t_data *data, int *p)
 	close(my_info->fd[1]);
 }
 
-void	run_heredoc(t_data *data, int *fd_heredoc, t_info my_info)
+void	run_heredoc(int *fd_heredoc, t_data *data, t_info my_info)
 {
 	if (data->comm->nxt_comm)
 	{
 		*fd_heredoc = ft_heredoc(data,
-				data->comm, my_info.frame)
+				data->comm, my_info.frame);
 		wait(NULL);
 	}
 	else
@@ -60,7 +60,7 @@ void	loop_through_nodes(t_data *data, t_info my_info)
 		my_info.i += 1;
 		data->comm = data->comm->nxt_comm;
 	}
-	wait_for_child(my_info.ids, k, my_info.fd_temp);
+	wait_for_child(my_info.ids, my_info.temp_fd, k);
 }
 
 bool	check_heredoc(t_comm *comm)

@@ -18,7 +18,7 @@ void	exec_last_node(t_data *data, t_info my_info)
 		if (my_info.frame.heredoc_docs == 0)
 		{
 			unlink("/tmp/trash");
-			mt_info.frame.heredoc_docs = open("/tmp/trash", O_RDONLY | O_CREAT);
+			my_info.frame.heredoc_docs = open("/tmp/trash", O_RDONLY | O_CREAT);
 			dup2(my_info.frame.heredoc_docs, STDIN_FILENO);
 		}
 		else

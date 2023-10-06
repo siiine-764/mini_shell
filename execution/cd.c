@@ -34,7 +34,7 @@ void	cd_home(t_env *env_list, t_env *pub_list)
 	char	*home_path;
 	char	new_wd[PATH_MAX];
 
-	home_path = ft_get_env_val(env_list, "HOME");
+	home_path = find_env(env_list, "HOME");
 	if (home_path == NULL)
 		ft_error("cd", " :HOME NOT FOUND", 1);
 	else
@@ -59,8 +59,8 @@ void	ft_cd(t_env *env_list, t_env *pub_list, char *path)
 {
 	char	new_wd[PATH_MAX];
 
-	if (path == NULL)
-		goto home;
+	// if (path == NULL)
+	// 	goto home;
 	if (ft_strcmp("-", path) == 0)
 		cd_oldwd(env_list, pub_list);
 	else if (ft_strcmp("~", path) == 0)
@@ -87,7 +87,7 @@ bool	run_cd(t_data data, t_comm *comm)
 {
 	if (!ft_strcmp(comm->flags[0], "cd"))
 	{
-		ft_cd(comm->flags[1], data.env_list, data.pub_list);
+		ft_cd(data.env_list, data.pub_list, comm->flags[1]);
 		return (true);
 	}
 	return (false);

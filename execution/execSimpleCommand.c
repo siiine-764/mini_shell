@@ -4,7 +4,7 @@ char	*get_path(t_env *env_list, char *command)
 {
 	t_p_data	data;
 
-	data.path = ft_get_env_val(env_list, "PATH");
+	data.path = find_env(env_list, "PATH");
 	if (data.path == NULL || command == NULL)
 		return (NULL);
 	data.i = -1;
@@ -20,12 +20,12 @@ char	*get_path(t_env *env_list, char *command)
 		free(data.temp);
 		if (access(data.p_comm[data.i], F_OK) == 0)
 		{
-			data.t = ft_strdup(data.p_comm[data.i]);
-			free_2d_array(data.p_comm);
+			data.temp = ft_strdup(data.p_comm[data.i]);
+			free_2d(data.p_comm);
 			return (data.temp);
 		}
 	}
-	free_2d_array(data.p_comm);
+	free_2d(data.p_comm);
 	return (NULL);
 }
 
@@ -36,7 +36,7 @@ void	ft_error(char *i, char *l, int exit)
 	set_exit_code(exit);
 }
 
-void	exec_command( t_data *data, t_comm *comm,
+void	exec_command(t_comm *comm, t_data *data,
 		t_frame frame, char *p_comm)
 {
 	int	s;

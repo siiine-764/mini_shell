@@ -20,13 +20,13 @@ int	pipe_check(t_lxr *lxr, t_tkn *tkn, int l, t_top_cmd *top)
 	{
 		all_free(top);
 		printf("minishell:syntax error\n");
-		put_exit(SYNTAX_ERROR_EXIT);
+		set_exit_code(SYNTAX_ERROR_EXIT);
 		return (1);
 	}
 	return (0);
 }
 
-int	token_check(t_tkn *tkn, t_comm *red, t_top_cmd *top, int *i)
+int	token_check(t_tkn *tkn, t_comm *red, int *i, t_top_cmd *top)
 {
 	if (tkn->tkn == 0)
 	{
@@ -45,8 +45,7 @@ int	token_check(t_tkn *tkn, t_comm *red, t_top_cmd *top, int *i)
 	return (0);
 }
 
-int	node_load(t_comm *red, t_lxr *lxr, \
-	t_env *env_list, t_top_cmd *top)
+int	node_load(t_comm *red, t_lxr *lxr, t_env *env_list, t_top_cmd *top)
 {
 	int			i;
 	int			j;
@@ -97,7 +96,7 @@ int	cmd_add(t_top_cmd *top, t_lxr *lxr, t_env *env_list)
 		free(red);
 		return (1);
 	}
-	node_load(top, red, env_list, top);
+	node_load(red, lxr, env_list, top);
 	return (0);
 }
 

@@ -18,7 +18,7 @@ char	*join_for_echo(char **str, char flag)
 		j = res;
 		res = ft_strjoin(res, str[i]);
 		free(j);
-		res = check_for_space(str, res, i);
+		res = check_for_space(i, str, res);
 		i++;
 	}
 	return (res);

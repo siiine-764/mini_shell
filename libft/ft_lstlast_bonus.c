@@ -12,11 +12,11 @@
 
 #include "libft.h"
 
-t_list	*ft_lstlast(t_list *lst)
+t_env	*ft_lstlast(t_env *lst)
 {
 	if (!lst)
 		return (NULL);
-	while (lst -> next != NULL)
-		lst = lst -> next;
+	while (lst -> nxt != NULL)
+		lst = lst -> nxt;
 	return (lst);
 }

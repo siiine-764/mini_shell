@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-void	ft_exit(char flag, char *var)
+void	ft_exit(char *var, char flag)
 {
 	int	e;
 

@@ -34,8 +34,8 @@ void	minishell_routine(t_data *data)
 {
 	char	*command;
 
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
+	// signal(SIGINT, sig_handler);
+	// signal(SIGQUIT, sig_handler);
 	command = get_promt();
 	if (command == NULL)
 	{
@@ -88,7 +88,7 @@ int	main(int ac, char **av, char **env)
 	g_global_data.pid = -1;
 	g_global_data.signal_flag = 0;
 	g_global_data.e = 0;
-	while (true)
+	while (1)
 	{
 		set_signals_exit_code();
 		minishell_routine(data);
