@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	lstsize(t_list *lst)
+int	lstsize(t_env *lst)
 {
 	int	sz;
 
@@ -20,29 +20,29 @@ int	lstsize(t_list *lst)
 	while (lst)
 	{
 		sz++;
-		lst = lst -> next;
+		lst = lst -> nxt;
 	}
 	return (sz);
 }
 
-void	lstdelone(t_list *lst, void (*del)(void*))
+void	lstdelone(t_env *lst, void (*del)(void*))
 {
 	if (lst && del)
 	{
-		del(lst -> content);
+		del(lst -> ctt);
 		free(lst);
 	}
 }
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+void	ft_lstclear(t_env **lst, void (*del)(void*))
 {
-	t_list	*cpynext;
+	t_env	*cpynext;
 
 	if (lst == NULL || !del)
 		return ;
 	while (*lst != NULL)
 	{
-		cpynext = (*lst)-> next;
+		cpynext = (*lst)-> nxt;
 		lstdelone(*lst, del);
 		*lst = cpynext;
 	}

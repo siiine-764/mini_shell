@@ -1,6 +1,6 @@
 NAME = execution.a
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 SRCS =	\
 	./randomUtils.c			\
 	./redirection_utils.c	\

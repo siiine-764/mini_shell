@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-t_env	*delete_head(char **command, t_env **env_list, char *del)
+t_env	*delete_head(t_env **env_list, char **command, char *del)
 {
 	t_env	*temp;
 
@@ -10,7 +10,7 @@ t_env	*delete_head(char **command, t_env **env_list, char *del)
 		*env_list = (*env_list)->nxt;
 		free(temp->ctt);
 		free(temp);
-		free_2d_array(command);
+		free_2d(command);
 		set_exit_code(EXIT_SUCCESS);
 		return (*env_list);
 	}

@@ -13,7 +13,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "./libft/libft.h"
+# include "libft/libft.h"
 # include <stdio.h>
 # include <sys/types.h>
 # include <sys/uio.h>
@@ -42,11 +42,11 @@
 # define SYNTAX_ERROR_EXIT 258
 
 
-typedef struct s_env
-{
-	char			*ctt;
-	struct s_env	*nxt;
-}t_env;
+// typedef struct s_env
+// {
+// 	char			*ctt;
+// 	struct s_env	*nxt;
+// }t_env;
 
 typedef enum typ
 {
@@ -110,7 +110,7 @@ typedef struct s_p_data
 {
 	char	*path;
 	char	*temp;
-	char	**comm_path;
+	char	**p_comm;
 	int		i;
 }t_p_data;
 
@@ -158,7 +158,7 @@ typedef struct s_info
 
 extern t_data_g	g_global_data;
 
-t_tkn		*tkn_initialize(char *data, int typ);
+t_tkn		*tkn_initialize(int typ, char *val);
 t_lxr		*lxr_initialize(char *ctt);
 t_tkn		*tkn_nxt(t_lxr *lxr, t_env *env_list);
 
@@ -209,7 +209,7 @@ void		ft_unset(t_env **env_list, char *del);
 void		ft_setenv(t_env **env_list, char *variable, char *value);
 void		set_exit_code(int i);
 void		ft_redirect_output_append_mode(t_comm *comm, t_data *data);
-void		ft_redirect_output_trunc_mode(t_comm *comm, t_data *data);
+void	ft_redirect_output_trunc_mode(t_comm *comm, t_data *data);
 void		redirect_input(t_comm *comm, t_data *data);
 void		exec_last_node(t_data *data, t_info my_info);
 void		exec_first_node(t_data *data, t_info my_info);
@@ -218,15 +218,15 @@ void		ft_export(t_comm *comm, t_env *env, char *var);
 void		exec_first_command_before_heredoc(t_data *data, t_info my_info);
 void		exec_last_command_before_heredoc(t_data *data, t_info my_info);
 void		exec_other_command_before_heredoc(t_data *data, t_info my_info);
-void		add_properly_named_word( t_data *data, t_comm *comm, int j);
-void		show_export_error(t_comm *comm, int j, int *flag);
-void		ft_exit(char flag, char *var);
-void		add_existed_variable(t_data *data, t_comm *comm, 
+void	add_properly_named_word(t_comm *comm, t_data *data, int j);
+void	show_export_error( int *flag, int j, t_comm *comm);
+void		ft_exit(char *var, char flag);
+void	add_existed_variable(t_comm *comm, t_data *data, 
+			char **s, int i);
+void	add_non_variable(t_comm *comm, t_data *data, char **s, int j);
+void		add_unexisted_variable(t_comm*comm, t_data *data,
 		char **s, int i);
-void		add_non_variable(t_data *data, t_comm *comm, char **s, int j);
-void		add_unexisted_variable(t_data *data, t_comm*comm,
-		char **s, int i);
-void	exec_command( t_data *data, t_comm *comm,
+void	exec_command(t_comm *comm, t_data *data,
 		t_frame frame, char *p_comm);
 void	set_exit_code_inside_pipe(t_data *data, t_comm *comm);
 void	init_contex(t_frame *frame);
@@ -240,7 +240,7 @@ int			aft_dollar_check(t_lxr *lxr);
 int			syntax_handle(char *val, t_tkn *t, t_top_cmd *top);
 int		rederiction_handle(t_comm *red, t_tkn *tkn, t_top_cmd *top);
 int		pipe_check(t_lxr *lxr, t_tkn *tkn, int l, t_top_cmd *top);
-int		token_check(t_tkn *tkn, t_comm *red, t_top_cmd *top, int *i);
+int		token_check(t_tkn *tkn, t_comm *red, int *i, t_top_cmd *top);
 int	check_built_in_commands(t_data *data, t_comm *comm, t_frame frame);
 int	ft_strcmp(char *str, char *p);
 int	get_len(t_comm *comm);
@@ -256,8 +256,7 @@ char	*get_path(t_env *env_list, char *command);
 char	*join_for_echo(char **str, char flag);
 char	*check_for_space( int i, char **str, char *res);
 bool	is_number(char *str);
-int		node_load(t_comm *red, t_lxr *lxr, \
-	t_env *env_list, t_top_cmd *top);
+int		node_load(t_comm *red, t_lxr *lxr, t_env *env_list, t_top_cmd *top);
 char	*find_env(t_env *env_list, char *name);
 char	*prime_str_collect(t_lxr *lxr, t_env *env_list, char cmd, int l);
 char	*join_free(char *s, char *t);
@@ -269,7 +268,7 @@ char		*str_put(t_lxr *lxr, t_env *env_list, int l);
 char		*unquoted_str(t_lxr *lxr, t_env *env_list, int l);
 char		**ft_dup(char **av, char *val, int i);
 bool	exec_echo(t_data data, t_comm *comm, t_frame frame);
-bool	add_variable(t_data *data, t_comm *comm, char **s, int j);
+bool	add_variable(t_comm *comm, t_data *data, char **s, int j);
 bool	check_redirection(t_data *data, t_comm *comm);
 bool	heredoc_outside_pipe(t_data *data, t_comm *comm);
 bool	run_exit(t_data data, t_comm *comm);
@@ -280,5 +279,6 @@ bool	run_unset(t_data *data, t_comm *comm);
 void	ft_echo(t_comm *comm, char *str, char flag, t_frame frame);
 bool	run_export(t_comm *comm, t_data *data, t_frame frame);
 void	show_export_list(t_comm *comm, t_data data, t_frame frame);
+void	check_out_files(int *fd_out, int *f_output);
 
 #endif

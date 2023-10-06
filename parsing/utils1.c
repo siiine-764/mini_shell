@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-t_tkn	*tkn_initialize(char *val, int typ)
+t_tkn	*tkn_initialize(int typ, char *val)
 {
 	t_tkn	*tkn;
 

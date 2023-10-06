@@ -1,6 +1,6 @@
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 EXECUTION = execution/execution.a
 PARSING = parsing/parsing.a
 LIBFT = libft/libft.a
@@ -11,8 +11,8 @@ all: $(NAME)
 
 OBJS = $(SRCS:.c=.o)
 
-$(NAME): $(OBJS) $(EXECUTION) $(PARSING) $(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(EXECUTION) $(PARSING) $(LIBFT) -lreadline
+$(NAME): $(OBJS) $(LIBFT) $(EXECUTION) $(PARSING)
+	$(CC) $(LIBFT) $(CFLAGS) -o $(NAME) $(OBJS) $(EXECUTION) $(PARSING) -lreadline
 	@echo "make minishell"
 
 $(LIBFT):

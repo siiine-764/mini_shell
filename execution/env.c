@@ -49,7 +49,7 @@ t_env	*ft_getenv(t_env *env_list, char *variable)
 		j = ft_split(env_list->ctt, '=');
 		s = ft_strdup(j[0]);
 		c = 0;
-		free_2d_array(j);
+		free_2d(j);
 		if (!s || !*s)
 			return (NULL);
 		if (ft_strcmp(s, variable) == 0)

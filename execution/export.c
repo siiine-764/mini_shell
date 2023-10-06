@@ -53,25 +53,25 @@ void	show_export_list(t_comm *comm, t_data data, t_frame frame)
 	}
 }
 
-void	add_unexisted_variable(t_data *data, t_comm*comm,
-		char **s, int i)
+void	add_unexisted_variable(t_comm *comm, t_data *data,
+		char **s, int j)
 {
 	ft_unset(&data->env_list, s[0]);
 	ft_unset(&data->pub_list, s[0]);
-	ft_lstadd_front(&(data)->env_list, ft_lstnew(ft_strdup(comm->flags[i])));
+	ft_lstadd_front(&(data)->env_list, ft_lstnew(ft_strdup(comm->flags[j])));
 	ft_lstadd_front(&(data)->pub_list,
-		ft_lstnew(ft_strdup(comm->flags[i])));
+		ft_lstnew(ft_strdup(comm->flags[j])));
 	sort_list(&data->pub_list);
 }
 
-void	add_existed_variable(t_data *data, t_comm *comm, 
+void	add_existed_variable(t_comm *comm, t_data *data,
 		char **s, int i)
 {
 	ft_unset(&data->env_list, s[0]);
 	ft_unset(&data->pub_list, s[0]);
 	ft_lstadd_front(&(data)->env_list, ft_lstnew(ft_strdup(comm->flags[i])));
-	ft_lstadd_front(&(data)->pub_list,
-		ft_lstnew(ft_strdup(comm->flags[i])));
+	ft_lstadd_front(&(data)->pub_list, ft_lstnew(ft_strdup(comm->flags[i])));
+		ft_lstnew(ft_strdup(comm->flags[i]));
 	sort_list(&data->pub_list);
 }
 
@@ -89,9 +89,9 @@ bool	run_export(t_comm *comm, t_data *data, t_frame frame)
 		show_export_list(comm, *data, frame);
 	else
 	{
-		while (comm->flags[++i])
+		while (comm->flags[++j])
 		{
-			if (is_properly_named(comm->flags[i]))
+			if (is_properly_named(comm->flags[j]))
 				add_properly_named_word(comm, data, j);
 			else
 				show_export_error(&flag, j, comm);

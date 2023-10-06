@@ -87,7 +87,7 @@ bool	run_cd(t_data data, t_comm *comm)
 {
 	if (!ft_strcmp(comm->flags[0], "cd"))
 	{
-		ft_cd(comm->flags[1], data.env_list, data.pub_list);
+		ft_cd(data.env_list, data.pub_list, comm->flags[1]);
 		return (true);
 	}
 	return (false);

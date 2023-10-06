@@ -1,6 +1,6 @@
 NAME = parsing.a
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 
 SRCS =	aft_dollar.c\
 		free_all.c\
@@ -10,7 +10,6 @@ SRCS =	aft_dollar.c\
 		parse.c\
 		str_collect.c\
 		unquoted_str.c\
-		utils.c\
 		utils1.c\
 		utils2.c\
 
