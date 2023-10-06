@@ -1,42 +1,63 @@
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
-EXECUTION = execution/execution.a
-PARSING = parsing/parsing.a
 LIBFT = libft/libft.a
-
 SRCS = main.c\
+		./parsing/aft_dollar.c\
+		./parsing/free_all.c\
+		./parsing/lexer_utils.c\
+		./parsing/lexer.c\
+		./parsing/parse_utils.c\
+		./parsing/parse.c\
+		./parsing/str_collect.c\
+		./parsing/unquoted_str.c\
+		./parsing/utils1.c\
+		./parsing/utils2.c\
+		./execution/randomUtils.c\
+		./execution/redirection_utils.c	\
+		./execution/cd.c\
+		./execution/builtInUtils.c\
+		./execution/heredoc.c\
+		./execution/before_heredoc.c\
+		./execution/export_utils.c\
+		./execution/heredoc_utils.c\
+		./execution/redirection.c\
+		./execution/pipe_utils.c\
+		./execution/exec_utils.c\
+		./execution/env.c\
+		./execution/echo.c\
+		./execution/Unset.c\
+		./execution/free.c\
+		./execution/pipe.c\
+		./execution/execSimpleCommand.c	\
+		./execution/export.c\
+		./execution/ft_exit.c\
+		./execution/ft_pwd.c\
+		./execution/combine.c\
+		./execution/error_files.c\
+		./execution/echo_utils.c\
+		./execution/exit_utils.c\
 
 all: $(NAME)
 
 OBJS = $(SRCS:.c=.o)
 
-$(NAME): $(OBJS) $(LIBFT) $(EXECUTION) $(PARSING)
-	$(CC) $(LIBFT) $(CFLAGS) -o $(NAME) $(OBJS) $(EXECUTION) $(PARSING) -lreadline
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) -lreadline
 	@echo "make minishell"
 
 $(LIBFT):
 	@make -C libft
 	@make -C libft bonus
 
-$(EXECUTION):
-	@make -C execution
-
-$(PARSING):
-	@make -C parsing
-
 clean:
 	@rm -f $(OBJS)
 	@make -C libft clean
-	@make -C execution clean
-	@make -C parsing clean
 	@echo "clean minishell"
 
 fclean: clean
 	@rm -f $(NAME)
 	@make -C libft fclean
-	@make -C execution fclean
-	@make -C parsing fclean
 	@echo "fclean minishell"
 
 re: fclean all

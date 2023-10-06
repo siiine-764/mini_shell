@@ -25,7 +25,7 @@ SRCS =	\
 	./combine.c				\
 	./error_files.c			\
 	./echo_utils.c			\
-	./exit_utils.c			
+	./exit_utils.c			\
 
 all: $(NAME)
 

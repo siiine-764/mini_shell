@@ -13,7 +13,8 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "libft/libft.h"
+
+#include "./libft/libft.h"
 # include <stdio.h>
 # include <sys/types.h>
 # include <sys/uio.h>
@@ -40,13 +41,6 @@
 # define CNTRL_C 130
 # define CNTRL_BACKSLASH 131
 # define SYNTAX_ERROR_EXIT 258
-
-
-// typedef struct s_env
-// {
-// 	char			*ctt;
-// 	struct s_env	*nxt;
-// }t_env;
 
 typedef enum typ
 {
@@ -235,7 +229,7 @@ void	ft_cd(t_env *env_list, t_env *pub_list, char *path);
 void	cd_oldwd(t_env *env_list, t_env *pub_list);
 void	cd_home(t_env *env_list, t_env *pub_list);
 int			cmd_add(t_top_cmd *top, t_lxr *lxr, t_env *env_list);
-int			get_parts(char	*s, char c);
+int    get_parts(char const *s, char c);
 int			aft_dollar_check(t_lxr *lxr);
 int			syntax_handle(char *val, t_tkn *t, t_top_cmd *top);
 int		rederiction_handle(t_comm *red, t_tkn *tkn, t_top_cmd *top);
@@ -280,5 +274,6 @@ void	ft_echo(t_comm *comm, char *str, char flag, t_frame frame);
 bool	run_export(t_comm *comm, t_data *data, t_frame frame);
 void	show_export_list(t_comm *comm, t_data data, t_frame frame);
 void	check_out_files(int *fd_out, int *f_output);
+
 
 #endif
