@@ -75,8 +75,8 @@ int	node_load(t_comm *red, t_lxr *lxr, t_env *env_list, t_top_cmd *top)
 
 int	cmd_add(t_top_cmd *top, t_lxr *lxr, t_env *env_list)
 {
+	t_comm		*red;
 	int			i;
-	t_comm	*red;
 	
 	red = malloc(sizeof(t_comm));
 	red->redirection = malloc(sizeof(t_tkn_top));
@@ -96,7 +96,7 @@ int	cmd_add(t_top_cmd *top, t_lxr *lxr, t_env *env_list)
 		free(red);
 		return (1);
 	}
-	node_load(red, lxr, env_list, top);
+	node_add(top, red);
 	return (0);
 }
 

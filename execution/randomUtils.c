@@ -18,7 +18,7 @@ char	*get_promt(void)
 {
 	char	*command;
 
-	command = readline("\033[0;34mMinishell$> :\033[0;37m");
+	command = readline("Minishell$> :");
 	if (command && *command)
 		add_history(command);
 	return (command);
