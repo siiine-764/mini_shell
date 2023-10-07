@@ -31,43 +31,80 @@ void	cd_oldwd(t_env *env_list, t_env *pub_list)
 
 void	cd_home(t_env *env_list, t_env *pub_list)
 {
-	char	*home_path;
-	char	new_wd[PATH_MAX];
+	(void)env_list;
+	(void)pub_list;
+	// char	*home_path;
+	// char	new_wd[PATH_MAX];
 
-	home_path = find_env(env_list, "HOME");
-	if (home_path == NULL)
-		ft_error("cd", " :HOME NOT FOUND", 1);
-	else
-	{
-		getcwd(new_wd, sizeof(new_wd));
-		if (chdir(home_path) == -1)
-		{
-			perror(home_path);
-			set_exit_code(1);
-		}
-		else
-		{
-			ft_setenv(&env_list, "OLDPWD", new_wd);
-			ft_setenv(&pub_list, "OLDPWD", new_wd);
-			set_exit_code(0);
-		}
-	}
-	free(home_path);
+	// home_path = find_env(env_list, "HOME");
+	// if (home_path == NULL)
+	// 	ft_error("cd", " :HOME NOT FOUND", 1);
+	// else
+	// {
+	// 	getcwd(new_wd, sizeof(new_wd));
+	// 	if (chdir(home_path) == -1)
+	// 	{
+	// 		perror(home_path);
+	// 		set_exit_code(1);
+	// 	}
+	// 	else
+	// 	{
+	// 		ft_setenv(&env_list, "OLDPWD", new_wd);
+	// 		ft_setenv(&pub_list, "OLDPWD", new_wd);
+	// 		set_exit_code(0);
+	// 	}
+	// }
+	// free(home_path);
+	char *a = getenv("HOME");
+    if (a == NULL)
+    {
+        perror("cd :HOME NOT FOUND");
+        return ;
+    }
+	chdir(a);
 }
 
-void	ft_cd(char *path, t_env *env_list, t_env *pub_list)
+
+// void	cd_home(struct Node* head, char **env)
+// {
+//     (void)head;
+//     (void)env;
+
+//     char *a = getenv("HOME");
+//     if (a == NULL)
+//     {
+//         perror("cd :HOME NOT FOUND");
+//         return ;
+//     }
+//     else
+//     {
+//         ft_ex_port(head, "PWD", a, env);
+//         printf("im here\n");
+//     }
+//     chdir(a);
+// }
+
+void	ft_cd(t_comm *comm, char *path, t_env *env_list, t_env *pub_list)
 {
 	(void)pub_list;
 	char	new_wd[PATH_MAX];
 
-	// if (path == NULL)
-	// 	goto home;
 	// if (ft_strcmp("-", path) == 0)
 	// 	cd_oldwd(env_list, pub_list);
 	// else 
-	if (ft_strcmp(".", path) == 0)
-	{
+	if (path == NULL)
 		cd_home(env_list, pub_list);
+	else if (ft_strcmp(".", path) == 0)
+	{
+		return ;
+		// cd_home(env_list, pub_list);
+	}
+	else if (ft_strcmp("..", path) == 0)
+	{
+        ft_export(comm, pub_list, "OLDPWD");
+        chdir("..");
+        return ;
+		// cd_home(env_list, pub_list);
 	}
 	else
 	{
@@ -90,31 +127,8 @@ bool	run_cd(t_data data, t_comm *comm)
 	(void)data;
 	if (!ft_strcmp(comm->flags[0], "cd"))
 	{
-		ft_cd(comm->flags[1], data.env_list, data.pub_list);
+		ft_cd(comm, comm->flags[1], data.env_list, data.pub_list);
 		return (true);
 	}
 	return (false);
 }
-
-    // (void)head;
-    // (void)env;
-    // if (ft_strcmp(my_cmd->arguments[0][1], "-") == 0)
-    // {
-    //     printf("-\n");
-    // }
-    // else if (ft_strcmp(my_cmd->arguments[0][1], "~") == 0)
-	// {
-    //     printf("~\n");
-	// 	cd_home(head, env);
-	// }
-    // else if (ft_strcmp(my_cmd->arguments[0][1], "..") == 0)
-    // {
-    //     char *str1 = "OLDPWD";
-    //     ft_ex_port(head, str1, getenv("PWD"), env);
-    //     chdir("..");
-    //     return ;
-    // }
-    // else if (ft_strcmp(my_cmd->arguments[0][1], ".") == 0)
-    // {
-    //     return ;
-    // }

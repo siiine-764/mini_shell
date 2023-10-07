@@ -225,7 +225,7 @@ void	exec_command(t_comm *comm, t_data *data,
 void	set_exit_code_inside_pipe(t_data *data, t_comm *comm);
 void	init_contex(t_frame *frame);
 void	show_export_list(t_comm *comm, t_data data, t_frame frame);
-void	ft_cd(char *path, t_env *env_list, t_env *pub_list);
+void	ft_cd(t_comm *comm, char *path, t_env *env_list, t_env *pub_list);
 void	cd_oldwd(t_env *env_list, t_env *pub_list);
 void	cd_home(t_env *env_list, t_env *pub_list);
 int			cmd_add(t_top_cmd *top, t_lxr *lxr, t_env *env_list);

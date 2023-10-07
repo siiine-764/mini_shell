@@ -1,0 +1,11 @@
+Makefile
+README.md
+execution
+libft
+main.c
+main.o
+minishell
+minishell.h
+parsing
+t.txt
+ffffffff
