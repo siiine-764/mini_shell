@@ -42,13 +42,13 @@ t_env	*ft_getenv(t_env *env_list, char *variable)
 {
 	char	*s;
 	char	**j;
-	int		c;
+	// int		c;
 
 	while (env_list)
 	{
 		j = ft_split(env_list->ctt, '=');
 		s = ft_strdup(j[0]);
-		c = 0;
+		// c = 0;
 		free_2d(j);
 		if (!s || !*s)
 			return (NULL);
