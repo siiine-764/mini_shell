@@ -82,8 +82,8 @@ bool	run_export(t_comm *comm, t_data *data, t_frame frame)
 
 	flag = 0;
 	j = 0;
-	if (ft_strcmp(comm->flags[0], "exp")
-		&& ft_strcmp(comm->flags[0], "EXP"))
+	if (ft_strcmp(comm->flags[0], "export")
+		&& ft_strcmp(comm->flags[0], "EXPORT"))
 		return (false);
 	if (comm->flags[1] == NULL)
 		show_export_list(comm, *data, frame);

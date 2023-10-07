@@ -64,12 +64,13 @@ void	ft_cd(char *path, t_env *env_list, t_env *pub_list)
 	// 	goto home;
 	// if (ft_strcmp("-", path) == 0)
 	// 	cd_oldwd(env_list, pub_list);
-	// else if (ft_strcmp("~", path) == 0)
-	// {
-	// 	cd_home(env_list, pub_list);
-	// }
-	// else
-	// {
+	// else 
+	if (ft_strcmp(".", path) == 0)
+	{
+		cd_home(env_list, pub_list);
+	}
+	else
+	{
 		getcwd(new_wd, sizeof(new_wd));
 		if (chdir(path) == -1)
 		{
@@ -81,11 +82,12 @@ void	ft_cd(char *path, t_env *env_list, t_env *pub_list)
 			set_exit_code(0);
 			ft_setenv(&env_list, "OLDPWD", new_wd);
 		}
-	// }
+	}
 }
 
 bool	run_cd(t_data data, t_comm *comm)
 {
+	(void)data;
 	if (!ft_strcmp(comm->flags[0], "cd"))
 	{
 		ft_cd(comm->flags[1], data.env_list, data.pub_list);

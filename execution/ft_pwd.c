@@ -23,10 +23,26 @@ void	ft_pwd(t_data data, t_comm *comm, t_frame frame)
 
 bool	run_pwd(t_data data, t_comm *comm, t_frame frame)
 {
+	(void)data;
+	(void)frame;
+	char	*cwd;
+	char	buff[PATH_MAX];
+
+	cwd = getcwd(buff, PATH_MAX);
 	if (!ft_strcmp(comm->flags[0], "pwd"))
 	{
-		ft_pwd(data, comm, frame);
+		if (!cwd)
+		{
+			perror("minishell: pwd: ");
+			exit(1);
+		}
+		printf("%s\n", cwd);
 		return (true);
 	}
+	// if (!ft_strcmp(comm->flags[0], "pwd"))
+	// {
+	// 	ft_pwd(data, comm, frame);
+	// 	return (true);
+	// }
 	return (false);
 }

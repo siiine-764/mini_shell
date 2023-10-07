@@ -35,7 +35,7 @@ void	show_export_error( int *flag, int j, t_comm *comm)
 {
 	if (*flag == 0)
 	{
-		ft_error(comm->flags[j], " :EXP: IDENTIFIER DOSEN'T EXIST", 1);
+		ft_error(comm->flags[j], " :EXPORT: IDENTIFIER DOSEN'T EXIST", 1);
 		*flag = 1;
 	}
 }
