@@ -87,7 +87,7 @@ void	cd_home(t_env *env_list, t_env *pub_list)
 void	ft_cd(t_comm *comm, char *path, t_env *env_list, t_env *pub_list)
 {
 	(void)pub_list;
-	char	new_wd[PATH_MAX];
+	// char	new_wd[PATH_MAX];
 
 	// if (ft_strcmp("-", path) == 0)
 	// 	cd_oldwd(env_list, pub_list);
@@ -108,17 +108,19 @@ void	ft_cd(t_comm *comm, char *path, t_env *env_list, t_env *pub_list)
 	}
 	else
 	{
-		getcwd(new_wd, sizeof(new_wd));
+		// chdir(path);
 		if (chdir(path) == -1)
 		{
 			set_exit_code(1);
 			perror(path);
 		}
-		else
-		{
-			set_exit_code(0);
-			ft_setenv(&env_list, "OLDPWD", new_wd);
-		}
+		// getcwd("PWD", sizeof("PWD"));
+		ft_export(comm, pub_list, "OLDPWD");
+		// else
+		// {
+		// 	set_exit_code(0);
+		// 	ft_setenv(&env_list, "OLDPWD", new_wd);
+		// }
 	}
 }
 

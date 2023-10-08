@@ -152,6 +152,12 @@ typedef struct s_info
 
 extern t_data_g	g_global_data;
 
+void deleteNode(t_env **env_list, char* key);
+
+
+
+
+t_env	*delete_head(t_env **env_list, char *command, char *del);
 t_tkn		*tkn_initialize(int typ, char *val);
 t_lxr		*lxr_initialize(char *ctt);
 t_tkn		*tkn_nxt(t_lxr *lxr, t_env *env_list);
