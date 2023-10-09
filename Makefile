@@ -3,6 +3,8 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 LIBFT = libft/libft.a
 SRCS = main.c\
+	./execution/pipe.c\
+		./execution/execSimpleCommand.c	\
 		./parsing/aft_dollar.c\
 		./parsing/free_all.c\
 		./parsing/lexer_utils.c\
