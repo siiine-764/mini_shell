@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   before_heredoc.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/09 14:53:39 by mayache-          #+#    #+#             */
+/*   Updated: 2023/10/09 14:53:39 by mayache-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 bool	heredoc_exist(t_data *data)
@@ -47,6 +59,7 @@ void	run_commands_before_heredoc(t_data *data, t_info my_info, int i)
 void	exec_commands_before_heredoc(t_data *data)
 {
 	int		j;
+	int		sts;
 	t_info	my_info;
 
 	j = 0;
@@ -64,6 +77,9 @@ void	exec_commands_before_heredoc(t_data *data)
 		my_info.temp_fd = dup(my_info.fd[0]);
 		close_pipe(my_info.fd);
 	}
-	wait_for_child(my_info.ids, j, my_info.temp_fd);
+	while (--j >= 0)
+	{
+		waitpid(my_info.ids[j], &sts, j);
+	}
 	free(my_info.ids);
 }

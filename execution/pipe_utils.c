@@ -52,13 +52,16 @@ void	exec_other_node(t_data *data, t_info my_info)
 	exec_node(data, data->comm, my_info.frame);
 }
 
-void	wait_for_child(int *ids, int temp_fd, int i)
+void	wait_for_child(int *ids, int i, int temp_fd)
 {
 	int		sts;
 
 	(void)temp_fd;
-	while (--i >= 0)
-		waitpid(ids[i], &sts, 0);
+	while (i >= 0)
+	{
+		waitpid(ids[i], &sts, i);
+		i--;
+	}
 }
 
 void	check_commands_order(t_data *data, t_info *my_info)

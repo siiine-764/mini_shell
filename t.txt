@@ -1,11 +1,29 @@
-Makefile
-README.md
-execution
-libft
-main.c
-main.o
-minishell
-minishell.h
-parsing
-t.txt
-ffffffff
+USER=mayache-
+MallocNanoZone=0
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Frameworks/Mono.framework/Versions/Current/Commands
+LOGNAME=mayache-
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.vpj2kCRtFY/Listeners
+HOME=/Users/mayache-
+SHELL=/bin/zsh
+__CF_USER_TEXT_ENCODING=0x18AC4:0x0:0x0
+TMPDIR=/var/folders/zz/zyxvpxvq6csfxvn_n000c_rh0032p4/T/
+XPC_SERVICE_NAME=0
+XPC_FLAGS=0x0
+ORIGINAL_XDG_CURRENT_DESKTOP=undefined
+SHLVL=1
+PWD=/Users/mayache-/Desktop/main
+OLDPWD=/Users/mayache-/Desktop/main
+TERM_PROGRAM=vscode
+TERM_PROGRAM_VERSION=1.79.2
+LANG=en_US.UTF-8
+COLORTERM=truecolor
+GIT_ASKPASS=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
+VSCODE_GIT_ASKPASS_NODE=/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin)
+VSCODE_GIT_ASKPASS_EXTRA_ARGS=--ms-enable-electron-run-as-node
+VSCODE_GIT_ASKPASS_MAIN=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js
+VSCODE_GIT_IPC_HANDLE=/var/folders/zz/zyxvpxvq6csfxvn_n000c_rh0032p4/T/vscode-git-c7ab1c89e4.sock
+VSCODE_INJECTION=1
+ZDOTDIR=/Users/mayache-
+USER_ZDOTDIR=/Users/mayache-
+TERM=xterm-256color
+_=/Users/mayache-/Desktop/main/./minishell

@@ -54,6 +54,11 @@ char	*get_var(t_lxr *lxr, t_env *env_list)
 	return (s);
 }
 
+int	get_exit_code(void)
+{
+	return (g_global_data.e);
+}
+
 char	*aft_dollar(t_lxr *lxr, t_env *env_list)
 {
 	char	*s;

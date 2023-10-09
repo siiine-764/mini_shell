@@ -24,7 +24,7 @@ SRCS = main.c\
 		./execution/redirection.c\
 		./execution/pipe_utils.c\
 		./execution/exec_utils.c\
-		./execution/env.c\
+		./execution/builtins/env.c\
 		./execution/echo.c\
 		./execution/Unset.c\
 		./execution/free.c\
