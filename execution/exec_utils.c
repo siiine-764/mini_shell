@@ -14,9 +14,6 @@ int	get_len(t_comm *comm)
 
 void	exec_node(t_data *data, t_comm *comm, t_frame frame)
 {
-	// int		j;
-
-	// j= 0;
 	if (check_built_in_commands(data, comm, frame) == false)
 	{
 		if (!check_redirection(data, comm))

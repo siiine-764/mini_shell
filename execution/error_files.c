@@ -48,9 +48,6 @@ void	check_files(t_tkn_top redirection)
 
 void	set_exit_code_inside_pipe(t_data *data, t_comm *comm)
 {
-	// int		i;
-
-	// i = 0;
 	while (comm)
 	{
 		if (comm->flags[0])

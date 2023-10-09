@@ -1,4 +1,16 @@
-#include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/09 18:59:17 by mayache-          #+#    #+#             */
+/*   Updated: 2023/10/09 18:59:17 by mayache-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../minishell.h"
 
 void	check_echo(char *str, char flag, int fd, t_frame frame)
 {
@@ -36,39 +48,6 @@ void	ft_echo(t_comm *comm, char *str, char flag, t_frame frame)
 	check_echo(str, flag, fd, frame);
 	free(str);
 	set_exit_code(EXIT_SUCCESS);
-}
-
-int	check_echo_flag(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (false);
-	if (ft_strcmp(str, "-") == 0)
-		return (false);
-	if (str[i++] != '-')
-		return (false);
-	while (str[i])
-	{
-		if (str[i] != 'n')
-			return (false);
-		i += 1;
-	}
-	return (true);
-}
-
-char	*check_for_space( int i, char **str, char *res)
-{
-	char	*s;
-
-	if (str[i + 1] && str[i][0] != '\0')
-	{
-		s = res;
-		res = ft_strjoin(res, " ");
-		free(s);
-	}
-	return (res);
 }
 
 bool	exec_echo(t_data data, t_comm *comm, t_frame frame)

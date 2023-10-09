@@ -15,28 +15,28 @@ SRCS = main.c\
 		./parsing/utils2.c\
 		./execution/randomUtils.c\
 		./execution/redirection_utils.c	\
-		./execution/cd.c\
-		./execution/builtInUtils.c\
 		./execution/heredoc.c\
 		./execution/before_heredoc.c\
-		./execution/export_utils.c\
 		./execution/heredoc_utils.c\
 		./execution/redirection.c\
 		./execution/pipe_utils.c\
 		./execution/exec_utils.c\
-		./execution/builtins/env.c\
-		./execution/echo.c\
-		./execution/Unset.c\
-		./execution/free.c\
 		./execution/pipe.c\
 		./execution/execSimpleCommand.c	\
-		./execution/export.c\
-		./execution/ft_exit.c\
-		./execution/ft_pwd.c\
 		./execution/combine.c\
 		./execution/error_files.c\
-		./execution/echo_utils.c\
 		./execution/exit_utils.c\
+		./execution/utils/free.c\
+		./execution/builtins/echo.c\
+		./execution/builtins/env.c\
+		./execution/builtins/ft_cd.c\
+		./execution/builtins/ft_pwd.c\
+		./execution/builtins/ft_exit.c\
+		./execution/builtins/ft_unset.c\
+		./execution/builtins/export.c\
+		./execution/builtins/echo_utils.c\
+		./execution/builtins/builtInUtils.c\
+		./execution/builtins/export_utils.c\
 
 all: $(NAME)
 

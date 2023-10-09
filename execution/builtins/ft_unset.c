@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../minishell.h"
 
 // t_env	*delete_head(t_env **env_list, char *command, char *del)
 // {
@@ -28,7 +28,7 @@ void deleteNode(t_env **env_list, char* key)
 	char *str = find_env(*env_list, key);
 	if (!str)
 	{
-		perror("error");
+		// perror("error");
 		return ;
 	}
 	key = ft_strjoin(key, "=");
@@ -51,14 +51,14 @@ void deleteNode(t_env **env_list, char* key)
 	return;
 }
 
-void	delete_body(t_info *data)
-{
-	data->temp = data->sec;
-	free_2d(data->command);
-	data->fst->nxt = data->sec->nxt;
-	free(data->temp->ctt);
-	free(data->temp);
-}
+// void	delete_body(t_info *data)
+// {
+// 	data->temp = data->sec;
+// 	free_2d(data->command);
+// 	data->fst->nxt = data->sec->nxt;
+// 	free(data->temp->ctt);
+// 	free(data->temp);
+// }
 
 void	ft_unset(t_env **env_list, char *del)
 {

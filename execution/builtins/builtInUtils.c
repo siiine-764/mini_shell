@@ -1,4 +1,16 @@
-#include "../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtInUtils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/09 22:47:08 by mayache-          #+#    #+#             */
+/*   Updated: 2023/10/09 22:47:08 by mayache-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../minishell.h"
 
 t_env	*get_env_list(char **i)
 {
@@ -62,7 +74,6 @@ char	*join_join(char **temp)
 
 char	*find_env(t_env *env_list, char *name)
 {
-	// int		i;
 	char	*c;
 	char	**j;
 	char	*temp;
@@ -74,7 +85,6 @@ char	*find_env(t_env *env_list, char *name)
 		c = temp;
 		temp = ft_strdup(j[0]);
 		free(c);
-		// i = 0;
 		free_2d(j);
 		if (!temp || !*temp)
 			return (NULL);

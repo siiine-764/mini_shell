@@ -153,9 +153,9 @@ typedef struct s_info
 extern t_data_g	g_global_data;
 
 void deleteNode(t_env **env_list, char* key);
-
-
-
+void	cd_oldpwd(t_env *env_list, t_env *pub_list);
+void	cd_newpwd(t_env *env_list, t_env *pub_list);
+void	ft_cd(char *path, t_env *env_list, t_env *pub_list);
 
 t_env	*delete_head(t_env **env_list, char *command, char *del);
 t_tkn		*tkn_initialize(int typ, char *val);
@@ -231,8 +231,6 @@ void	exec_command(t_comm *comm, t_data *data,
 void	set_exit_code_inside_pipe(t_data *data, t_comm *comm);
 void	init_contex(t_frame *frame);
 void	show_export_list(t_comm *comm, t_data data, t_frame frame);
-void	ft_cd(t_comm *comm, char *path, t_env *env_list, t_env *pub_list);
-void	cd_oldwd(t_env *env_list, t_env *pub_list);
 void	cd_home(t_env *env_list, t_env *pub_list);
 int			cmd_add(t_top_cmd *top, t_lxr *lxr, t_env *env_list);
 int    get_parts(char const *s, char c);
@@ -268,7 +266,7 @@ char		*str_put(t_lxr *lxr, t_env *env_list, int l);
 char		*unquoted_str(t_lxr *lxr, t_env *env_list, int l);
 char		**ft_dup(char **av, char *val, int i);
 bool	exec_echo(t_data data, t_comm *comm, t_frame frame);
-bool	add_variable(t_comm *comm, t_data *data, char **s, int j);
+int	add_variable(t_comm *comm, t_data *data, char **s, int j);
 bool	check_redirection(t_data *data, t_comm *comm);
 bool	heredoc_outside_pipe(t_data *data, t_comm *comm);
 bool	run_exit(t_data data, t_comm *comm);

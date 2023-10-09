@@ -1,30 +1,20 @@
 #include "../minishell.h"
 
-void	ft_exit(char *var, char flag)
+void	check_export_error(t_data *data, t_comm *comm)
 {
-	int	e;
+	int	i;
 
-	if (var == NULL)
-	{
-		set_exit_code(0);
-		exit(0);
-	}
-	if (!is_number(var))
-	{
-		if (flag != 'e')
-			ft_error(var, ": argument not found\n", 255);
-	}
-	else
-	{
-		e = ft_atoi(var);
-		if (flag != '\0')
-		{
-			set_exit_code(e);
-			return ;
-		}
-		printf("exit\n");
-		g_global_data.e = e;
-		set_exit_code(e);
-		exit(e);
-	}
+	(void)data;
+	i = 0;
+	while (comm->flags[++i])
+		if (!is_properly_named(comm->flags[i]))
+			exit(1);
+}
+
+void	check_cd_errors(t_data *data, t_comm *comm)
+{
+	if (comm->flags[1] == NULL 
+		|| ft_strcmp("~", comm->flags[1]) == 0)
+		if (ft_getenv(data->env_list, "HOME") == NULL)
+			exit(1);
 }
