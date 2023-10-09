@@ -1,4 +1,5 @@
 #include "../minishell.h"
+
 int	get_len(t_comm *comm)
 {
 	int	i;

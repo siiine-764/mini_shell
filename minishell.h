@@ -157,6 +157,10 @@ void	cd_oldpwd(t_env *env_list, t_env *pub_list);
 void	cd_newpwd(t_env *env_list, t_env *pub_list);
 void	ft_cd(char *path, t_env *env_list, t_env *pub_list);
 
+
+void	check_path(t_data *data, t_comm *comm);
+
+
 t_env	*delete_head(t_env **env_list, char *command, char *del);
 t_tkn		*tkn_initialize(int typ, char *val);
 t_lxr		*lxr_initialize(char *ctt);

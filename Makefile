@@ -21,8 +21,6 @@ SRCS = main.c\
 		./execution/redirection.c\
 		./execution/pipe_utils.c\
 		./execution/exec_utils.c\
-		./execution/pipe.c\
-		./execution/execSimpleCommand.c	\
 		./execution/combine.c\
 		./execution/error_files.c\
 		./execution/exit_utils.c\
