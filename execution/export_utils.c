@@ -12,10 +12,14 @@ bool	add_variable(t_comm *comm, t_data *data, char **s, int j)
 				add_unexisted_variable(comm, data, s, j);
 			}
 			else
+			{
 				add_unexisted_variable(comm, data, s, j);
+			}
 		}
 		else
+		{
 			add_existed_variable(comm, data, s, j);
+		}
 		return (true);
 	}
 	return (false);
@@ -27,7 +31,7 @@ void	add_non_variable(t_comm *comm, t_data *data, char **s, int j)
 	{
 		ft_lstadd_front(&(data)->pub_list,
 			ft_lstnew(ft_strdup(comm->flags[j])));
-		sort_list(&data->pub_list);
+		// sort_list(&data->pub_list);
 	}
 }
 

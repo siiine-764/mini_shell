@@ -25,14 +25,14 @@ SRCS = main.c\
 		./execution/pipe_utils.c\
 		./execution/exec_utils.c\
 		./execution/builtins/env.c\
+		./execution/builtins/ft_nset.c\
+		./execution/builtins/ft_pwd.c\
 		./execution/echo.c\
-		./execution/Unset.c\
 		./execution/free.c\
 		./execution/pipe.c\
 		./execution/execSimpleCommand.c	\
 		./execution/export.c\
 		./execution/ft_exit.c\
-		./execution/ft_pwd.c\
 		./execution/combine.c\
 		./execution/error_files.c\
 		./execution/echo_utils.c\
