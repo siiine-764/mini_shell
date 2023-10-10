@@ -42,6 +42,8 @@
 # define CNTRL_BACKSLASH 131
 # define SYNTAX_ERROR_EXIT 258
 
+// extern t_data_g	g_global_data;
+
 typedef enum typ
 {
 	T_WORD,
@@ -59,6 +61,7 @@ typedef struct data
 	int		signal_flag;
 	int		sig_typ;
 }t_data_g;
+t_data_g	g_global_data;
 
 typedef struct TKN
 {
@@ -150,7 +153,6 @@ typedef struct s_info
 	int			fd[2];
 }t_info;
 
-extern t_data_g	g_global_data;
 
 void deleteNode(t_env **env_list, char* key);
 void	cd_oldpwd(t_env *env_list, t_env *pub_list);

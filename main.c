@@ -1,7 +1,5 @@
 #include "minishell.h"
 
-t_data_g	g_global_data;
-
 void	sig_handler(int sig)
 {
 	g_global_data.sig_typ = sig;
@@ -21,7 +19,8 @@ void	sig_handler(int sig)
 			// rl_replace_line("", 0);
 			rl_redisplay();
 		}
-		else if (sig == SIGQUIT)
+		else 
+		if (sig == SIGQUIT)
 		{
 			ft_putchar_fd('\r', STDOUT_FILENO);
 			rl_on_new_line();
@@ -34,8 +33,9 @@ void	minishell_routine(t_data *data)
 {
 	char	*command;
 
+//SIGINT is a signal generated when a user presses Control-C
+
 	// signal(SIGINT, sig_handler);
-	// signal(SIGQUIT, sig_handler);
 	command = get_promt();
 	if (command == NULL)
 	{
@@ -54,6 +54,7 @@ void	minishell_routine(t_data *data)
 			all_free(data->top);
 		}
 	}
+	// signal(SIGQUIT, sig_handler);
 	free(command);
 }
 

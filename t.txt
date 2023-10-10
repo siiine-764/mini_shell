@@ -27,3 +27,11 @@ ZDOTDIR=/Users/mayache-
 USER_ZDOTDIR=/Users/mayache-
 TERM=xterm-256color
 _=/Users/mayache-/Desktop/main/./minishell
+
+blablablablablablabla
+bla
+bla
+bla
+bla
+bla
+bla

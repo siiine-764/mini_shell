@@ -14,9 +14,10 @@
 
 int	syntax_handle(char *val, t_tkn *t, t_top_cmd *top)
 {
+	(void)t;
 	if (val == NULL)
 	{
-		free(t);
+		// free(t);
 		free(t->val);
 		all_free(top);
 		printf("minishell:syntax error\n");
