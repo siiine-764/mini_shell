@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_files.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/10 18:34:45 by mayache-          #+#    #+#             */
+/*   Updated: 2023/10/10 18:34:45 by mayache-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	check_command_error(t_data *data, t_comm *comm)
@@ -52,9 +64,10 @@ void	set_exit_code_inside_pipe(t_data *data, t_comm *comm)
 	{
 		if (comm->flags[0])
 		{
-			if (ft_strcmp(comm->flags[0], "exit") == 0)
-				ft_exit(comm->flags[1], 'e');
-			else if (ft_strcmp(comm->flags[0], "export") == 0)
+			// if (ft_strcmp(comm->flags[0], "exit") == 0)
+			// 	ft_exit(comm->flags[1], 'e');
+			// else 
+			if (ft_strcmp(comm->flags[0], "export") == 0)
 				check_export_error(data, comm);
 			else if (ft_strcmp(comm->flags[0], "cd") == 0)
 				check_cd_errors(data, comm);

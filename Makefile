@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 LIBFT = libft/libft.a
 SRCS = main.c\
 	./execution/pipe.c\
-		./execution/execSimpleCommand.c	\
+		./execution/execSimpleCommand.c\
 		./parsing/aft_dollar.c\
 		./parsing/free_all.c\
 		./parsing/lexer_utils.c\
@@ -15,7 +15,6 @@ SRCS = main.c\
 		./parsing/unquoted_str.c\
 		./parsing/utils1.c\
 		./parsing/utils2.c\
-		./execution/randomUtils.c\
 		./execution/redirection_utils.c	\
 		./execution/heredoc.c\
 		./execution/before_heredoc.c\
@@ -25,8 +24,9 @@ SRCS = main.c\
 		./execution/exec_utils.c\
 		./execution/combine.c\
 		./execution/error_files.c\
-		./execution/exit_utils.c\
 		./execution/utils/free.c\
+		./execution/utils/randomUtils.c\
+		./execution/utils/exit_utils.c\
 		./execution/builtins/echo.c\
 		./execution/builtins/env.c\
 		./execution/builtins/ft_cd.c\

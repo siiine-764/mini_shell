@@ -30,6 +30,12 @@ int	add_variable(t_comm *comm, t_data *data, char **s, int j)
 {
 	if (is_variable(comm->flags[j]))
 	{
+		if (s[1] == NULL)
+		{
+			add_unexisted_variable(comm, data, s, j);
+			// return (0);
+		}
+		// else
 		if (ft_getenv(data->env_list, s[0]) == NULL)
 		{
 			if (ft_getenv(data->pub_list, s[0]) != NULL)
@@ -46,9 +52,9 @@ int	add_variable(t_comm *comm, t_data *data, char **s, int j)
 		{
 			add_existed_variable(comm, data, s, j);
 		}
-		return (1);
+		return (0);
 	}
-	return (1);
+	return (0);
 }
 
 void	add_non_variable(t_comm *comm, t_data *data, char **s, int j)
@@ -76,7 +82,7 @@ void	add_properly_named_word(t_comm *comm, t_data *data, int j)
 	int		i;
 
 	s = ft_split(comm->flags[j], '=');
-	if (!add_variable(comm, data, s, j))
+	if (add_variable(comm, data, s, j) == 1)
 		add_non_variable(comm, data, s, j);
 	i = 0;
 	while (s[i])

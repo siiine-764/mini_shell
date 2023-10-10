@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/10 18:34:16 by mayache-          #+#    #+#             */
+/*   Updated: 2023/10/10 18:34:16 by mayache-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	exec_after_heredoc(t_info *my_info, t_data *data, int *p)
@@ -37,7 +49,8 @@ void	run_heredoc(int *fd_heredoc, t_data *data, t_info my_info)
 
 void	loop_through_nodes(t_data *data, t_info my_info)
 {
-	int	k;
+	int		sts;
+	int		k;
 
 	k = 0;
 	my_info.size = get_len(data->comm);
@@ -60,7 +73,8 @@ void	loop_through_nodes(t_data *data, t_info my_info)
 		my_info.i += 1;
 		data->comm = data->comm->nxt_comm;
 	}
-	wait_for_child(my_info.ids, my_info.temp_fd, k);
+	while (--k >= 0)
+		waitpid(my_info.ids[k], &sts, k);
 }
 
 bool	check_heredoc(t_comm *comm)

@@ -78,8 +78,6 @@ void	exec_commands_before_heredoc(t_data *data)
 		close_pipe(my_info.fd);
 	}
 	while (--j >= 0)
-	{
 		waitpid(my_info.ids[j], &sts, j);
-	}
 	free(my_info.ids);
 }

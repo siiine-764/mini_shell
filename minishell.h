@@ -193,7 +193,6 @@ void		ft_move(t_lxr	*lxr);
 void		space_skip(t_lxr	*lxr);
 void		check_export_error(t_data *data, t_comm *comm);
 void		check_cd_errors(t_data *data, t_comm *comm);
-void		set_exit_code_inside_pipe(t_data *data, t_comm *comm);
 void		read_for_heredoc(t_comm *comm, int fd_in);
 void		open_heredoc(t_comm **comm);
 void		free_list(t_env *env);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirection.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/10 18:34:08 by mayache-          #+#    #+#             */
+/*   Updated: 2023/10/10 18:34:08 by mayache-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	ft_redirect_output_append_mode(t_comm *comm, t_data *data)
@@ -53,30 +65,30 @@ void	redirect_input(t_comm *comm, t_data *data)
 	set_exit_code(EXIT_SUCCESS);
 }
 
-void	exec_herdoc_command(t_comm *comm, t_data *data, t_frame frame)
-{
-	char	*path;
+// void	exec_herdoc_command(t_comm *comm, t_data *data, t_frame frame)
+// {
+// 	char	*path;
 
-	if (comm->flags[0] != NULL)
-	{
-		path = get_path(data->env_list, comm->flags[0]);
-		if (path)
-		{
-			if (fork() == 0)
-			{
-				dup2(frame.heredoc_docs, STDIN_FILENO);
-				dup2(frame.fd_out, STDOUT_FILENO);
-				execve(path, comm->flags, data->env);
-				perror("exe");
-				exit(COMMAND_NOT_FOUND);
-			}
-		}
-		else
-			ft_error(comm->flags[0],
-				": COMMAND NOT FOUND\n", COMMAND_NOT_FOUND);
-	}
-	set_exit_code(EXIT_SUCCESS);
-}
+// 	if (comm->flags[0] != NULL)
+// 	{
+// 		path = get_path(data->env_list, comm->flags[0]);
+// 		if (path)
+// 		{
+// 			if (fork() == 0)
+// 			{
+// 				dup2(frame.heredoc_docs, STDIN_FILENO);
+// 				dup2(frame.fd_out, STDOUT_FILENO);
+// 				execve(path, comm->flags, data->env);
+// 				perror("exe");
+// 				exit(COMMAND_NOT_FOUND);
+// 			}
+// 		}
+// 		else
+// 			ft_error(comm->flags[0],
+// 				": COMMAND NOT FOUND\n", COMMAND_NOT_FOUND);
+// 	}
+// 	set_exit_code(EXIT_SUCCESS);
+// }
 
 int	ft_heredoc(t_data *data, t_comm *comm, t_frame frame)
 {

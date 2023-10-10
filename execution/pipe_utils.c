@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipe_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/10 18:34:23 by mayache-          #+#    #+#             */
+/*   Updated: 2023/10/10 18:34:23 by mayache-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	exec_first_node(t_data *data, t_info my_info)
@@ -52,17 +64,17 @@ void	exec_other_node(t_data *data, t_info my_info)
 	exec_node(data, data->comm, my_info.frame);
 }
 
-void	wait_for_child(int *ids, int i, int temp_fd)
-{
-	int		sts;
+// void	wait_for_child(int *ids, int i, int temp_fd)
+// {
+// 	int		sts;
 
-	(void)temp_fd;
-	while (i >= 0)
-	{
-		waitpid(ids[i], &sts, i);
-		i--;
-	}
-}
+// 	(void)temp_fd;
+// 	while (i >= 0)
+// 	{
+// 		waitpid(ids[i], &sts, i);
+// 		i--;
+// 	}
+// }
 
 void	check_commands_order(t_data *data, t_info *my_info)
 {
