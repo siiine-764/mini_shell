@@ -12,7 +12,7 @@
 
 #include "../../minishell.h"
 
-bool	is_number(char *str)
+int	is_number(char *str)
 {
 	int	i;
 
@@ -34,7 +34,7 @@ void	ft_exit(char *var, char flag)
 
 	if (var == NULL)
 	{
-		set_exit_code(0);
+		e_code(0);
 		exit(0);
 	}
 	if (!is_number(var))
@@ -47,17 +47,17 @@ void	ft_exit(char *var, char flag)
 		e = ft_atoi(var);
 		if (flag != '\0')
 		{
-			set_exit_code(e);
+			e_code(e);
 			return ;
 		}
 		printf("exit\n");
 		g_global_data.e = e;
-		set_exit_code(e);
+		e_code(e);
 		exit(e);
 	}
 }
 
-bool	run_exit(t_data data, t_comm *comm)
+int	run_exit(t_data data, t_comm *comm)
 {
 	if (!ft_strcmp(comm->flags[0], "exit"))
 	{

@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-void	set_exit_code(int i)
+void	e_code(int i)
 {
 	if (i == SYNTAX_ERROR_EXIT)
 		g_global_data.e = i;
@@ -24,7 +24,7 @@ void	set_exit_code(int i)
 	}
 }
 
-bool	check_redirection(t_data *data, t_comm *comm)
+int	check_redirection(t_data *data, t_comm *comm)
 {
 	if (comm->redirection->fst_tkn != NULL)
 	{

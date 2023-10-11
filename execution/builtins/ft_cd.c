@@ -55,7 +55,7 @@ void	ft_cd(char *path, t_env *env_list, t_env *pub_list)
 		cd_oldpwd(env_list, pub_list);
         if (chdir("..") == -1)
 		{
-			set_exit_code(1);
+			e_code(1);
 			perror(path);
 		}
 		cd_newpwd(env_list, pub_list);
@@ -66,14 +66,14 @@ void	ft_cd(char *path, t_env *env_list, t_env *pub_list)
 		cd_oldpwd(env_list, pub_list);
 		if (chdir(path) == -1)
 		{
-			set_exit_code(1);
+			e_code(1);
 			perror(path);
 		}
 		cd_newpwd(env_list, pub_list);
 	}
 }
 
-bool	run_cd(t_data data, t_comm *comm)
+int	run_cd(t_data data, t_comm *comm)
 {
 	(void)data;
 	if (!ft_strcmp(comm->flags[0], "cd"))

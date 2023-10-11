@@ -30,12 +30,6 @@ int	add_variable(t_comm *comm, t_data *data, char **s, int j)
 {
 	if (is_variable(comm->flags[j]))
 	{
-		if (s[1] == NULL)
-		{
-			add_unexisted_variable(comm, data, s, j);
-			// return (0);
-		}
-		// else
 		if (ft_getenv(data->env_list, s[0]) == NULL)
 		{
 			if (ft_getenv(data->pub_list, s[0]) != NULL)
@@ -49,10 +43,11 @@ int	add_variable(t_comm *comm, t_data *data, char **s, int j)
 			}
 		}
 		else
-		{
+		{	
+			ft_unset(&data->pub_list, s[0]);
 			add_existed_variable(comm, data, s, j);
 		}
-		return (0);
+		return (1);
 	}
 	return (0);
 }

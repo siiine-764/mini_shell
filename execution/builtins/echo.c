@@ -37,7 +37,7 @@ void	ft_echo(t_comm *comm, char *str, char flag, t_frame frame)
 	fd = open_files(*comm->redirection).fd_out;
 	if (fd == -1)
 	{
-		set_exit_code(1);
+		e_code(1);
 		return ;
 	}
 	if (str == NULL)
@@ -47,10 +47,10 @@ void	ft_echo(t_comm *comm, char *str, char flag, t_frame frame)
 	}
 	check_echo(str, flag, fd, frame);
 	free(str);
-	set_exit_code(EXIT_SUCCESS);
+	e_code(EXIT_SUCCESS);
 }
 
-bool	exec_echo(t_data data, t_comm *comm, t_frame frame)
+int	exec_echo(t_data data, t_comm *comm, t_frame frame)
 {
 	(void)data;
 	if (ft_strcmp(comm->flags[0], "echo") == 0)
@@ -58,9 +58,9 @@ bool	exec_echo(t_data data, t_comm *comm, t_frame frame)
 		if (comm->flags[1] == NULL)
 			ft_echo(comm, NULL, '0', frame);
 		else if ((check_echo_flag(comm->flags[1])))
-			ft_echo(comm, join_for_echo(comm->flags, 'n'), 'n', frame);
+			ft_echo(comm, ft_join_echo(comm->flags, 'n'), 'n', frame);
 		else
-			ft_echo(comm, join_for_echo(comm->flags, '\0'), '\0', frame);
+			ft_echo(comm, ft_join_echo(comm->flags, '\0'), '\0', frame);
 		return (true);
 	}
 	return (false);

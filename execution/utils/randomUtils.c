@@ -26,23 +26,34 @@ int	ft_strcmp(char *str, char *p)
 	return (0);
 }
 
-char	*get_promt(void)
+void	signals_handler(int sig)
+{
+	(void)sig;
+	printf("\n");
+    rl_on_new_line();
+    rl_replace_line("", 0);
+    rl_redisplay();
+}
+
+char	*get_start(void)
 {
 	char	*command;
 
+	signal(SIGINT, signals_handler);
+	signal(SIGQUIT, SIG_IGN);
 	command = readline("Minishell$> ");
 	if (command && *command)
 		add_history(command);
 	return (command);
 }
 
-void	init_contex(t_frame *frame)
+void	init_fd(t_frame *frame)
 {
 	frame->fd_in = STDIN_FILENO;
 	frame->fd_out = STDOUT_FILENO;
 }
 
-void	walk_to_heredoc(t_comm **comm)
+void	run_to_heredoc(t_comm **comm)
 {
 	while (*comm && (*comm)->heredoc->fst_tkn == NULL)
 		*comm = (*comm)->nxt_comm;

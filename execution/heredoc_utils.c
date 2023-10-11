@@ -61,7 +61,7 @@ void	open_heredoc(t_comm **comm)
 	}
 }
 
-bool	heredoc_outside_pipe(t_data *data, t_comm *comm)
+int	heredoc_outside_pipe(t_data *data, t_comm *comm)
 {
 	t_frame	frame_temp;
 	t_frame	frame;
@@ -75,7 +75,7 @@ bool	heredoc_outside_pipe(t_data *data, t_comm *comm)
 	frame_temp = open_files(*data->comm->redirection);
 	if (frame_temp.fd_in == -1 || frame_temp.fd_out == -1)
 	{
-		set_exit_code(1);
+		e_code(1);
 		return (true);
 	}
 	frame.fd_out = dup(frame_temp.fd_out);
@@ -83,7 +83,7 @@ bool	heredoc_outside_pipe(t_data *data, t_comm *comm)
 		frame.fd_in = dup(frame_temp.fd_in);
 	else
 		frame.fd_in = dup(frame.fd_in);
-	if (!check_built_in_commands(data, comm, frame))
+	if (!chck_built_in_cmd(data, comm, frame))
 		ft_execute(comm, data, frame);
 	wait(NULL);
 	unlink("/tmp/temp");

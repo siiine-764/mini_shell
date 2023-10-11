@@ -75,7 +75,7 @@ t_frame	open_files(t_tkn_top redirection)
 	t_docs		my_files;
 	t_frame		frame;
 
-	init_contex(&frame);
+	init_fd(&frame);
 	while (redirection.fst_tkn)
 	{
 		my_files = init_files(redirection);

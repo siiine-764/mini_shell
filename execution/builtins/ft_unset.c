@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 23:39:09 by mayache-          #+#    #+#             */
-/*   Updated: 2023/10/09 23:43:03 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/10/12 00:39:03 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 // 		free(temp->ctt);
 // 		free(temp);
 // 		// free(command);
-// 		set_exit_code(EXIT_SUCCESS);
+// 		e_code(EXIT_SUCCESS);
 // 		return (*env_list);
 // 	}
 // 	return (NULL);
@@ -127,10 +127,10 @@ void	ft_unset(t_env **env_list, char *del)
 	// 	data.sec = data.sec->nxt;
 	// }
 	// free_2d(data.command);
-	// set_exit_code(EXIT_SUCCESS);
+	// e_code(EXIT_SUCCESS);
 }
 
-bool	run_unset(t_data *data, t_comm *comm)
+int	run_unset(t_data *data, t_comm *comm)
 {
 	int	i;
 

@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-bool	heredoc_exist(t_data *data)
+int	heredoc_exist(t_data *data)
 {
 	while (data->comm)
 	{
@@ -72,9 +72,11 @@ void	exec_commands_before_heredoc(t_data *data)
 		my_info.frame.fd_out = STDOUT_FILENO;
 		pipe(my_info.fd);
 		run_commands_before_heredoc(data, my_info, j);
+			// wait(NULL);
 		my_info.ids[j++] = g_global_data.pid;
 		data->comm = data->comm->nxt_comm;
 		my_info.temp_fd = dup(my_info.fd[0]);
+		// wait(NULL);
 		close_pipe(my_info.fd);
 	}
 	while (--j >= 0)

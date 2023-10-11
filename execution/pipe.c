@@ -56,7 +56,7 @@ void	loop_through_nodes(t_data *data, t_info my_info)
 	my_info.size = get_len(data->comm);
 	my_info.size -= count_commands_before_heredoc(data->comm);
 	my_info.frame.heredoc_docs = 42;
-	walk_to_heredoc(&data->comm);
+	run_to_heredoc(&data->comm);
 	while (data->comm)
 	{
 		my_info.frame.fd_in = STDIN_FILENO;
@@ -66,6 +66,7 @@ void	loop_through_nodes(t_data *data, t_info my_info)
 		else
 		{
 			check_commands_order(data, &my_info);
+			wait(NULL);
 			close_pipe(my_info.fd);
 			my_info.frame.heredoc_docs = 42;
 		}
@@ -77,16 +78,16 @@ void	loop_through_nodes(t_data *data, t_info my_info)
 		waitpid(my_info.ids[k], &sts, k);
 }
 
-bool	check_heredoc(t_comm *comm)
-{
-	while (comm)
-	{
-		if (comm->heredoc->fst_tkn != NULL)
-			return (true);
-		comm = comm->nxt_comm;
-	}
-	return (comm);
-}
+// int	check_heredoc(t_comm *comm)
+// {
+// 	while (comm)
+// 	{
+// 		if (comm->heredoc->fst_tkn != NULL)
+// 			return (true);
+// 		comm = comm->nxt_comm;
+// 	}
+// 	return (comm);
+// }
 
 void	ft_pipe(t_data *data)
 {
@@ -101,7 +102,7 @@ void	ft_pipe(t_data *data)
 	{
 		loop_through_nodes(data, my_info);
 		exec_commands_before_heredoc(data);
-		set_exit_code_inside_pipe(data, data->top->fst_cmd);
+		e_code_inside_pipe(data, data->top->fst_cmd);
 	}
 	else
 	{

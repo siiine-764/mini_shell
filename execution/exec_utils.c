@@ -27,7 +27,7 @@ int	get_len(t_comm *comm)
 
 void	exec_node(t_data *data, t_comm *comm, t_frame frame)
 {
-	if (check_built_in_commands(data, comm, frame) == false)
+	if (chck_built_in_cmd(data, comm, frame) == false)
 	{
 		if (!check_redirection(data, comm))
 		{
@@ -40,7 +40,7 @@ void	exec_node(t_data *data, t_comm *comm, t_frame frame)
 	}
 }
 
-int	check_built_in_commands(t_data *data, t_comm *comm, t_frame frame)
+int	chck_built_in_cmd(t_data *data, t_comm *comm, t_frame frame)
 {
 	if (comm->flags[0] != NULL)
 	{
@@ -54,7 +54,7 @@ int	check_built_in_commands(t_data *data, t_comm *comm, t_frame frame)
 			return (true);
 		else if (run_unset(data, comm))
 			return (true);
-		else if (run_export(comm, data, frame))
+		else if (ft_export(comm, data, frame))
 			return (true);
 		else if (exec_echo(*data, comm, frame))
 			return (true);

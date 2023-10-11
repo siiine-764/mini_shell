@@ -1,7 +1,13 @@
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+LDFLAGS = -lreadline
 LIBFT = libft/libft.a
+
+RAEDPATH=$(shell brew  --prefix readline)
+# READLINE = -L/Users/mayache-/.brew/opt/readline/lib -I/Users/mayache-/.brew/opt/readline/include
+READLINE = -L $(RAEDPATH)/lib -I $(RAEDPATH)/include
+
 SRCS = main.c\
 	./execution/pipe.c\
 		./execution/execSimpleCommand.c\
@@ -25,7 +31,6 @@ SRCS = main.c\
 		./execution/combine.c\
 		./execution/error_files.c\
 		./execution/utils/free.c\
-		./execution/utils/randomUtils.c\
 		./execution/utils/exit_utils.c\
 		./execution/builtins/echo.c\
 		./execution/builtins/env.c\
@@ -38,12 +43,19 @@ SRCS = main.c\
 		./execution/builtins/builtInUtils.c\
 		./execution/builtins/export_utils.c\
 
+RANDOM_UTILS = ./execution/utils/randomUtils.c
+
 all: $(NAME)
 
-OBJS = $(SRCS:.c=.o)
+
+
+OBJS = $(SRCS:.c=.o) $(RANDOM_UTILS:.c=.o)
+
+$(RANDOM_UTILS).o: $(RANDOM_UTILS).c 
+	$(CC) -o $@ -c $< $(CFLAGS) $(READLINE)
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) -lreadline
+	$(CC) $(CFLAGS) -o $(NAME)  $(OBJS) $(LIBFT) $(LDFLAGS) $(READLINE)
 	@echo "make minishell"
 
 $(LIBFT):

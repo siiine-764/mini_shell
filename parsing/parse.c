@@ -20,7 +20,7 @@ int	pipe_check(t_lxr *lxr, t_tkn *tkn, int l, t_top_cmd *top)
 	{
 		all_free(top);
 		printf("minishell:syntax error\n");
-		set_exit_code(SYNTAX_ERROR_EXIT);
+		e_code(SYNTAX_ERROR_EXIT);
 		return (1);
 	}
 	return (0);

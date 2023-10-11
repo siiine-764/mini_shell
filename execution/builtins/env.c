@@ -35,7 +35,7 @@ void	ft_env(t_data data, t_comm *comm, t_frame frame)
 	}
 }
 
-bool	run_env(t_data data, t_comm *comm, t_frame frame)
+int	run_env(t_data data, t_comm *comm, t_frame frame)
 {
 	if (!ft_strcmp(comm->flags[0], "env"))
 	{

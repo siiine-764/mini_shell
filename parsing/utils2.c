@@ -21,7 +21,7 @@ int	syntax_handle(char *val, t_tkn *t, t_top_cmd *top)
 		free(t->val);
 		all_free(top);
 		printf("minishell:syntax error\n");
-		set_exit_code(SYNTAX_ERROR_EXIT);
+		e_code(SYNTAX_ERROR_EXIT);
 		return (1);
 	}
 	return (0);

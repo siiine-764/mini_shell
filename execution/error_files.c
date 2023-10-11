@@ -16,18 +16,18 @@ void	check_command_error(t_data *data, t_comm *comm)
 {
 	(void)data;
 	if (access(comm->flags[0], F_OK | X_OK) != 0)
-		set_exit_code(PERMISSION_DENIED);
+		e_code(PERMISSION_DENIED);
 	else
-		set_exit_code(0);
+		e_code(0);
 }
 
 void	check_command_error_2(t_data *data, t_comm *comm)
 {
 	(void)data;
 	if (access(comm->flags[0], F_OK | X_OK) != 0)
-		set_exit_code(PERMISSION_DENIED);
+		e_code(PERMISSION_DENIED);
 	else
-		set_exit_code(0);
+		e_code(0);
 }
 
 void	check_path(t_data *data, t_comm *comm)
@@ -36,9 +36,9 @@ void	check_path(t_data *data, t_comm *comm)
 
 	p = get_path(data->env_list, comm->flags[0]);
 	if (p == NULL)
-		set_exit_code(COMMAND_NOT_FOUND);
+		e_code(COMMAND_NOT_FOUND);
 	else
-		set_exit_code(0);
+		e_code(0);
 	free(p);
 }
 
@@ -52,13 +52,13 @@ void	check_files(t_tkn_top redirection)
 		{
 			f_output = open(redirection.fst_tkn->val, O_RDONLY);
 			if (f_output == -1)
-				set_exit_code(1);
+				e_code(1);
 		}
 		redirection.fst_tkn = redirection.fst_tkn->nxt;
 	}
 }
 
-void	set_exit_code_inside_pipe(t_data *data, t_comm *comm)
+void	e_code_inside_pipe(t_data *data, t_comm *comm)
 {
 	while (comm)
 	{

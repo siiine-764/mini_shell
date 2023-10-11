@@ -111,15 +111,15 @@ typedef struct s_p_data
 	int		i;
 }t_p_data;
 
-typedef struct s_my_data
-{
-	char	new_wd[PATH_MAX];
-	char	buff[PATH_MAX];
-	char	*t_path;
-	char	**temp;
-	t_env	*previous_wd;
-	int		i;
-}t_my_data;
+// typedef struct s_my_data
+// {
+// 	char	new_wd[PATH_MAX];
+// 	char	buff[PATH_MAX];
+// 	char	*t_path;
+// 	char	**temp;
+// 	t_env	*previous_wd;
+// 	int		i;
+// }t_my_data;
 
 typedef struct s_data
 {
@@ -158,8 +158,8 @@ void deleteNode(t_env **env_list, char* key);
 void	cd_oldpwd(t_env *env_list, t_env *pub_list);
 void	cd_newpwd(t_env *env_list, t_env *pub_list);
 void	ft_cd(char *path, t_env *env_list, t_env *pub_list);
-
-
+void	signals_handler(int sig);
+// int	check_heredoc(t_comm *comm);
 void	check_path(t_data *data, t_comm *comm);
 
 
@@ -173,19 +173,19 @@ t_tkn		*ft_redirection(t_lxr *lxr, t_env *env_list);
 t_tkn		*handle_her(t_lxr *lxr, t_env *env_list);
 
 t_env		*ft_getenv(t_env *env_list, char *variable);
-t_env		*get_env_list(char **i);
+t_env		*get_env(char **i);
 t_frame		open_files(t_tkn_top redirection);
 
 int			fill_temp_stdin(t_comm *comm);
 void		exec_node(t_data *data, t_comm *comm, t_frame frame);
-int			check_built_in_commands(t_data *data, t_comm *comm, t_frame frame);
-char		*join_for_echo(char **str, char flag);
+int			chck_built_in_cmd(t_data *data, t_comm *comm, t_frame frame);
+char		*ft_join_echo(char **str, char flag);
 void		check_commands_order(t_data *data, t_info *my_info);
 void		all_free(t_top_cmd *top);
 int			heredoc_return(int f_output, t_frame frame);
-void		walk_to_heredoc(t_comm **comm);
-int			check_built_in_commands(t_data *data, t_comm *comm, t_frame frame);
-char		*join_for_echo(char **str, char flag);
+void		run_to_heredoc(t_comm **comm);
+int			chck_built_in_cmd(t_data *data, t_comm *comm, t_frame frame);
+char		*ft_join_echo(char **str, char flag);
 void		close_pipe(int *fd);
 void		check_in_files(int *stdin_temp, int *fd_in);
 void		redirection_add(t_tkn_top *top, t_tkn *t);
@@ -207,19 +207,18 @@ void		ft_execute(t_comm *comm, t_data *data, t_frame frame);
 void		ft_pipe(t_data *data);
 void		ft_env(t_data data, t_comm *comm, t_frame frame);
 void		free_2d(char **a);
-void		sig_handler(int sig);
+// void		sig_handler(int sig);
 void		ft_pwd(t_data data, t_comm *comm, t_frame frame);
 void		sort_list(t_env **env_list);
 void		ft_unset(t_env **env_list, char *del);
 void		ft_setenv(t_env **env_list, char *key, char *val);
-void		set_exit_code(int i);
+void		e_code(int i);
 void		ft_redirect_output_append_mode(t_comm *comm, t_data *data);
 void	ft_redirect_output_trunc_mode(t_comm *comm, t_data *data);
 void		redirect_input(t_comm *comm, t_data *data);
 void		exec_last_node(t_data *data, t_info my_info);
 void		exec_first_node(t_data *data, t_info my_info);
 void		exec_other_node(t_data *data, t_info my_info);
-void		ft_export(t_comm *comm, t_env *env, char *var);
 void		exec_first_command_before_heredoc(t_data *data, t_info my_info);
 void		exec_last_command_before_heredoc(t_data *data, t_info my_info);
 void		exec_other_command_before_heredoc(t_data *data, t_info my_info);
@@ -233,8 +232,8 @@ void		add_unexisted_variable(t_comm*comm, t_data *data,
 		char **s, int i);
 void	exec_command(t_comm *comm, t_data *data,
 		t_frame frame, char *p_comm);
-void	set_exit_code_inside_pipe(t_data *data, t_comm *comm);
-void	init_contex(t_frame *frame);
+void	e_code_inside_pipe(t_data *data, t_comm *comm);
+void	init_fd(t_frame *frame);
 void	show_export_list(t_comm *comm, t_data data, t_frame frame);
 void	cd_home(t_env *env_list, t_env *pub_list);
 int			cmd_add(t_top_cmd *top, t_lxr *lxr, t_env *env_list);
@@ -244,7 +243,7 @@ int			syntax_handle(char *val, t_tkn *t, t_top_cmd *top);
 int		rederiction_handle(t_comm *red, t_tkn *tkn, t_top_cmd *top);
 int		pipe_check(t_lxr *lxr, t_tkn *tkn, int l, t_top_cmd *top);
 int		token_check(t_tkn *tkn, t_comm *red, int *i, t_top_cmd *top);
-int	check_built_in_commands(t_data *data, t_comm *comm, t_frame frame);
+int	chck_built_in_cmd(t_data *data, t_comm *comm, t_frame frame);
 int	ft_strcmp(char *str, char *p);
 int	get_len(t_comm *comm);
 int	get_exit_code(void);
@@ -253,12 +252,12 @@ int	check_echo_flag(char *str);
 int			is_properly_named(char *str);
 int	ft_heredoc(t_data *data, t_comm *comm, t_frame frame);
 int	count_commands_before_heredoc(t_comm *comm);
-bool	run_pwd(t_data data, t_comm *comm, t_frame frame);
-char		*get_promt(void);
+int	run_pwd(t_data data, t_comm *comm, t_frame frame);
+char		*get_start(void);
 char	*get_path(t_env *env_list, char *command);
-char	*join_for_echo(char **str, char flag);
+char	*ft_join_echo(char **str, char flag);
 char	*check_for_space( int i, char **str, char *res);
-bool	is_number(char *str);
+int	is_number(char *str);
 int		node_load(t_comm *red, t_lxr *lxr, t_env *env_list, t_top_cmd *top);
 char	*find_env(t_env *env_list, char *name);
 char	*prime_str_collect(t_lxr *lxr, t_env *env_list, char cmd, int l);
@@ -270,16 +269,16 @@ char		*get_data(t_lxr *lxr, t_env *env_list, int l);
 char		*str_put(t_lxr *lxr, t_env *env_list, int l);
 char		*unquoted_str(t_lxr *lxr, t_env *env_list, int l);
 char		**ft_dup(char **av, char *val, int i);
-bool	exec_echo(t_data data, t_comm *comm, t_frame frame);
+int	exec_echo(t_data data, t_comm *comm, t_frame frame);
 int	add_variable(t_comm *comm, t_data *data, char **s, int j);
-bool	check_redirection(t_data *data, t_comm *comm);
-bool	heredoc_outside_pipe(t_data *data, t_comm *comm);
-bool	run_exit(t_data data, t_comm *comm);
-bool	run_cd(t_data data, t_comm *comm);
-bool	run_env(t_data data, t_comm *comm, t_frame frame);
-bool	run_unset(t_data *data, t_comm *comm);
+int	check_redirection(t_data *data, t_comm *comm);
+int	heredoc_outside_pipe(t_data *data, t_comm *comm);
+int	run_exit(t_data data, t_comm *comm);
+int	run_cd(t_data data, t_comm *comm);
+int	run_env(t_data data, t_comm *comm, t_frame frame);
+int	run_unset(t_data *data, t_comm *comm);
 void	ft_echo(t_comm *comm, char *str, char flag, t_frame frame);
-bool	run_export(t_comm *comm, t_data *data, t_frame frame);
+int	ft_export(t_comm *comm, t_data *data, t_frame frame);
 void	show_export_list(t_comm *comm, t_data data, t_frame frame);
 void	check_out_files(int *fd_out, int *f_output);
 

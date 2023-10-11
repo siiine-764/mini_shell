@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:22:42 by mayache-          #+#    #+#             */
-/*   Updated: 2023/10/09 15:02:18 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/10/12 00:39:03 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // 	fm = open_files(*comm->redirection);
 // 	if (fm.fd_out == -1 || fm.fd_in == -1)
 // 	{
-// 		set_exit_code(1);
+// 		e_code(1);
 // 		return ;
 // 	}
 // 	getcwd(dir, sizeof(dir));
@@ -30,10 +30,10 @@
 // 		ft_putendl_fd(dir, frame.fd_out);
 // 	else
 // 		ft_putendl_fd(dir, fm.fd_out);
-// 	set_exit_code(EXIT_SUCCESS);
+// 	e_code(EXIT_SUCCESS);
 // }
 
-bool	run_pwd(t_data data, t_comm *comm, t_frame frame)
+int	run_pwd(t_data data, t_comm *comm, t_frame frame)
 {
 	(void)data;
 	(void)frame;

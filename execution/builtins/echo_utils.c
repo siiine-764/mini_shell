@@ -12,7 +12,7 @@
 
 #include "../../minishell.h"
 
-char	*join_for_echo(char **str, char flag)
+char	*ft_join_echo(char **str, char flag)
 {
 	int		i;
 	char	*j;

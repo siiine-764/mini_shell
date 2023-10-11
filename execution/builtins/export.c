@@ -12,39 +12,12 @@
 
 #include "../../minishell.h"
 
-void	ft_export(t_comm *comm, t_env *env, char *var)
-{
-	int	fd;
-
-	fd = open_files(*comm->redirection).fd_out;
-	if (fd == -1)
-	{
-		set_exit_code(1);
-		return ;
-	}
-	if (var == NULL)
-	{
-		// sort_list(&env);
-		while (env)
-		{
-			ft_putstr_fd("declare -x\t", fd);
-			ft_putendl_fd(env->ctt, fd);
-			env = env->nxt;
-		}
-	}
-	else
-	{
-		ft_lstadd_back(&env, ft_lstnew(var));
-		// sort_list(&env);
-	}
-}
-
 void	show_export_list(t_comm *comm, t_data data, t_frame frame)
 {
 	frame = open_files(*comm->redirection);
 	if (frame.fd_in == -1 || frame.fd_out == -1)
 	{
-		set_exit_code(1);	
+		e_code(1);	
 		return ;
 	}
 	while (data.pub_list && data.pub_list->ctt != NULL)
@@ -85,7 +58,7 @@ void	add_existed_variable(t_comm *comm, t_data *data,
 	sort_list(&data->pub_list);
 }
 
-bool	run_export(t_comm *comm, t_data *data, t_frame frame)
+int	ft_export(t_comm *comm, t_data *data, t_frame frame)
 {
 	int			flag;
 	int			j;

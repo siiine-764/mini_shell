@@ -45,7 +45,7 @@ void	ft_error(char *i, char *l, int exit)
 {
 	ft_putstr_fd(i, STDERR_FILENO);
 	ft_putendl_fd(l, STDERR_FILENO);
-	set_exit_code(exit);
+	e_code(exit);
 }
 
 void	exec_command(t_comm *comm, t_data *data,
@@ -62,10 +62,10 @@ void	exec_command(t_comm *comm, t_data *data,
 		perror(comm->flags[0]);
 		exit(COMMAND_NOT_FOUND);
 	}
-	wait(&s);
+	wait(NULL);
 	if (WIFEXITED(s))
 		g_global_data.pid = -1;
-	set_exit_code(WEXITSTATUS(s));
+	e_code(WEXITSTATUS(s));
 }
 
 void	run_excutable(t_comm *comm, t_data *data, t_frame frame)
@@ -84,13 +84,13 @@ void	run_excutable(t_comm *comm, t_data *data, t_frame frame)
 			}
 			exit(EXIT_SUCCESS);
 		}
-		wait(&s);
+		wait(NULL);
 		if (WIFEXITED(s))
-			set_exit_code(WEXITSTATUS(s));
+			e_code(WEXITSTATUS(s));
 	}
 	else
 	{
-		set_exit_code(PERMISSION_DENIED);
+		e_code(PERMISSION_DENIED);
 		perror(comm->flags[0]);
 	}
 }
@@ -113,13 +113,13 @@ void	check_cmd(t_comm *comm, t_data *data, t_frame frame)
 			perror("execve");
 			exit(PERMISSION_DENIED);
 		}
-		wait(&s);
-		set_exit_code(WEXITSTATUS(s));
+		wait(NULL);
+		e_code(WEXITSTATUS(s));
 		return ;
 	}
 	else
 	{
-		set_exit_code(COMMAND_NOT_FOUND);
+		e_code(COMMAND_NOT_FOUND);
 		perror(comm->flags[0]);
 	}
 }
