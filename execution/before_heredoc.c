@@ -76,7 +76,7 @@ void	exec_commands_before_heredoc(t_data *data)
 		my_info.ids[j++] = g_global_data.pid;
 		data->comm = data->comm->nxt_comm;
 		my_info.temp_fd = dup(my_info.fd[0]);
-		// wait(NULL);
+		wait(NULL);
 		close_pipe(my_info.fd);
 	}
 	while (--j >= 0)
