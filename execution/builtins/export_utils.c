@@ -12,20 +12,6 @@
 
 #include "../../minishell.h"
 
-int	is_variable(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '=' && i - 1 >= 0 && str[i - 1] != '=')
-			return (true);
-		i++;
-	}
-	return (false);
-}
-
 int	add_variable(t_comm *comm, t_data *data, char **s, int j)
 {
 	if (is_variable(comm->flags[j]))
@@ -58,7 +44,6 @@ void	add_non_variable(t_comm *comm, t_data *data, char **s, int j)
 	{
 		ft_lstadd_back(&(data)->pub_list,
 			ft_lstnew(ft_strdup(comm->flags[j])));
-		// sort_env(&data->pub_list);
 	}
 }
 

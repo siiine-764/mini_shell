@@ -12,15 +12,6 @@
 
 #include "../minishell.h"
 
-// void	check_command_error_2(t_data *data, t_comm *comm)
-// {
-// 	(void)data;
-// 	if (access(comm->flags[0], F_OK | X_OK) != 0)
-// 		e_code(PERMISSION_DENIED);
-// 	else
-// 		e_code(0);
-// }
-
 void	check_path(t_data *data, t_comm *comm)
 {
 	char	*p;
@@ -48,28 +39,3 @@ void	check_files(t_tkn_top redirection)
 		redirection.fst_tkn = redirection.fst_tkn->nxt;
 	}
 }
-
-// void	exect(t_data *data, t_comm *comm)
-// {
-// 	while (comm)
-// 	{
-// 		if (comm->flags[0])
-// 		{
-// 			// if (ft_strcmp(comm->flags[0], "exit") == 0)
-// 			// 	ft_ex_it(comm->flags[1], 'e');
-// 			// else 
-// 			if (ft_strcmp(comm->flags[0], "export") == 0)
-// 				check_export_error(data, comm);
-// 			else if (ft_strcmp(comm->flags[0], "cd") == 0)
-// 				check_cd_errors(data, comm);
-// 			else if (comm->flags[0][0] == '/')
-// 				check_command_error(data, comm);
-// 			else if (comm->flags[0][0] == '.')
-// 				check_command_error_2(data, comm);
-// 			else
-// 				check_path(data, comm);
-// 		}
-// 		check_files(*comm->redirection);
-// 		comm = comm->nxt_comm;
-// 	}
-// }

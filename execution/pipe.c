@@ -12,27 +12,6 @@
 
 #include "../minishell.h"
 
-// void	exec_after_heredoc(t_info *my_info, t_data *data, int *p)
-// {
-// 	pipe(my_info->fd);
-// 	my_info->id = fork();
-// 	if (my_info->id == 0)
-// 	{
-// 		if (my_info->i == 0)
-// 			exec_first_node(data, *my_info);
-// 		else if (my_info->i == my_info->size - 1)
-// 			exec_last_node(data, *my_info);
-// 		else
-// 			exec_other_node(data, *my_info);
-// 		exit(127);
-// 	}
-// 	my_info->ids[*p++] = my_info->id;
-// 	my_info->frame.heredoc_docs = 42;
-// 	my_info->temp_fd = dup(my_info->fd[0]);
-// 	close(my_info->fd[0]);
-// 	close(my_info->fd[1]);
-// }
-
 void	run_herdoc(int *fd_heredoc, t_data *data, t_info my_info)
 {
 	if (data->comm->nxt_comm)
@@ -78,17 +57,6 @@ void	ft_loop(t_data *data, t_info my_info)
 		waitpid(my_info.ids[k], &sts, k);
 }
 
-// int	check_heredoc(t_comm *comm)
-// {
-// 	while (comm)
-// 	{
-// 		if (comm->heredoc->fst_tkn != NULL)
-// 			return (true);
-// 		comm = comm->nxt_comm;
-// 	}
-// 	return (comm);
-// }
-
 void	ft_pi_pe(t_data *data)
 {
 	t_info	my_info;
@@ -102,7 +70,6 @@ void	ft_pi_pe(t_data *data)
 	{
 		ft_loop(data, my_info);
 		exec_cmd_before_herdoc(data);
-		// e_code_inside_pipe(data, data->top->fst_cmd);
 	}
 	else
 	{
@@ -111,5 +78,4 @@ void	ft_pi_pe(t_data *data)
 	}
 	free(my_info.ids);
 	g_global_data.pid = -1;
-	// close_pipe(my_info.fd);
 }
