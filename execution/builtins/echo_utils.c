@@ -12,30 +12,6 @@
 
 #include "../../minishell.h"
 
-char	*ft_join_echo(char **str, char flag)
-{
-	int		i;
-	char	*j;
-	char	*res;
-	
-	if (flag == 'n')
-		i = 2;
-	else
-		i = 1;
-	res = ft_strdup("");
-	while (chck_echo_flag(str[i]))
-		i++;
-	while (str[i])
-	{
-		j = res;
-		res = ft_strjoin(res, str[i]);
-		free(j);
-		res = chck_spc(i, str, res);
-		i++;
-	}
-	return (res);
-}
-
 char	*chck_spc( int i, char **str, char *res)
 {
 	char	*s;
@@ -67,4 +43,28 @@ int	chck_echo_flag(char *str)
 		i += 1;
 	}
 	return (true);
+}
+
+char	*ft_join_echo(char **str, char flag)
+{
+	int		i;
+	char	*j;
+	char	*res;
+	
+	if (flag == 'n')
+		i = 2;
+	else
+		i = 1;
+	res = ft_strdup("");
+	while (chck_echo_flag(str[i]))
+		i++;
+	while (str[i])
+	{
+		j = res;
+		res = ft_strjoin(res, str[i]);
+		free(j);
+		res = chck_spc(i, str, res);
+		i++;
+	}
+	return (res);
 }

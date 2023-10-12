@@ -45,11 +45,6 @@ int	run_env(t_data data, t_comm *comm, t_frame frame)
 	return (false);
 }
 
-int	chck_name(char *str)
-{
-	return (ft_isalpha(str[0]) || str[0] == '_');
-}
-
 t_env	*ft_getenv(t_env *env_list, char *variable)
 {
 	char	*s;

@@ -12,22 +12,6 @@
 
 #include "../../minishell.h"
 
-int	is_number(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] == '-')
-		i++;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
 void	ft_ex_it(char *var, char flag)
 {
 	int	e;

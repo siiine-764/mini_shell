@@ -12,24 +12,6 @@
 
 #include "../../minishell.h"
 
-void	chck_echo(char *str, char flag, int fd, t_frame frame)
-{
-	if (flag == 'n')
-	{
-		if (fd != STDOUT_FILENO)
-			ft_putstr_fd(str, fd);
-		else
-			ft_putstr_fd(str, frame.fd_out);
-	}
-	else
-	{
-		if (fd != STDOUT_FILENO)
-			ft_putendl_fd(str, fd);
-		else
-			ft_putendl_fd(str, frame.fd_out);
-	}
-}
-
 void	ft_echo(t_comm *comm, char *str, char flag, t_frame frame)
 {
 	int		fd;

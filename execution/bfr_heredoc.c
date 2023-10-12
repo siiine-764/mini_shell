@@ -12,40 +12,6 @@
 
 #include "../minishell.h"
 
-// int	heredoc_exist(t_data *data)
-// {
-// 	while (data->comm)
-// 	{
-// 		if (data->comm->heredoc->fst_tkn != NULL)
-// 			return (true);
-// 		data->comm = data->comm->nxt_comm;
-// 	}
-// 	return (false);
-// }
-
-int	cnt_cmd(t_comm *comm)
-{
-	int	i;
-
-	i = 0;
-	while (comm && comm->heredoc->fst_tkn == NULL )
-	{
-		comm = comm->nxt_comm;
-		i += 1;
-	}
-	return (i);
-}
-
-void	chck_before_herdoc_cmd(t_data *data, t_info my_info, int i)
-{
-	if (i == 0)
-		exec_frst_cmd_before_herdoc(data, my_info);
-	else if (i == my_info.size - 1)
-		exec_last_command_before_heredoc(data, my_info);
-	else
-		exec_other_cmd_before_herdoc(data, my_info);
-}
-
 void	run_cmd_before_herdoc(t_data *data, t_info my_info, int i)
 {
 	g_global_data.pid = fork();
@@ -72,7 +38,6 @@ void	exec_cmd_before_herdoc(t_data *data)
 		my_info.frame.fd_out = STDOUT_FILENO;
 		pipe(my_info.fd);
 		run_cmd_before_herdoc(data, my_info, j);
-			// wait(NULL);
 		my_info.ids[j++] = g_global_data.pid;
 		data->comm = data->comm->nxt_comm;
 		my_info.temp_fd = dup(my_info.fd[0]);

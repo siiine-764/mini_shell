@@ -12,34 +12,6 @@
 
 #include "../minishell.h"
 
-int	get_len(t_comm *comm)
-{
-	int	i;
-
-	i = 0;
-	while (comm)
-	{
-		i += 1;
-		comm = comm->nxt_comm;
-	}
-	return (i);
-}
-
-void	exect(t_data *data, t_comm *comm, t_frame frame)
-{
-	if (chck_built_in_cmd(data, comm, frame) == false)
-	{
-		if (!check_redirection(data, comm))
-		{
-			if (comm->heredoc->fst_tkn == NULL)
-			{
-				ft_execute(comm, data, frame);
-				wait(NULL);
-			}
-		}
-	}
-}
-
 int	chck_built_in_cmd(t_data *data, t_comm *comm, t_frame frame)
 {
 	if (comm->flags[0] != NULL)
