@@ -1,11 +1,10 @@
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -lreadline
 LIBFT = libft/libft.a
 
 RAEDPATH=$(shell brew  --prefix readline)
-# READLINE = -L/Users/mayache-/.brew/opt/readline/lib -I/Users/mayache-/.brew/opt/readline/include
 READLINE = -L $(RAEDPATH)/lib -I $(RAEDPATH)/include
 
 SRCS = main.c\
@@ -20,6 +19,8 @@ SRCS = main.c\
 		./parsing/unquoted_str.c\
 		./parsing/utils1.c\
 		./parsing/utils2.c\
+		./parsing/utils3.c\
+		./parsing/utils4.c\
 		./execution/herdoc.c\
 		./execution/redir.c\
 		./execution/utils/free.c\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 04:36:21 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/10/12 04:36:21 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/10/12 04:45:48 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,5 +271,6 @@ void				ft_echo(t_comm *comm, char *str, char flag, t_frame frame);
 int					run_ex_port(t_comm *comm, t_data *data, t_frame frame);
 void				display_ex_port(t_comm *comm, t_data data, t_frame frame);
 void				check_out_files(int *fd_out, int *f_output);
-
+char				*get_var(t_lxr *lxr, t_env *env_list);
+char				*utils_str(t_lxr *lxr);
 #endif
