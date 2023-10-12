@@ -40,10 +40,10 @@ char	*get_start(void)
 	char	*command;
 
 	signal(SIGINT, signals_handler);
-	signal(SIGQUIT, SIG_IGN);
 	command = readline("Minishell$> ");
 	if (command && *command)
 		add_history(command);
+	signal(SIGQUIT, SIG_IGN);
 	return (command);
 }
 
