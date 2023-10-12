@@ -33,11 +33,11 @@ char	*get_path(t_env *env_list, char *command)
 		if (access(data.p_comm[data.i], F_OK) == 0)
 		{
 			data.temp = ft_strdup(data.p_comm[data.i]);
-			free_2d(data.p_comm);
+			free_arry(data.p_comm);
 			return (data.temp);
 		}
 	}
-	free_2d(data.p_comm);
+	free_arry(data.p_comm);
 	return (NULL);
 }
 

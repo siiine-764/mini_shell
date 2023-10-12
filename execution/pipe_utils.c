@@ -16,7 +16,7 @@ void	exec_first_node(t_data *data, t_info my_info)
 {
 	close(my_info.fd[0]);
 	dup2(my_info.fd[1], STDOUT_FILENO);
-	exec_node(data, data->comm, my_info.frame);
+	exect(data, data->comm, my_info.frame);
 }
 
 void	exec_last_node(t_data *data, t_info my_info)
@@ -42,7 +42,7 @@ void	exec_last_node(t_data *data, t_info my_info)
 	{
 		dup2(my_info.temp_fd, STDIN_FILENO);
 	}
-	exec_node(data, data->comm, my_info.frame);
+	exect(data, data->comm, my_info.frame);
 }
 
 void	exec_other_node(t_data *data, t_info my_info)
@@ -61,7 +61,7 @@ void	exec_other_node(t_data *data, t_info my_info)
 		dup2(my_info.fd[1], STDOUT_FILENO);
 		dup2(my_info.temp_fd, STDIN_FILENO);
 	}
-	exec_node(data, data->comm, my_info.frame);
+	exect(data, data->comm, my_info.frame);
 }
 
 // void	wait_for_child(int *ids, int i, int temp_fd)
@@ -76,7 +76,7 @@ void	exec_other_node(t_data *data, t_info my_info)
 // 	}
 // }
 
-void	check_commands_order(t_data *data, t_info *my_info)
+void	chck_cmd_order(t_data *data, t_info *my_info)
 {
 	pipe(my_info->fd);
 	g_global_data.pid = fork();

@@ -12,7 +12,7 @@
 
 #include "../../minishell.h"
 
-void	free_2d(char **a)
+void	free_arry(char **a)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ void	free_2d(char **a)
 	free(a);
 }
 
-void	free_list(t_env *env)
+void	free_lst(t_env *env)
 {
 	t_env	*temp;
 

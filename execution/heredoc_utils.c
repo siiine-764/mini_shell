@@ -12,11 +12,11 @@
 
 #include "../minishell.h"
 
-void	exec_first_command_before_heredoc(t_data *data, t_info my_info)
+void	exec_frst_cmd_before_herdoc(t_data *data, t_info my_info)
 {
 	close(my_info.fd[0]);
 	dup2(my_info.fd[1], STDOUT_FILENO);
-	exec_node(data, data->comm, my_info.frame);
+	exect(data, data->comm, my_info.frame);
 }
 
 void	exec_last_command_before_heredoc(t_data *data, t_info my_info)
@@ -27,15 +27,15 @@ void	exec_last_command_before_heredoc(t_data *data, t_info my_info)
 		close(my_info.fd[1]);
 	close(my_info.fd[0]);
 	dup2(my_info.temp_fd, STDIN_FILENO);
-	exec_node(data, data->comm, my_info.frame);
+	exect(data, data->comm, my_info.frame);
 }
 
-void	exec_other_command_before_heredoc(t_data *data, t_info my_info)
+void	exec_other_cmd_before_herdoc(t_data *data, t_info my_info)
 {
 	close(my_info.fd[0]);
 	dup2(my_info.fd[1], STDOUT_FILENO);
 	dup2(my_info.temp_fd, STDIN_FILENO);
-	exec_node(data, data->comm, my_info.frame);
+	exect(data, data->comm, my_info.frame);
 }
 
 void	open_heredoc(t_comm **comm)
@@ -61,7 +61,7 @@ void	open_heredoc(t_comm **comm)
 	}
 }
 
-int	heredoc_outside_pipe(t_data *data, t_comm *comm)
+int	herdoc_outside_pipe(t_data *data, t_comm *comm)
 {
 	t_frame	frame_temp;
 	t_frame	frame;
@@ -72,7 +72,7 @@ int	heredoc_outside_pipe(t_data *data, t_comm *comm)
 	if (comm->heredoc->fst_tkn == NULL)
 		return (false);
 	read_for_heredoc(comm, frame.fd_in);
-	frame_temp = open_files(*data->comm->redirection);
+	frame_temp = open_fls(*data->comm->redirection);
 	if (frame_temp.fd_in == -1 || frame_temp.fd_out == -1)
 	{
 		e_code(1);

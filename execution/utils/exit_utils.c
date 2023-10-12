@@ -19,7 +19,7 @@ void	check_export_error(t_data *data, t_comm *comm)
 	(void)data;
 	i = 0;
 	while (comm->flags[++i])
-		if (!is_properly_named(comm->flags[i]))
+		if (!chck_name(comm->flags[i]))
 			exit(1);
 }
 

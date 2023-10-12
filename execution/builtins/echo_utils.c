@@ -23,20 +23,20 @@ char	*ft_join_echo(char **str, char flag)
 	else
 		i = 1;
 	res = ft_strdup("");
-	while (check_echo_flag(str[i]))
+	while (chck_echo_flag(str[i]))
 		i++;
 	while (str[i])
 	{
 		j = res;
 		res = ft_strjoin(res, str[i]);
 		free(j);
-		res = check_for_space(i, str, res);
+		res = chck_spc(i, str, res);
 		i++;
 	}
 	return (res);
 }
 
-char	*check_for_space( int i, char **str, char *res)
+char	*chck_spc( int i, char **str, char *res)
 {
 	char	*s;
 
@@ -49,7 +49,7 @@ char	*check_for_space( int i, char **str, char *res)
 	return (res);
 }
 
-int	check_echo_flag(char *str)
+int	chck_echo_flag(char *str)
 {
 	int	i;
 

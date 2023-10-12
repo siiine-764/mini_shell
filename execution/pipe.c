@@ -12,49 +12,49 @@
 
 #include "../minishell.h"
 
-void	exec_after_heredoc(t_info *my_info, t_data *data, int *p)
-{
-	pipe(my_info->fd);
-	my_info->id = fork();
-	if (my_info->id == 0)
-	{
-		if (my_info->i == 0)
-			exec_first_node(data, *my_info);
-		else if (my_info->i == my_info->size - 1)
-			exec_last_node(data, *my_info);
-		else
-			exec_other_node(data, *my_info);
-		exit(127);
-	}
-	my_info->ids[*p++] = my_info->id;
-	my_info->frame.heredoc_docs = 42;
-	my_info->temp_fd = dup(my_info->fd[0]);
-	close(my_info->fd[0]);
-	close(my_info->fd[1]);
-}
+// void	exec_after_heredoc(t_info *my_info, t_data *data, int *p)
+// {
+// 	pipe(my_info->fd);
+// 	my_info->id = fork();
+// 	if (my_info->id == 0)
+// 	{
+// 		if (my_info->i == 0)
+// 			exec_first_node(data, *my_info);
+// 		else if (my_info->i == my_info->size - 1)
+// 			exec_last_node(data, *my_info);
+// 		else
+// 			exec_other_node(data, *my_info);
+// 		exit(127);
+// 	}
+// 	my_info->ids[*p++] = my_info->id;
+// 	my_info->frame.heredoc_docs = 42;
+// 	my_info->temp_fd = dup(my_info->fd[0]);
+// 	close(my_info->fd[0]);
+// 	close(my_info->fd[1]);
+// }
 
-void	run_heredoc(int *fd_heredoc, t_data *data, t_info my_info)
+void	run_herdoc(int *fd_heredoc, t_data *data, t_info my_info)
 {
 	if (data->comm->nxt_comm)
 	{
-		*fd_heredoc = ft_heredoc(data,
+		*fd_heredoc = ft_herdoc(data,
 				data->comm, my_info.frame);
 		wait(NULL);
 	}
 	else
 	{
-		heredoc_outside_pipe(data, data->comm);
+		herdoc_outside_pipe(data, data->comm);
 	}
 }
 
-void	loop_through_nodes(t_data *data, t_info my_info)
+void	ft_loop(t_data *data, t_info my_info)
 {
 	int		sts;
 	int		k;
 
 	k = 0;
 	my_info.size = get_len(data->comm);
-	my_info.size -= count_commands_before_heredoc(data->comm);
+	my_info.size -= cnt_cmd(data->comm);
 	my_info.frame.heredoc_docs = 42;
 	run_to_heredoc(&data->comm);
 	while (data->comm)
@@ -62,10 +62,10 @@ void	loop_through_nodes(t_data *data, t_info my_info)
 		my_info.frame.fd_in = STDIN_FILENO;
 		my_info.frame.fd_out = STDOUT_FILENO;
 		if (data->comm->heredoc->fst_tkn != NULL)
-			run_heredoc(&my_info.frame.heredoc_docs, data, my_info);
+			run_herdoc(&my_info.frame.heredoc_docs, data, my_info);
 		else
 		{
-			check_commands_order(data, &my_info);
+			chck_cmd_order(data, &my_info);
 			wait(NULL);
 			close_pipe(my_info.fd);
 			my_info.frame.heredoc_docs = 42;
@@ -89,7 +89,7 @@ void	loop_through_nodes(t_data *data, t_info my_info)
 // 	return (comm);
 // }
 
-void	ft_pipe(t_data *data)
+void	ft_pi_pe(t_data *data)
 {
 	t_info	my_info;
 
@@ -100,15 +100,16 @@ void	ft_pipe(t_data *data)
 	my_info.i = 0;
 	if (my_info.size != 1)
 	{
-		loop_through_nodes(data, my_info);
-		exec_commands_before_heredoc(data);
-		e_code_inside_pipe(data, data->top->fst_cmd);
+		ft_loop(data, my_info);
+		exec_cmd_before_herdoc(data);
+		// e_code_inside_pipe(data, data->top->fst_cmd);
 	}
 	else
 	{
-		if (!heredoc_outside_pipe(data, data->comm))
-			exec_node(data, data->comm, my_info.frame);
+		if (!herdoc_outside_pipe(data, data->comm))
+			exect(data, data->comm, my_info.frame);
 	}
 	free(my_info.ids);
 	g_global_data.pid = -1;
+	// close_pipe(my_info.fd);
 }

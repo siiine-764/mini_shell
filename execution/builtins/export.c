@@ -12,9 +12,9 @@
 
 #include "../../minishell.h"
 
-void	show_export_list(t_comm *comm, t_data data, t_frame frame)
+void	display_ex_port(t_comm *comm, t_data data, t_frame frame)
 {
-	frame = open_files(*comm->redirection);
+	frame = open_fls(*comm->redirection);
 	if (frame.fd_in == -1 || frame.fd_out == -1)
 	{
 		e_code(1);	
@@ -36,29 +36,29 @@ void	show_export_list(t_comm *comm, t_data data, t_frame frame)
 	}
 }
 
-void	add_unexisted_variable(t_comm *comm, t_data *data,
+void	add_un_val(t_comm *comm, t_data *data,
 		char **s, int j)
 {
-	ft_unset(&data->env_list, s[0]);
-	ft_unset(&data->pub_list, s[0]);
+	ft_un_set(&data->env_list, s[0]);
+	ft_un_set(&data->pub_list, s[0]);
 	ft_lstadd_back(&(data)->env_list, ft_lstnew(ft_strdup(comm->flags[j])));
 	ft_lstadd_back(&(data)->pub_list,
 		ft_lstnew(ft_strdup(comm->flags[j])));
-	// sort_list(&data->pub_list);
+	// sort_env(&data->pub_list);
 }
 
-void	add_existed_variable(t_comm *comm, t_data *data,
+void	add_val(t_comm *comm, t_data *data,
 		char **s, int i)
 {
-	ft_unset(&data->env_list, s[0]);
-	ft_unset(&data->pub_list, s[0]);
+	ft_un_set(&data->env_list, s[0]);
+	ft_un_set(&data->pub_list, s[0]);
 	ft_lstadd_back(&(data)->env_list, ft_lstnew(ft_strdup(comm->flags[i])));
 	ft_lstadd_back(&(data)->pub_list, ft_lstnew(ft_strdup(comm->flags[i])));
 		ft_lstnew(ft_strdup(comm->flags[i]));
-	sort_list(&data->pub_list);
+	sort_env(&data->pub_list);
 }
 
-int	ft_export(t_comm *comm, t_data *data, t_frame frame)
+int	run_ex_port(t_comm *comm, t_data *data, t_frame frame)
 {
 	int			flag;
 	int			j;
@@ -68,13 +68,13 @@ int	ft_export(t_comm *comm, t_data *data, t_frame frame)
 	if (ft_strcmp(comm->flags[0], "export"))
 		return (false);
 	if (comm->flags[1] == NULL)
-		show_export_list(comm, *data, frame);
+		display_ex_port(comm, *data, frame);
 	else
 	{
 		while (comm->flags[++j])
 		{
-			if (is_properly_named(comm->flags[j]))
-				add_properly_named_word(comm, data, j);
+			if (chck_name(comm->flags[j]))
+				add_val_d(comm, data, j);
 			else
 				show_export_error(&flag, j, comm);
 		}

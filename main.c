@@ -49,7 +49,7 @@ void	minishell_routine(t_data *data)
 			data->comm = data->top->fst_cmd;
 			data->comm_num = get_len(data->comm);
 			if (data->comm != NULL)
-				ft_pipe(data);
+				ft_pi_pe(data);
 			all_free(data->top);
 		}
 	}

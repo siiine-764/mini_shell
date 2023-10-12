@@ -25,7 +25,7 @@ int	get_len(t_comm *comm)
 	return (i);
 }
 
-void	exec_node(t_data *data, t_comm *comm, t_frame frame)
+void	exect(t_data *data, t_comm *comm, t_frame frame)
 {
 	if (chck_built_in_cmd(data, comm, frame) == false)
 	{
@@ -54,9 +54,9 @@ int	chck_built_in_cmd(t_data *data, t_comm *comm, t_frame frame)
 			return (true);
 		else if (run_unset(data, comm))
 			return (true);
-		else if (ft_export(comm, data, frame))
+		else if (run_ex_port(comm, data, frame))
 			return (true);
-		else if (exec_echo(*data, comm, frame))
+		else if (run_echo(*data, comm, frame))
 			return (true);
 		return (false);
 	}

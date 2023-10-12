@@ -6,7 +6,7 @@
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:22:42 by mayache-          #+#    #+#             */
-/*   Updated: 2023/10/12 00:39:03 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/10/12 02:02:05 by mayache-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // 	t_frame		fm;
 // 	char		dir[PATH_MAX];
 
-// 	fm = open_files(*comm->redirection);
+// 	fm = open_fls(*comm->redirection);
 // 	if (fm.fd_out == -1 || fm.fd_in == -1)
 // 	{
 // 		e_code(1);

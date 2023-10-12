@@ -12,12 +12,12 @@
 
 #include "../minishell.h"
 
-void	ft_redirect_output_append_mode(t_comm *comm, t_data *data)
+void	ft_redir_output_append(t_comm *comm, t_data *data)
 {
 	t_frame	frame;
 
 	frame.heredoc_docs = -1;
-	frame = open_files(*comm->redirection);
+	frame = open_fls(*comm->redirection);
 	if (frame.fd_in == -1 || frame.fd_out == -1)
 	{
 		e_code(1);
@@ -29,12 +29,12 @@ void	ft_redirect_output_append_mode(t_comm *comm, t_data *data)
 	e_code(EXIT_SUCCESS);
 }
 
-void	ft_redirect_output_trunc_mode(t_comm *comm, t_data *data)
+void	ft_redir_output_trunc(t_comm *comm, t_data *data)
 {
 	t_frame	frame;
 
 	frame.heredoc_docs = -1;
-	frame = open_files(*comm->redirection);
+	frame = open_fls(*comm->redirection);
 	if (frame.fd_in == -1 || frame.fd_out == -1)
 	{
 		e_code(1);
@@ -48,12 +48,12 @@ void	ft_redirect_output_trunc_mode(t_comm *comm, t_data *data)
 	e_code(EXIT_SUCCESS);
 }
 
-void	redirect_input(t_comm *comm, t_data *data)
+void	redir_input(t_comm *comm, t_data *data)
 {
 	t_frame	frame;
 
 	frame.heredoc_docs = -1;
-	frame = open_files(*comm->redirection);
+	frame = open_fls(*comm->redirection);
 	if (frame.fd_out == -1 || frame.fd_in == -1)
 	{
 		e_code(1);
@@ -90,14 +90,14 @@ void	redirect_input(t_comm *comm, t_data *data)
 // 	e_code(EXIT_SUCCESS);
 // }
 
-int	ft_heredoc(t_data *data, t_comm *comm, t_frame frame)
+int	ft_herdoc(t_data *data, t_comm *comm, t_frame frame)
 {
 	int		output;
 	int		stdin_temp;
 
 	output = 42;
 	stdin_temp = fill_temp_stdin(comm);
-	frame = open_files(*comm->redirection);
+	frame = open_fls(*comm->redirection);
 	if (frame.fd_in == -1 || frame.fd_out == -1)
 	{
 		e_code(1);

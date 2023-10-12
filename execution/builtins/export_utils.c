@@ -34,18 +34,18 @@ int	add_variable(t_comm *comm, t_data *data, char **s, int j)
 		{
 			if (ft_getenv(data->pub_list, s[0]) != NULL)
 			{
-				ft_unset(&data->pub_list, s[0]);
-				add_unexisted_variable(comm, data, s, j);
+				ft_un_set(&data->pub_list, s[0]);
+				add_un_val(comm, data, s, j);
 			}
 			else
 			{
-				add_unexisted_variable(comm, data, s, j);
+				add_un_val(comm, data, s, j);
 			}
 		}
 		else
 		{	
-			ft_unset(&data->pub_list, s[0]);
-			add_existed_variable(comm, data, s, j);
+			ft_un_set(&data->pub_list, s[0]);
+			add_val(comm, data, s, j);
 		}
 		return (1);
 	}
@@ -58,7 +58,7 @@ void	add_non_variable(t_comm *comm, t_data *data, char **s, int j)
 	{
 		ft_lstadd_back(&(data)->pub_list,
 			ft_lstnew(ft_strdup(comm->flags[j])));
-		// sort_list(&data->pub_list);
+		// sort_env(&data->pub_list);
 	}
 }
 
@@ -71,7 +71,7 @@ void	show_export_error( int *flag, int j, t_comm *comm)
 	}
 }
 
-void	add_properly_named_word(t_comm *comm, t_data *data, int j)
+void	add_val_d(t_comm *comm, t_data *data, int j)
 {
 	char	**s;
 	int		i;

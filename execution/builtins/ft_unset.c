@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*   ft_un_set.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -66,13 +66,13 @@ void deleteNode(t_env **env_list, char* key)
 // void	delete_body(t_info *data)
 // {
 // 	data->temp = data->sec;
-// 	free_2d(data->command);
+// 	free_arry(data->command);
 // 	data->fst->nxt = data->sec->nxt;
 // 	free(data->temp->ctt);
 // 	free(data->temp);
 // }
 
-void	ft_unset(t_env **env_list, char *del)
+void	ft_un_set(t_env **env_list, char *del)
 {
 	// t_env	*top;
 	(void)del;
@@ -115,7 +115,7 @@ void	ft_unset(t_env **env_list, char *del)
 	// }
 	// while (data.sec)
 	// {
-	// 	free_2d(data.command);
+	// 	free_arry(data.command);
 	// 	data.command = ft_split(data.sec->ctt, '=');
 	// 	printf("%s\n", data.command[0]);
 	// 	if (ft_strcmp(data.command[0], del) == 0)
@@ -126,7 +126,7 @@ void	ft_unset(t_env **env_list, char *del)
 	// 	data.fst = data.sec;
 	// 	data.sec = data.sec->nxt;
 	// }
-	// free_2d(data.command);
+	// free_arry(data.command);
 	// e_code(EXIT_SUCCESS);
 }
 
@@ -139,8 +139,8 @@ int	run_unset(t_data *data, t_comm *comm)
 		i = 0;
 		while (comm->flags[++i])
 		{
-			ft_unset(&data->env_list, comm->flags[i]);
-			ft_unset(&data->pub_list, comm->flags[i]);
+			ft_un_set(&data->env_list, comm->flags[i]);
+			ft_un_set(&data->pub_list, comm->flags[i]);
 		}
 		return (true);
 	}

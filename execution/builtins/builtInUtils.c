@@ -24,7 +24,7 @@ t_env	*get_env(char **i)
 	return (env_list);
 }
 
-void	sort_list(t_env **env_list)
+void	sort_env(t_env **env_list)
 {
 	t_env	*i;
 	t_env	*j;
@@ -68,7 +68,7 @@ char	*join_join(char **temp)
 			free(c);
 		}
 	}
-	free_2d(temp);
+	free_arry(temp);
 	return (res);
 }
 
@@ -85,7 +85,7 @@ char	*find_env(t_env *env_list, char *name)
 		c = temp;
 		temp = ft_strdup(j[0]);
 		free(c);
-		free_2d(j);
+		free_arry(j);
 		if (!temp || !*temp)
 			return (NULL);
 		if (ft_strcmp(temp, name) == 0)

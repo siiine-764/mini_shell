@@ -12,7 +12,7 @@
 
 #include "../../minishell.h"
 
-void	check_echo(char *str, char flag, int fd, t_frame frame)
+void	chck_echo(char *str, char flag, int fd, t_frame frame)
 {
 	if (flag == 'n')
 	{
@@ -34,7 +34,7 @@ void	ft_echo(t_comm *comm, char *str, char flag, t_frame frame)
 {
 	int		fd;
 
-	fd = open_files(*comm->redirection).fd_out;
+	fd = open_fls(*comm->redirection).fd_out;
 	if (fd == -1)
 	{
 		e_code(1);
@@ -45,19 +45,19 @@ void	ft_echo(t_comm *comm, char *str, char flag, t_frame frame)
 		write(fd, "\n", 2);
 		return ;
 	}
-	check_echo(str, flag, fd, frame);
+	chck_echo(str, flag, fd, frame);
 	free(str);
 	e_code(EXIT_SUCCESS);
 }
 
-int	exec_echo(t_data data, t_comm *comm, t_frame frame)
+int	run_echo(t_data data, t_comm *comm, t_frame frame)
 {
 	(void)data;
 	if (ft_strcmp(comm->flags[0], "echo") == 0)
 	{
 		if (comm->flags[1] == NULL)
 			ft_echo(comm, NULL, '0', frame);
-		else if ((check_echo_flag(comm->flags[1])))
+		else if ((chck_echo_flag(comm->flags[1])))
 			ft_echo(comm, ft_join_echo(comm->flags, 'n'), 'n', frame);
 		else
 			ft_echo(comm, ft_join_echo(comm->flags, '\0'), '\0', frame);

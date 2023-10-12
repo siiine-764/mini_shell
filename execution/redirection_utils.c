@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-int	open_input_files(t_tkn_top redirection)
+int	open_input_fls(t_tkn_top redirection)
 {
 	int	fd_in;
 
@@ -26,7 +26,7 @@ int	open_input_files(t_tkn_top redirection)
 	return (INT_MIN);
 }
 
-int	open_trunc_mode_files(t_tkn_top redirection)
+int	open_trunc_fls(t_tkn_top redirection)
 {
 	int	fd_out;
 
@@ -41,7 +41,7 @@ int	open_trunc_mode_files(t_tkn_top redirection)
 	return (INT_MIN);
 }
 
-int	open_append_mode_files(t_tkn_top redirection)
+int	open_append_fls(t_tkn_top redirection)
 {
 	char	*file;
 	int		output_fd;
@@ -60,17 +60,17 @@ int	open_append_mode_files(t_tkn_top redirection)
 	return (INT_MIN);
 }
 
-t_docs	init_files(t_tkn_top redirection)
+t_docs	ft_init_fls(t_tkn_top redirection)
 {
 	t_docs	my_files;
 
-	my_files.in = open_input_files(redirection);
-	my_files.trunc = open_trunc_mode_files(redirection);
-	my_files.append = open_append_mode_files(redirection);
+	my_files.in = open_input_fls(redirection);
+	my_files.trunc = open_trunc_fls(redirection);
+	my_files.append = open_append_fls(redirection);
 	return (my_files);
 }
 
-t_frame	open_files(t_tkn_top redirection)
+t_frame	open_fls(t_tkn_top redirection)
 {
 	t_docs		my_files;
 	t_frame		frame;
@@ -78,7 +78,7 @@ t_frame	open_files(t_tkn_top redirection)
 	init_fd(&frame);
 	while (redirection.fst_tkn)
 	{
-		my_files = init_files(redirection);
+		my_files = ft_init_fls(redirection);
 		if (my_files.in == -1 || my_files.trunc == -1 || my_files.append == -1)
 		{
 			frame.fd_in = -1;

@@ -16,7 +16,7 @@ void	ft_env(t_data data, t_comm *comm, t_frame frame)
 {
 	t_frame	fd;
 
-	fd = open_files(*comm->redirection);
+	fd = open_fls(*comm->redirection);
 	if (fd.fd_in == -1 || fd.fd_in == -1)
 	{
 		exit(1);
@@ -45,7 +45,7 @@ int	run_env(t_data data, t_comm *comm, t_frame frame)
 	return (false);
 }
 
-int	is_properly_named(char *str)
+int	chck_name(char *str)
 {
 	return (ft_isalpha(str[0]) || str[0] == '_');
 }
@@ -59,7 +59,7 @@ t_env	*ft_getenv(t_env *env_list, char *variable)
 	{
 		j = ft_split(env_list->ctt, '=');
 		s = ft_strdup(j[0]);
-		free_2d(j);
+		free_arry(j);
 		if (!s || !*s)
 			return (NULL);
 		if (ft_strcmp(s, variable) == 0)
@@ -90,7 +90,7 @@ void	ft_setenv(t_env **env_list, char *key, char *val)
 	}
 	else
 	{
-		ft_unset(env_list, key);
+		ft_un_set(env_list, key);
 		ft_setenv(env_list, key, val);
 	}
 }

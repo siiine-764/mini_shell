@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_ex_it.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -28,7 +28,7 @@ int	is_number(char *str)
 	return (true);
 }
 
-void	ft_exit(char *var, char flag)
+void	ft_ex_it(char *var, char flag)
 {
 	int	e;
 
@@ -63,10 +63,10 @@ int	run_exit(t_data data, t_comm *comm)
 	{
 		if (data.comm_num == 1)
 		{
-			ft_exit(comm->flags[1], '\0');
+			ft_ex_it(comm->flags[1], '\0');
 		}
 		else
-			ft_exit(comm->flags[1], 'p');
+			ft_ex_it(comm->flags[1], 'p');
 		return (true);
 	}
 	return (false);
