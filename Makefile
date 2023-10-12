@@ -9,8 +9,7 @@ RAEDPATH=$(shell brew  --prefix readline)
 READLINE = -L $(RAEDPATH)/lib -I $(RAEDPATH)/include
 
 SRCS = main.c\
-	./execution/pipe.c\
-		./execution/execSimpleCommand.c\
+		./execution/pipe.c\
 		./parsing/aft_dollar.c\
 		./parsing/free_all.c\
 		./parsing/lexer_utils.c\
@@ -21,15 +20,8 @@ SRCS = main.c\
 		./parsing/unquoted_str.c\
 		./parsing/utils1.c\
 		./parsing/utils2.c\
-		./execution/redirection_utils.c	\
-		./execution/heredoc.c\
-		./execution/before_heredoc.c\
-		./execution/heredoc_utils.c\
-		./execution/redirection.c\
-		./execution/pipe_utils.c\
-		./execution/exec_utils.c\
-		./execution/combine.c\
-		./execution/error_files.c\
+		./execution/herdoc.c\
+		./execution/redir.c\
 		./execution/utils/free.c\
 		./execution/utils/exit_utils.c\
 		./execution/builtins/echo.c\
@@ -42,6 +34,25 @@ SRCS = main.c\
 		./execution/builtins/echo_utils.c\
 		./execution/builtins/builtInUtils.c\
 		./execution/builtins/export_utils.c\
+		./execution/builtins/utils1.c\
+		./execution/builtins/utils2.c\
+		./execution/builtins/utils3.c\
+		./execution/builtins/utils4.c\
+		./execution/utils1.c\
+		./execution/utils2.c\
+		./execution/utils3.c\
+		./execution/utils4.c\
+		./execution/utils5.c\
+		./execution/cmd_execute.c\
+		./execution/bfr_heredoc.c\
+		./execution/utils_exec.c\
+		./execution/utils_redi.c\
+		./execution/utils1_redi.c\
+		./execution/redi_check.c\
+		./execution/utils_herdoc.c\
+		./execution/utils_pipe.c\
+
+
 
 RANDOM_UTILS = ./execution/utils/randomUtils.c
 

@@ -162,8 +162,11 @@ void	signals_handler(int sig);
 void	chck_echo(char *str, char flag, int fd, t_frame frame);
 // int	check_heredoc(t_comm *comm);
 void	check_path(t_data *data, t_comm *comm);
-
-
+void	chck_before_herdoc_cmd(t_data *data, t_info my_info, int i);
+int	open_input_fls(t_tkn_top redirection);
+int	open_trunc_fls(t_tkn_top redirection);
+void	run_herdoc(int *fd_heredoc, t_data *data, t_info my_info);
+void	ft_loop(t_data *data, t_info my_info);
 t_env	*delete_head(t_env **env_list, char *command, char *del);
 t_tkn		*tkn_initialize(int typ, char *val);
 t_lxr		*lxr_initialize(char *ctt);
