@@ -12,8 +12,7 @@
 
 #include "../minishell.h"
 
-void	exec_command(t_comm *comm, t_data *data,
-		t_frame frame, char *p_comm)
+void	exec_command(t_comm *comm, t_data *data, t_frame frame, char *p_comm)
 {
 	int	s;
 

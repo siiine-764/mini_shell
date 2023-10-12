@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   randomUtils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 03:03:33 by mayache-          #+#    #+#             */
-/*   Updated: 2023/10/12 03:03:33 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/10/12 03:38:19 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	signals_handler(int sig)
 {
 	(void)sig;
 	printf("\n");
-    rl_on_new_line();
-    //rl_replace_line("", 0);
-    rl_redisplay();
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 char	*get_start(void)

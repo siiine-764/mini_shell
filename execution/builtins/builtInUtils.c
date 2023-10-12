@@ -44,7 +44,7 @@ char	*find_env(t_env *env_list, char *name)
 
 	temp = ft_strdup("");
 	while (env_list)
-	{	
+	{
 		j = ft_split(env_list->ctt, '=');
 		c = temp;
 		temp = ft_strdup(j[0]);
@@ -62,5 +62,3 @@ char	*find_env(t_env *env_list, char *name)
 	free(temp);
 	return (NULL);
 }
-
-

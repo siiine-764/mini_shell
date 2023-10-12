@@ -14,7 +14,7 @@
 
 void	ft_echo(t_comm *comm, char *str, char flag, t_frame frame)
 {
-	int		fd;
+	int	fd;
 
 	fd = open_fls(*comm->redirection).fd_out;
 	if (fd == -1)

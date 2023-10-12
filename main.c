@@ -1,39 +1,20 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/12 04:35:01 by hben-mes          #+#    #+#             */
+/*   Updated: 2023/10/12 04:35:40 by hben-mes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// void	sig_handler(int sig)
-// {
-// 	g_global_data.sig_typ = sig;
-// 	if ((sig == SIGINT || sig == SIGQUIT) && g_global_data.pid != -1)
-// 	{
-// 		if (!kill(g_global_data.pid, sig))
-// 			g_global_data.signal_flag = 1;
-// 	}
-// 	else
-// 	{
-// 		g_global_data.signal_flag = 0;
-// 		if (sig == SIGINT)
-// 		{
-// 			ft_putchar_fd('\n', STDOUT_FILENO);
-// 			e_code(1);
-// 			rl_on_new_line();
-// 			// rl_replace_line("", 0);
-// 			rl_redisplay();
-// 		}
-// 		else 
-// 		if (sig == SIGQUIT)
-// 		{
-// 			ft_putchar_fd('\r', STDOUT_FILENO);
-// 			rl_on_new_line();
-// 			rl_redisplay();
-// 		}
-// 	}
-// }
+#include "minishell.h"
 
 void	minishell_routine(t_data *data)
 {
 	char	*command;
-
-	//SIGINT is a signal generated when a user presses Control-C
 
 	command = get_start();
 	if (command == NULL)
@@ -53,27 +34,8 @@ void	minishell_routine(t_data *data)
 			all_free(data->top);
 		}
 	}
-	// signal(SIGQUIT, sig_handler);
 	free(command);
 }
-
-// void	set_signals_exit_code(void)
-// {
-// 	if (g_global_data.signal_flag == 1)
-// 	{
-// 		if (g_global_data.sig_typ == SIGQUIT)
-// 		{
-// 			ft_putstr_fd("QUIT: 3\n", STDOUT_FILENO);
-// 			g_global_data.e = CNTRL_BACKSLASH;
-// 		}
-// 		else
-// 		{
-// 			ft_putchar_fd('\n', 1);
-// 			g_global_data.e = CNTRL_C;
-// 		}
-// 		g_global_data.signal_flag = 0;
-// 	}
-// }
 
 int	main(int ac, char **av, char **env)
 {
@@ -90,7 +52,6 @@ int	main(int ac, char **av, char **env)
 	g_global_data.e = 0;
 	while (true)
 	{
-		// set_signals_exit_code();
 		minishell_routine(data);
 	}
 }

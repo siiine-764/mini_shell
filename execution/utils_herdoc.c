@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../minishell.h"
 
 void	open_heredoc(t_comm **comm)
@@ -27,8 +26,7 @@ void	open_heredoc(t_comm **comm)
 		while (true)
 		{
 			l = readline(">");
-			if (l == NULL
-				|| ft_strcmp(l, (*comm)->heredoc->fst_tkn->val) == 0)
+			if (l == NULL || ft_strcmp(l, (*comm)->heredoc->fst_tkn->val) == 0)
 				break ;
 			free(l);
 		}

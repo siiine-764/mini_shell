@@ -21,13 +21,13 @@ void	ft_cd(char *path, t_env *env_list, t_env *pub_list)
 	else if (ft_strcmp("..", path) == 0)
 	{
 		cd_oldpwd(env_list, pub_list);
-        if (chdir("..") == -1)
+		if (chdir("..") == -1)
 		{
 			e_code(1);
 			perror(path);
 		}
 		cd_newpwd(env_list, pub_list);
-        return ;
+		return ;
 	}
 	else
 	{

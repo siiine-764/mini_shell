@@ -62,7 +62,7 @@ t_env	*ft_getenv(t_env *env_list, char *variable)
 			free(s);
 			return (env_list);
 		}
-		env_list = env_list ->nxt;
+		env_list = env_list->nxt;
 		free(s);
 	}
 	return (NULL);

@@ -17,7 +17,7 @@ int	cnt_cmd(t_comm *comm)
 	int	i;
 
 	i = 0;
-	while (comm && comm->heredoc->fst_tkn == NULL )
+	while (comm && comm->heredoc->fst_tkn == NULL)
 	{
 		comm = comm->nxt_comm;
 		i += 1;

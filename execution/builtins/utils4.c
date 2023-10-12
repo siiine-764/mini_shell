@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 03:03:54 by mayache-          #+#    #+#             */
-/*   Updated: 2023/10/12 03:03:55 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/10/12 03:36:06 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ void	cd_newpwd(t_env *env_list, t_env *pub_list)
 
 void	cd_home(t_env *env_list, t_env *pub_list)
 {
-	char *a;
+	char	*a;
 
 	a = getenv("HOME");
 	cd_oldpwd(env_list, pub_list);
-    if (chdir(a)== -1)
-    {
-        perror("cd :HOME NOT FOUND");
-        return ;
-    }
+	if (chdir(a) == -1)
+	{
+		perror("cd :HOME NOT FOUND");
+		return ;
+	}
 	cd_newpwd(env_list, pub_list);
 }

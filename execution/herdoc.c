@@ -29,8 +29,7 @@ void	read_for_heredoc(t_comm *comm, int fd_in)
 	while (true)
 	{
 		l = readline(">");
-		if (l == NULL
-			||!ft_strcmp(l, comm->heredoc->fst_tkn->val))
+		if (l == NULL || !ft_strcmp(l, comm->heredoc->fst_tkn->val))
 		{
 			if (l)
 				free(l);

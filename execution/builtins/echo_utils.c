@@ -12,7 +12,7 @@
 
 #include "../../minishell.h"
 
-char	*chck_spc( int i, char **str, char *res)
+char	*chck_spc(int i, char **str, char *res)
 {
 	char	*s;
 
@@ -50,7 +50,7 @@ char	*ft_join_echo(char **str, char flag)
 	int		i;
 	char	*j;
 	char	*res;
-	
+
 	if (flag == 'n')
 		i = 2;
 	else

@@ -51,8 +51,7 @@ void	ft_execute(t_comm *comm, t_data *data, t_frame frame)
 		if (comm->flags[0][0])
 			exec_command(comm, data, frame, p_comm);
 		else
-			ft_error(comm->flags[0], " :COMMAND NOT FOUND",
-				COMMAND_NOT_FOUND);
+			ft_error(comm->flags[0], " :COMMAND NOT FOUND", COMMAND_NOT_FOUND);
 	}
 	free(p_comm);
 	g_global_data.pid = -1;

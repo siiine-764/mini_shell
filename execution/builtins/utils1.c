@@ -44,6 +44,6 @@ void	sort_env(t_env **env_list)
 			}
 			j = j->nxt;
 		}
-		i = i ->nxt;
+		i = i->nxt;
 	}
 }

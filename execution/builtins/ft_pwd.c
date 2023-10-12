@@ -14,11 +14,11 @@
 
 int	run_pwd(t_data data, t_comm *comm, t_frame frame)
 {
-	(void)data;
-	(void)frame;
 	char	*cwd;
 	char	buff[PATH_MAX];
 
+	(void)data;
+	(void)frame;
 	cwd = getcwd(buff, PATH_MAX);
 	if (!ft_strcmp(comm->flags[0], "pwd"))
 	{

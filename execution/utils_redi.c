@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_redi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 03:01:48 by mayache-          #+#    #+#             */
-/*   Updated: 2023/10/12 03:01:48 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/10/12 03:45:37 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	open_append_fls(t_tkn_top redirection)
 	if (redirection.fst_tkn->tkn == T_APPEND)
 	{
 		output_fd = open(file,
-				O_CREAT | O_APPEND | O_RDWR, 0644);
+				O_CREAT | O_APPEND | O_RDWR,
+				0644);
 		if (output_fd == -1)
 			perror(file);
 		free(file);
@@ -43,8 +44,8 @@ t_docs	ft_init_fls(t_tkn_top redirection)
 
 t_frame	open_fls(t_tkn_top redirection)
 {
-	t_docs		my_files;
-	t_frame		frame;
+	t_docs	my_files;
+	t_frame	frame;
 
 	init_fd(&frame);
 	while (redirection.fst_tkn)

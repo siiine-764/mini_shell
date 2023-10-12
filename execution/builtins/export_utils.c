@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 03:04:55 by mayache-          #+#    #+#             */
-/*   Updated: 2023/10/12 03:04:55 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/10/12 03:30:11 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	add_variable(t_comm *comm, t_data *data, char **s, int j)
 			}
 		}
 		else
-		{	
+		{
 			ft_un_set(&data->pub_list, s[0]);
 			add_val(comm, data, s, j);
 		}
@@ -47,7 +47,7 @@ void	add_non_variable(t_comm *comm, t_data *data, char **s, int j)
 	}
 }
 
-void	show_export_error( int *flag, int j, t_comm *comm)
+void	show_export_error(int *flag, int j, t_comm *comm)
 {
 	if (*flag == 0)
 	{
@@ -72,4 +72,3 @@ void	add_val_d(t_comm *comm, t_data *data, int j)
 	}
 	free(s);
 }
-

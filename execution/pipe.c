@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 03:02:50 by mayache-          #+#    #+#             */
-/*   Updated: 2023/10/12 03:02:50 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/10/12 03:42:41 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	run_herdoc(int *fd_heredoc, t_data *data, t_info my_info)
 	if (data->comm->nxt_comm)
 	{
 		*fd_heredoc = ft_herdoc(data,
-				data->comm, my_info.frame);
+				data->comm,
+				my_info.frame);
 		wait(NULL);
 	}
 	else
@@ -28,8 +29,7 @@ void	run_herdoc(int *fd_heredoc, t_data *data, t_info my_info)
 
 void	ft_loop(t_data *data, t_info my_info)
 {
-	int		sts;
-	int		k;
+	int	k;
 
 	k = 0;
 	my_info.size = get_len(data->comm);
@@ -53,6 +53,15 @@ void	ft_loop(t_data *data, t_info my_info)
 		my_info.i += 1;
 		data->comm = data->comm->nxt_comm;
 	}
+	ft_wait_pid(my_info);
+}
+
+void	ft_wait_pid(t_info my_info)
+{
+	int	sts;
+	int	k;
+
+	k = -1;
 	while (--k >= 0)
 		waitpid(my_info.ids[k], &sts, k);
 }

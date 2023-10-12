@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1_redi.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 03:01:40 by mayache-          #+#    #+#             */
-/*   Updated: 2023/10/12 03:01:41 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/10/12 03:46:28 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ int	open_trunc_fls(t_tkn_top redirection)
 
 	if (redirection.fst_tkn->tkn == T_OUT)
 	{
-		fd_out = open(redirection.fst_tkn->val, \
-			O_CREAT | O_TRUNC | O_RDWR, 0644);
+		fd_out = open(redirection.fst_tkn->val,
+				O_CREAT | O_TRUNC | O_RDWR,
+				0644);
 		if (fd_out == -1)
 			perror(redirection.fst_tkn->val);
 		return (fd_out);

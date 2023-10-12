@@ -6,16 +6,11 @@
 /*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:07:45 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/09/25 13:07:45 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/10/12 04:21:27 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../minishell.h"
 
-void	ft_initialize(t_top_cmd *top)
-{
-	top->fst_cmd= NULL;
-	top->size = 0;
-}
+#include "../minishell.h"
 
 void	free_tokens(t_tkn_top *top)
 {
@@ -33,8 +28,8 @@ void	free_tokens(t_tkn_top *top)
 
 void	all_free(t_top_cmd *top)
 {
-	int			i;		
-	t_comm		*j;
+	int		i;
+	t_comm	*j;
 
 	while (top->fst_cmd)
 	{

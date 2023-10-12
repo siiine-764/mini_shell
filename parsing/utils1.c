@@ -6,7 +6,7 @@
 /*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 19:51:50 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/10/03 19:51:50 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/10/12 04:32:27 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_tkn	*tkn_initialize(int typ, char *val)
 	return (tkn);
 }
 
-void	ft_move(t_lxr	*lxr)
+void	ft_move(t_lxr *lxr)
 {
 	if (lxr->i < ft_strlen(lxr->ctt))
 	{
@@ -32,7 +32,7 @@ void	ft_move(t_lxr	*lxr)
 	}
 }
 
-void	space_skip(t_lxr	*lxr)
+void	space_skip(t_lxr *lxr)
 {
 	while (lxr->ctt[lxr->i] == ' ' && lxr->ctt[lxr->i] != '\0')
 		ft_move(lxr);

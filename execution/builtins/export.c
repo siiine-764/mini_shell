@@ -17,7 +17,7 @@ void	display_ex_port(t_comm *comm, t_data data, t_frame frame)
 	frame = open_fls(*comm->redirection);
 	if (frame.fd_in == -1 || frame.fd_out == -1)
 	{
-		e_code(1);	
+		e_code(1);
 		return ;
 	}
 	while (data.pub_list && data.pub_list->ctt != NULL)
@@ -38,8 +38,8 @@ void	display_ex_port(t_comm *comm, t_data data, t_frame frame)
 
 int	run_ex_port(t_comm *comm, t_data *data, t_frame frame)
 {
-	int			flag;
-	int			j;
+	int	flag;
+	int	j;
 
 	flag = 0;
 	j = 0;

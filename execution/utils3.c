@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayache- <mayache-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 03:01:32 by mayache-          #+#    #+#             */
-/*   Updated: 2023/10/12 03:01:33 by mayache-         ###   ########.fr       */
+/*   Updated: 2023/10/12 03:47:38 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int	fill_temp_stdin(t_comm *comm)
 	while (true)
 	{
 		l = readline(">");
-		if (l == NULL
-			|| !ft_strcmp(l, comm->heredoc->fst_tkn->val))
+		if (l == NULL || !ft_strcmp(l, comm->heredoc->fst_tkn->val))
 		{
 			if (l)
 				free(l);
@@ -41,7 +40,8 @@ void	check_out_files(int *fd_out, int *f_output)
 	{
 		unlink("/tmp/temp_f_output");
 		*fd_out = open("/tmp/temp_f_output",
-				O_RDWR | O_TRUNC | O_CREAT, 0777);
+				O_RDWR | O_TRUNC | O_CREAT,
+				0777);
 	}
 	else
 		*f_output = -1;

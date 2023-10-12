@@ -6,7 +6,7 @@
 /*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:05:59 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/10/03 23:05:59 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/10/12 04:30:08 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@ char	*prime_str_collect(t_lxr *lxr, t_env *env_list, char cmd, int l)
 {
 	char	*res;
 
-	if (cmd == '"' && lxr->cmd == '$' && \
-			lxr->i < ft_strlen(lxr->ctt) - 1 && \
-			aft_dollar_check(lxr) == 1 && l == 1)
+	if (cmd == '"' && lxr->cmd == '$' 
+		&& lxr->i < ft_strlen(lxr->ctt) - 1 
+		&& aft_dollar_check(lxr) == 1 && l == 1)
 		return (aft_dollar(lxr, env_list));
 	else if (lxr->cmd == '\\' && lxr->i < ft_strlen(lxr->ctt) - 1
-		&& (lxr->ctt[lxr->i + 1] == '\\' \
-		|| lxr->ctt[lxr->i + 1] == cmd \
-		|| lxr->ctt[lxr->i + 1] == '$'))
+		&& (lxr->ctt[lxr->i + 1] == '\\' || lxr->ctt[lxr->i + 1] == cmd
+			|| lxr->ctt[lxr->i + 1] == '$'))
 	{
 		ft_move(lxr);
 		res = ft_strdup(&lxr->cmd);

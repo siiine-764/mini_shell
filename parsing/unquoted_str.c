@@ -6,27 +6,18 @@
 /*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:08:51 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/09/25 13:08:51 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/10/12 04:31:36 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-char	*utils_str(t_lxr *lxr)
-{
-	char	*s;
-
-	ft_move(lxr);
-	s= ft_strdup(&lxr->cmd);
-	ft_move(lxr);
-	return (s);
-}
 
 char	*str_put(t_lxr *lxr, t_env *env_list, int l)
 {
 	char	*s;
 	char	*d;
 
-	if (lxr->cmd == '$' && lxr->i < ft_strlen(lxr->ctt) - 1 \
+	if (lxr->cmd == '$' && lxr->i < ft_strlen(lxr->ctt) - 1
 		&& aft_dollar_check(lxr) == 1 && l == 1)
 		s = aft_dollar(lxr, env_list);
 	else if (lxr->cmd == '~')
@@ -63,9 +54,9 @@ char	*unquoted_str(t_lxr *lxr, t_env *env_list, int l)
 	char	*d;
 
 	s = ft_strdup("");
-	while (lxr->ctt[lxr->i] && lxr->cmd != ' ' && \
-		lxr->cmd != '\'' && lxr->cmd != '"' && lxr->cmd != '>' && \
-		lxr->cmd != '<' && lxr->cmd != '|')
+	while (lxr->ctt[lxr->i] && lxr->cmd != ' ' 
+		&& lxr->cmd != '\'' && lxr->cmd != '"' && lxr->cmd != '>' 
+		&& lxr->cmd != '<' && lxr->cmd != '|')
 	{
 		if (lxr->cmd == '&')
 			return (unquoted_free(s, d));

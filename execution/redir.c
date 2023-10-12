@@ -67,8 +67,8 @@ void	redir_input(t_comm *comm, t_data *data)
 
 int	ft_herdoc(t_data *data, t_comm *comm, t_frame frame)
 {
-	int		output;
-	int		stdin_temp;
+	int	output;
+	int	stdin_temp;
 
 	output = 42;
 	stdin_temp = fill_temp_stdin(comm);

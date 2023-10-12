@@ -6,26 +6,11 @@
 /*   By: hben-mes <hben-mes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:08:29 by hben-mes          #+#    #+#             */
-/*   Updated: 2023/09/25 13:08:29 by hben-mes         ###   ########.fr       */
+/*   Updated: 2023/10/12 04:27:41 by hben-mes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	redirection_add(t_tkn_top *top, t_tkn *t)
-{
-	t_tkn	*temp;
-
-	temp = top->fst_tkn;
-	if (temp == NULL)
-	{
-		top->fst_tkn = t;
-		return ;
-	}
-	while (temp->nxt)
-		temp = temp->nxt;
-	temp->nxt = t;
-}
 
 void	node_add(t_top_cmd *top, t_comm *comm)
 {
@@ -57,7 +42,7 @@ char	**ft_dup(char **av, char *val, int i)
 	{
 		t[j] = av[j];
 		j++;
-	}	
+	}
 	t[j] = ft_strdup(val);
 	t[j + 1] = NULL;
 	free(av);
