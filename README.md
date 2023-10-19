@@ -1,9 +1,10 @@
+# -------------- TEAM SUPRA -----------------
 # mini_shell
-mini_sheella
+mini_sheella  
 
 As beautiful as a shell
+![49e384bc833bb6f5ea5ebba067bcb016](https://github.com/siiine-764/mini_shell/assets/80540449/6005f335-f23d-4679-ab88-251db6c727e6)
 
-![e16a759e071e7e622c232345c8a2b4ad](https://github.com/siiine-764/mini_shell/assets/80540449/8f56b3cd-98d1-46d2-8a86-9354d56e6319)
 
 "Project Minishell" is a common project found in some coding bootcamps and programming courses, particularly those that teach system-level programming and operating system concepts. The goal of the Minishell project is to create a simple Unix-like shell, sometimes referred to as a "mini-shell," from scratch. A shell is a command-line interface that allows users to interact with an operating system by executing commands and managing processes.
 
